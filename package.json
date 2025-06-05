@@ -15,7 +15,11 @@
     "format": "biome format --write .",
     "lint": "turbo lint && manypkg check",
     "typecheck": "turbo typecheck",
-    "test": "turbo test --parallel"
+    "test": "turbo test --parallel",
+    "db:up": "cd packages/database && docker compose up -d",
+    "storage:up": "cd apps/storage && docker compose up -d",
+    "up": "bun run db:up && bun run storage:up",
+    "down": "cd packages/database && docker compose down && cd ../storage && docker compose down"
   },
   "packageManager": "bun@1.2.15",
   "devDependencies": {

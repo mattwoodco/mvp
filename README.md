@@ -19,7 +19,7 @@ All scripts accept an environment parameter. If no environment is specified, `lo
 
 ### Development
 ```bash
-bun dev         gir  # uses .env.local
+bun dev           # uses .env.local
 bun dev dev       # uses .env.dev
 bun dev prod      # uses .env.prod
 ```

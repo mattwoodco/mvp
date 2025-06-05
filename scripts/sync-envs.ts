@@ -8,18 +8,22 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, "..");
 
-const ENV_MAPPINGS = {
+const ENV_MAPPINGS: Record<string, string | string[]> = {
   ".env.prod": "production",
   ".env.prev": "preview",
   ".env.dev": "development",
-  ".env.local": "development",
-  ".env": "development",
+  ".env": ["production", "preview", "development"],
 };
 
-function loadVercelConfig() {
-  const envFiles = [".env.local", ".env", ".env.dev"];
-  let vercelToken = process.env.VERCEL_TOKEN;
-  let vercelProjectId = process.env.VERCEL_PROJECT_ID;
+interface VercelConfig {
+  vercelToken: string;
+  vercelProjectId: string;
+}
+
+function loadVercelConfig(): VercelConfig {
+  const envFiles: string[] = [".env.local", ".env", ".env.dev"];
+  let vercelToken: string | undefined = process.env.VERCEL_TOKEN;
+  let vercelProjectId: string | undefined = process.env.VERCEL_PROJECT_ID;
 
   for (const filename of envFiles) {
     const filepath = join(rootDir, filename);
@@ -45,11 +49,11 @@ function loadVercelConfig() {
   return { vercelToken, vercelProjectId };
 }
 
-function parseEnvFile(filepath) {
+function parseEnvFile(filepath: string): Record<string, string> {
   if (!existsSync(filepath)) return {};
 
   const content = readFileSync(filepath, "utf8");
-  const vars = {};
+  const vars: Record<string, string> = {};
 
   for (const rawLine of content.split("\n")) {
     const line = rawLine.trim();
@@ -71,7 +75,23 @@ function parseEnvFile(filepath) {
   return vars;
 }
 
-async function upsertEnvVar(key, value, target, vercelProjectId, vercelToken) {
+interface VercelEnvVar {
+  id: string;
+  key: string;
+  target: string[];
+}
+
+interface VercelEnvResponse {
+  envs?: VercelEnvVar[];
+}
+
+async function upsertEnvVar(
+  key: string,
+  value: string,
+  target: string,
+  vercelProjectId: string,
+  vercelToken: string,
+): Promise<boolean> {
   const url = `https://api.vercel.com/v10/projects/${vercelProjectId}/env`;
 
   try {
@@ -97,7 +117,7 @@ async function upsertEnvVar(key, value, target, vercelProjectId, vercelToken) {
       const existingVars = await fetch(`${url}`, {
         headers: { Authorization: `Bearer ${vercelToken}` },
       });
-      const vars = await existingVars.json();
+      const vars: VercelEnvResponse = await existingVars.json();
       const existing = vars.envs?.find(
         (env) => env.key === key && env.target.includes(target),
       );
@@ -121,19 +141,22 @@ async function upsertEnvVar(key, value, target, vercelProjectId, vercelToken) {
     );
     return false;
   } catch (error) {
-    console.error(`Failed to upsert ${key} for ${target}:`, error.message);
+    console.error(
+      `Failed to upsert ${key} for ${target}:`,
+      (error as Error).message,
+    );
     return false;
   }
 }
 
-async function syncEnvs() {
+async function syncEnvs(): Promise<void> {
   console.log("🔄 Syncing environment variables to Vercel...\n");
 
   const { vercelToken, vercelProjectId } = loadVercelConfig();
   console.log(`🔑 Using Project ID: ${vercelProjectId}`);
   console.log(`🔑 Token length: ${vercelToken.length} chars\n`);
 
-  for (const [filename, target] of Object.entries(ENV_MAPPINGS)) {
+  for (const [filename, targets] of Object.entries(ENV_MAPPINGS)) {
     const filepath = join(rootDir, filename);
     const vars = parseEnvFile(filepath);
 
@@ -142,21 +165,25 @@ async function syncEnvs() {
       continue;
     }
 
-    console.log(`📁 Processing ${filename} → ${target}`);
+    const targetArray = Array.isArray(targets) ? targets : [targets];
 
-    for (const [key, value] of Object.entries(vars)) {
-      if (key === "VERCEL_TOKEN" || key === "VERCEL_PROJECT_ID") continue;
-      const success = await upsertEnvVar(
-        key,
-        value,
-        target,
-        vercelProjectId,
-        vercelToken,
-      );
-      console.log(`${success ? "✅" : "❌"} ${key}`);
+    for (const target of targetArray) {
+      console.log(`📁 Processing ${filename} → ${target}`);
+
+      for (const [key, value] of Object.entries(vars)) {
+        if (key === "VERCEL_TOKEN" || key === "VERCEL_PROJECT_ID") continue;
+        const success = await upsertEnvVar(
+          key,
+          value,
+          target,
+          vercelProjectId,
+          vercelToken,
+        );
+        console.log(`${success ? "✅" : "❌"} ${key}`);
+      }
+
+      console.log();
     }
-
-    console.log();
   }
 
   console.log("🎉 Environment sync complete!");
