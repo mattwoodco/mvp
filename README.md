@@ -2,11 +2,16 @@
 
 ## Setup
 
-This project supports multiple environments through environment files:
+This project uses a monorepo structure with multiple environments through environment files:
 - `.env.local` (default)
 - `.env.dev`
 - `.env.prev` 
 - `.env.prod`
+
+Install dependencies:
+```bash
+bun install
+```
 
 ## Usage
 
@@ -14,7 +19,7 @@ All scripts accept an environment parameter. If no environment is specified, `lo
 
 ### Development
 ```bash
-bun dev           # uses .env.local
+bun dev         gir  # uses .env.local
 bun dev dev       # uses .env.dev
 bun dev prod      # uses .env.prod
 ```
@@ -39,10 +44,18 @@ bun db:std        # uses .env.local
 bun db:std dev    # uses .env.dev
 ```
 
+### Environment Sync
+Sync environment variables to Vercel:
+```bash
+bun sync-envs
+```
+
 ### Other Commands
 ```bash
-bun lint
-bun typecheck
-bun test
-bun format
+bun lint          # lint all workspaces
+bun typecheck     # typecheck all workspaces
+bun test          # test all workspaces
+bun format        # format all workspaces
+bun clean         # clean root node_modules
+bun clean:workspaces  # clean all workspace builds
 ```
