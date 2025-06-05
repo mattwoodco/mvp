@@ -24,8 +24,5 @@
     "dotenv-cli": "^8.0.0",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "cross-env": "^7.0.3"
   }
 }

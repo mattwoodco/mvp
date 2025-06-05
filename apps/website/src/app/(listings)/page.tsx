@@ -1,5 +1,6 @@
-import { Link } from "lucide-react";
-import { getListings } from "../../../../../packages/database/src/lib/queries";
+import { getListings } from "@mvp/database";
+import { Button } from "@mvp/ui/button";
+import Link from "next/link";
 import { DeleteButton } from "./delete-button";
 
 export default async function ListingsPage() {
@@ -9,12 +10,9 @@ export default async function ListingsPage() {
     <div className="container mx-auto py-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Listings</h1>
-        <Link
-          href="/listing/new"
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-        >
-          Create Listing
-        </Link>
+        <Button asChild>
+          <Link href="/listing/new">Create Listing</Link>
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -29,7 +27,6 @@ export default async function ListingsPage() {
               </h2>
               <span className="text-green-600 font-bold">${listing.price}</span>
             </div>
-
             <p className="text-gray-600 mb-2">{listing.address}</p>
             {listing.description && (
               <p className="text-sm text-gray-500 mb-4 line-clamp-3">
@@ -37,17 +34,18 @@ export default async function ListingsPage() {
               </p>
             )}
             <div className="flex gap-4 text-sm text-gray-600 mb-4">
-              {listing.bedrooms && <span>{listing.bedrooms} bed</span>}
-              {listing.bathrooms && <span>{listing.bathrooms} bath</span>}
-              {listing.squareFeet && <span>{listing.squareFeet} sqft</span>}
+              {[
+                listing.bedrooms && `${listing.bedrooms} bed`,
+                listing.bathrooms && `${listing.bathrooms} bath`,
+                listing.squareFeet && `${listing.squareFeet} sqft`,
+              ]
+                .filter(Boolean)
+                .join(" • ")}
             </div>
             <div className="flex gap-2">
-              <Link
-                href={`/listing/${listing.id}`}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-1 rounded text-sm"
-              >
-                Edit
-              </Link>
+              <Button variant="outline" size="sm" asChild>
+                <Link href={`/listing/${listing.id}`}>Edit</Link>
+              </Button>
               <DeleteButton id={listing.id} />
             </div>
           </div>
@@ -57,12 +55,9 @@ export default async function ListingsPage() {
       {listings.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 mb-4">No listings found</p>
-          <Link
-            href="/listing/new"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-          >
-            Create Your First Listing
-          </Link>
+          <Button asChild>
+            <Link href="/listing/new">Create Your First Listing</Link>
+          </Button>
         </div>
       )}
     </div>

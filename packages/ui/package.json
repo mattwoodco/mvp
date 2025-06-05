@@ -6,6 +6,7 @@
   "exports": {
     "./button": "./src/components/button.tsx",
     "./input": "./src/components/input.tsx",
+    "./utils": "./src/utils/index.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./postcss.config": "./postcss.config.js",
     "./globals.css": "./src/globals.css"

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@mvp/ui/button";
 import { deleteListingAction } from "./actions";
 
 interface DeleteButtonProps {
@@ -8,23 +9,14 @@ interface DeleteButtonProps {
 
 export function DeleteButton({ id }: DeleteButtonProps) {
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this listing?")) {
-      return;
-    }
-
+    if (!confirm("Are you sure you want to delete this listing?")) return;
     const result = await deleteListingAction(id);
-    if (!result.success) {
-      alert(result.error);
-    }
+    if (!result.success) alert(result.error);
   };
 
   return (
-    <button
-      type="button"
-      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
-      onClick={handleDelete}
-    >
+    <Button variant="destructive" size="sm" onClick={handleDelete}>
       Delete
-    </button>
+    </Button>
   );
 }
