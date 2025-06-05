@@ -32,21 +32,7 @@ export default async function ListingsPage() {
               </h2>
               <span className="text-green-600 font-bold">${listing.price}</span>
             </div>
-            <p className="text-gray-600 mb-2">{listing.address}</p>
-            {listing.description && (
-              <p className="text-sm text-gray-500 mb-4 line-clamp-3">
-                {listing.description}
-              </p>
-            )}
-            <div className="flex gap-4 text-sm text-gray-600 mb-4">
-              {[
-                listing.bedrooms && `${listing.bedrooms} bed`,
-                listing.bathrooms && `${listing.bathrooms} bath`,
-                listing.squareFeet && `${listing.squareFeet} sqft`,
-              ]
-                .filter(Boolean)
-                .join(" • ")}
-            </div>
+
             <div className="flex gap-2">
               <Button variant="outline" size="sm" asChild>
                 <Link href={`/listing/${listing.id}`}>Edit</Link>
