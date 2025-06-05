@@ -4,12 +4,14 @@
     "": {
       "name": "mvp2",
       "dependencies": {
-        
+        "cross-env": "^7.0.3",
       },
       "devDependencies": {
         "@biomejs/biome": "^1.9.4",
         "@manypkg/cli": "^0.24.0",
+        "cross-env": "^7.0.3",
         "dotenv": "^16.4.5",
+        "dotenv-cli": "^8.0.0",
         "turbo": "^2.5.4",
         "typescript": "^5.8.3",
       },
@@ -19,6 +21,7 @@
       "version": "0.1.0",
       "dependencies": {
         "@mvp/ui": "workspace:*",
+        "cross-env": "^7.0.3",
         "lucide-react": "^0.468.0",
         "next": "15.3.3",
         "react": "19.1.0",
@@ -39,8 +42,6 @@
       "name": "@mvp/database",
       "version": "1.0.0",
       "dependencies": {
-        
-        "dotenv": "^16.4.5",
         "drizzle-orm": "^0.33.0",
         "postgres": "^3.4.4",
       },
@@ -440,6 +441,10 @@
     "dot-case": ["dot-case@2.1.1", "", { "dependencies": { "no-case": "^2.2.0" } }, "sha512-HnM6ZlFqcajLsyudHq7LeeLDr2rFAVYtDv/hV5qchQEidSck8j9OPUsXY9KwJv/lHMtYlX4DjRQqwFYa+0r8Ug=="],
 
     "dotenv": ["dotenv@16.5.0", "", {}, "sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg=="],
+
+    "dotenv-cli": ["dotenv-cli@8.0.0", "", { "dependencies": { "cross-spawn": "^7.0.6", "dotenv": "^16.3.0", "dotenv-expand": "^10.0.0", "minimist": "^1.2.6" }, "bin": { "dotenv": "cli.js" } }, "sha512-aLqYbK7xKOiTMIRf1lDPbI+Y+Ip/wo5k3eyp6ePysVaSqbyxjyK3dK35BTxG+rmd7djf5q2UPs4noPNH+cj0Qw=="],
+
+    "dotenv-expand": ["dotenv-expand@10.0.0", "", {}, "sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A=="],
 
     "drizzle-kit": ["drizzle-kit@0.24.2", "", { "dependencies": { "@drizzle-team/brocli": "^0.10.1", "@esbuild-kit/esm-loader": "^2.5.5", "esbuild": "^0.19.7", "esbuild-register": "^3.5.0" }, "bin": { "drizzle-kit": "bin.cjs" } }, "sha512-nXOaTSFiuIaTMhS8WJC2d4EBeIcN9OSt2A2cyFbQYBAZbi7lRsVGJNqDpEwPqYfJz38yxbY/UtbvBBahBfnExQ=="],
 

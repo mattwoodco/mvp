@@ -8,10 +8,9 @@ node_modules
 # Local env files
 .env
 .env.local
-.env.dev.local
-.env.test.local
-.env.preview.local
-.env.prod.local
+.env.dev
+.env.prev
+.env.prod
 
 # Testing
 coverage

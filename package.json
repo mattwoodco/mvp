@@ -3,8 +3,11 @@
   "private": true,
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "build": "cross-env APP_ENV=${APP_ENV:-local} turbo build",
-    "dev": "cross-env APP_ENV=${APP_ENV:-local} turbo dev --parallel",
+    "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build' --",
+    "dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --parallel' --",
+    "db:push": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:push' --",
+    "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",
+    "db:std": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:std' --",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
     "format": "biome format --write .",
@@ -16,10 +19,11 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@manypkg/cli": "^0.24.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
+    "dotenv-cli": "^8.0.0",
     "turbo": "^2.5.4",
-    "typescript": "^5.8.3",
-    "cross-env": "^7.0.3"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "cross-env": "^7.0.3"

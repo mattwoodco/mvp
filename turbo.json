@@ -1,19 +1,12 @@
 {
   "$schema": "https://turborepo.com/schema.json",
-  "globalDependencies": ["**/.env"],
+  "globalDependencies": ["**/.env*"],
   "ui": "stream",
   "tasks": {
     "topo": { "dependsOn": ["^topo"] },
     "build": {
       "env": ["NODE_ENV", "APP_ENV", "BLOB_READ_WRITE_TOKEN", "DATABASE_URL"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env",
-        ".env.local",
-        ".env.preview.local",
-        ".env.production.local",
-        ".env.development.local"
-      ],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "dependsOn": ["^build"],
       "outputs": [
         ".next/**",
@@ -25,24 +18,33 @@
         "lib/**"
       ]
     },
-    "start": { "cache": false },
-    "test": { "cache": false },
-    "format": {},
-    "lint": { "dependsOn": ["^topo"] },
-    "typecheck": { "dependsOn": ["^topo"], "outputs": [] },
     "dev": {
       "env": ["NODE_ENV", "APP_ENV", "BLOB_READ_WRITE_TOKEN", "DATABASE_URL"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env",
-        ".env.local",
-        ".env.preview.local",
-        ".env.production.local",
-        ".env.development.local"
-      ],
-      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "cache": false,
       "persistent": true
-    }
+    },
+    "db:push": {
+      "env": ["NODE_ENV", "APP_ENV", "DATABASE_URL"],
+      "inputs": ["drizzle.config.ts", "src/schema.ts", ".env*"],
+      "cache": false
+    },
+    "db:gen": {
+      "env": ["NODE_ENV", "APP_ENV", "DATABASE_URL"],
+      "inputs": ["drizzle.config.ts", "src/schema.ts", ".env*"],
+      "outputs": ["drizzle/**"]
+    },
+    "db:std": {
+      "env": ["NODE_ENV", "APP_ENV", "DATABASE_URL"],
+      "inputs": ["drizzle.config.ts", "src/schema.ts", ".env*"],
+      "cache": false,
+      "persistent": true
+    },
+    "clean": { "cache": false },
+    "start": { "cache": false },
+    "test": { "cache": false },
+    "format": { "outputs": [] },
+    "lint": { "outputs": [] },
+    "typecheck": { "dependsOn": ["^topo"], "outputs": [] }
   }
 }
