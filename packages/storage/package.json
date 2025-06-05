@@ -5,7 +5,9 @@
   "files": ["src/**"],
   "exports": {
     ".": "./src/index.ts",
-    "./client": "./src/client.ts"
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts",
+    "./minio-browser": "./src/minio-browser.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules",
@@ -17,7 +19,9 @@
     "@vercel/blob": "^0.22.3"
   },
   "devDependencies": {
+    "minio": "^8.0.1",
     "@mvp/tsconfig": "workspace:*",
+    "@types/minio": "^7.1.1",
     "typescript": "^5.8.3"
   }
 }

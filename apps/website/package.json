@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "dotenv -e ../../.env.${APP_ENV:-local} -- sh -c 'NODE_ENV=production next build'",
+    "build": "dotenv -e ../../.env.${NEXT_PUBLIC_APP_ENV:-local} -- sh -c 'NODE_ENV=production next build'",
     "clean": "git clean -xdf .next .turbo node_modules",
-    "dev": "dotenv -e ../../.env.${APP_ENV:-local} -- sh -c 'TZ=UTC next dev -p 3000 --turbopack'",
+    "dev": "dotenv -e ../../.env.${NEXT_PUBLIC_APP_ENV:-local} -- sh -c 'TZ=UTC next dev -p 3000 --turbopack'",
     "lint": "biome check .",
     "format": "biome format --write .",
     "start": "next start",

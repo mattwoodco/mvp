@@ -11,12 +11,19 @@ import {
   handleUpload as vercelHandleUpload,
   upload as vercelUpload,
 } from "@vercel/blob/client";
+import { uploadBrowser } from "./minio-browser";
 
-const isEnabled = process.env.APP_ENV !== "local";
 const token = process.env.BLOB_READ_WRITE_TOKEN;
 
+function isLocalEnv(): boolean {
+  return (
+    process.env.NEXT_PUBLIC_APP_ENV === "local" ||
+    process.env.NEXT_PUBLIC_APP_ENV === "local"
+  );
+}
+
 function checkToken() {
-  if (isEnabled && !token) {
+  if (!isLocalEnv() && !token) {
     throw new Error("Missing BLOB_READ_WRITE_TOKEN for production storage");
   }
 }
@@ -33,9 +40,13 @@ export async function put(
   filename: string,
   data: Blob | Buffer | ReadableStream,
 ): Promise<string | null> {
-  checkToken();
-  if (!isEnabled) return null;
+  if (isLocalEnv()) {
+    throw new Error(
+      "Server-side put() with minio not available in browser build. Use upload() instead.",
+    );
+  }
 
+  checkToken();
   const blob = await vercelPut(createPath(filename), data, {
     access: "public",
     token,
@@ -53,8 +64,18 @@ export async function upload(
   file: File,
   options?: Partial<UploadOptions>,
 ): Promise<string | null> {
-  if (!isEnabled) return null;
+  console.log("Storage upload debugging:");
+  console.log("  - NEXT_PUBLIC_APP_ENV:", process.env.NEXT_PUBLIC_APP_ENV);
+  console.log("  - NEXT_PUBLIC_APP_ENV:", process.env.NEXT_PUBLIC_APP_ENV);
+  console.log("  - isLocalEnv():", isLocalEnv());
+  console.log("  - typeof window:", typeof window);
 
+  if (isLocalEnv()) {
+    console.log("Using minio browser upload");
+    return await uploadBrowser(filename, file);
+  }
+
+  console.log("Using vercel upload");
   const blob = await vercelUpload(createPath(filename), file, {
     access: "public",
     handleUploadUrl: "/api/handle-upload",
@@ -102,9 +123,13 @@ export async function handleUpload(body: HandleUploadBody, request: Request) {
  * @example await remove("old-avatar.jpg")
  */
 export async function remove(filename: string): Promise<boolean> {
-  checkToken();
-  if (!isEnabled) return false;
+  if (isLocalEnv()) {
+    throw new Error(
+      "Server-side remove() with minio not available in browser build.",
+    );
+  }
 
+  checkToken();
   try {
     await del(createPath(filename), { token });
     return true;
@@ -118,9 +143,13 @@ export async function remove(filename: string): Promise<boolean> {
  * @example if (await exists("avatar.jpg")) { ... }
  */
 export async function exists(filename: string): Promise<boolean> {
-  checkToken();
-  if (!isEnabled) return false;
+  if (isLocalEnv()) {
+    throw new Error(
+      "Server-side exists() with minio not available in browser build.",
+    );
+  }
 
+  checkToken();
   try {
     await head(createPath(filename), { token });
     return true;
@@ -134,9 +163,13 @@ export async function exists(filename: string): Promise<boolean> {
  * @example await list("avatars/") // ["user1.jpg", "user2.png"]
  */
 export async function list(prefix = ""): Promise<string[]> {
-  checkToken();
-  if (!isEnabled) return [];
+  if (isLocalEnv()) {
+    throw new Error(
+      "Server-side list() with minio not available in browser build.",
+    );
+  }
 
+  checkToken();
   const { blobs } = await vercelList({
     prefix: `storage/${prefix}`,
     token,
@@ -149,9 +182,13 @@ export async function list(prefix = ""): Promise<string[]> {
  * @example await copy("temp.jpg", "permanent.jpg")
  */
 export async function copy(from: string, to: string): Promise<string | null> {
-  checkToken();
-  if (!isEnabled) return null;
+  if (isLocalEnv()) {
+    throw new Error(
+      "Server-side copy() with minio not available in browser build.",
+    );
+  }
 
+  checkToken();
   const blob = await vercelCopy(createPath(from), createPath(to), {
     access: "public",
     token,
