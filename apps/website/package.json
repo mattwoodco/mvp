@@ -1,0 +1,33 @@
+{
+  "name": "website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "NODE_ENV=production next build",
+    "clean": "git clean -xdf .next .turbo node_modules",
+    "dev": "TZ=UTC next dev -p 3000 --turbopack",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "test:watch": "bun test --watch"
+  },
+  "dependencies": {
+    "@mvp/ui": "workspace:*",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.3.3",
+    "sonner": "^1.7.2",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "@mvp/tsconfig": "workspace:*",
+    "typescript": "^5.8.3",
+    "@types/node": "^22.15.29",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "mvp2",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "clean": "git clean -xdf node_modules",
+    "clean:workspaces": "turbo clean",
+    "format": "biome format --write .",
+    "lint": "turbo lint && manypkg check",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test --parallel"
+  },
+  "packageManager": "bun@1.2.15",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@manypkg/cli": "^0.24.0",
+    "dotenv": "^16.4.5",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  }
+}

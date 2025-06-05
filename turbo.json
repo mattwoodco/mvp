@@ -1,0 +1,48 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["**/.env"],
+  "ui": "stream",
+  "tasks": {
+    "topo": { "dependsOn": ["^topo"] },
+    "build": {
+      "env": ["NODE_ENV", "APP_ENV", "BLOB_READ_WRITE_TOKEN", "DATABASE_URL"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env",
+        ".env.local",
+        ".env.preview.local",
+        ".env.production.local",
+        ".env.development.local"
+      ],
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "next-env.d.ts",
+        ".expo/**",
+        "dist/**",
+        "build/**",
+        "lib/**"
+      ]
+    },
+    "start": { "cache": false },
+    "test": { "cache": false },
+    "format": {},
+    "lint": { "dependsOn": ["^topo"] },
+    "typecheck": { "dependsOn": ["^topo"], "outputs": [] },
+    "dev": {
+      "env": ["NODE_ENV", "APP_ENV", "BLOB_READ_WRITE_TOKEN", "DATABASE_URL"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env",
+        ".env.local",
+        ".env.preview.local",
+        ".env.production.local",
+        ".env.development.local"
+      ],
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
