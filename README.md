@@ -1,6 +1,6 @@
 # MVP
 
-## Environment Setup
+## Setup
 
 This project supports multiple environments through environment files:
 - `.env.local` (default)
