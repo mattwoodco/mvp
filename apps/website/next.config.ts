@@ -32,6 +32,10 @@ const nextConfig: NextConfig = {
         util: false,
         buffer: false,
         events: false,
+        net: false,
+        tls: false,
+        perf_hooks: false,
+        os: false,
       };
     }
     return config;

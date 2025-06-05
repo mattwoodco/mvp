@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../client";
-import { user } from "../schema";
+import { listing, user } from "../schema";
 
 export async function createUser(data: {
   id: string;
@@ -43,4 +43,58 @@ export async function updateUser(
 
 export async function deleteUser(id: string) {
   await db.delete(user).where(eq(user.id, id));
+}
+
+export async function createListing(data: {
+  id: string;
+  title: string;
+  description?: string;
+  address: string;
+  price: string;
+  bedrooms?: number;
+  bathrooms?: number;
+  squareFeet?: number;
+  userId: string;
+  images?: string[];
+}) {
+  const now = new Date();
+  const [newListing] = await db
+    .insert(listing)
+    .values({
+      ...data,
+      isActive: true,
+      createdAt: now,
+      updatedAt: now,
+    })
+    .returning();
+  return newListing;
+}
+
+export async function updateListing(
+  id: string,
+  data: Partial<{
+    title: string;
+    description: string;
+    address: string;
+    price: string;
+    bedrooms: number;
+    bathrooms: number;
+    squareFeet: number;
+    isActive: boolean;
+    images: string[];
+  }>,
+) {
+  const [updatedListing] = await db
+    .update(listing)
+    .set({
+      ...data,
+      updatedAt: new Date(),
+    })
+    .where(eq(listing.id, id))
+    .returning();
+  return updatedListing;
+}
+
+export async function deleteListing(id: string) {
+  await db.delete(listing).where(eq(listing.id, id));
 }
