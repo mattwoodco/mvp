@@ -18,7 +18,7 @@
     "test": "turbo test --parallel",
     "db:up": "cd packages/database && docker compose up -d",
     "storage:up": "cd apps/storage && docker compose up -d",
-    "up": "bun run db:up && bun run storage:up",
+    "up": "bun run db:up",
     "down": "cd packages/database && docker compose down && cd ../storage && docker compose down"
   },
   "packageManager": "bun@1.2.15",
