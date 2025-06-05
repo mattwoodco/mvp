@@ -2,6 +2,7 @@ import { getListings } from "@mvp/database";
 import { Button } from "@mvp/ui/button";
 import Link from "next/link";
 import { DeleteButton } from "./delete-button";
+import { UploadForm } from "./upload-form";
 
 export default async function ListingsPage() {
   const listings = await getListings();
@@ -13,6 +14,10 @@ export default async function ListingsPage() {
         <Button asChild>
           <Link href="/listing/new">Create Listing</Link>
         </Button>
+      </div>
+
+      <div className="mb-8">
+        <UploadForm />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

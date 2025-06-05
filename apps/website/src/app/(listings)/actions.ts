@@ -24,15 +24,8 @@ export async function createListingAction(formData: FormData) {
     id: crypto.randomUUID(),
     title: formData.get("title") as string,
     description: formData.get("description") as string,
-    address: formData.get("address") as string,
     price: formData.get("price") as string,
-    bedrooms: Number.parseInt(formData.get("bedrooms") as string) || undefined,
-    bathrooms:
-      Number.parseInt(formData.get("bathrooms") as string) || undefined,
-    squareFeet:
-      Number.parseInt(formData.get("squareFeet") as string) || undefined,
     userId: "temp-user-id",
-    images: [],
   };
 
   await createListing(data);
@@ -44,13 +37,7 @@ export async function updateListingAction(id: string, formData: FormData) {
   const data = {
     title: formData.get("title") as string,
     description: formData.get("description") as string,
-    address: formData.get("address") as string,
     price: formData.get("price") as string,
-    bedrooms: Number.parseInt(formData.get("bedrooms") as string) || undefined,
-    bathrooms:
-      Number.parseInt(formData.get("bathrooms") as string) || undefined,
-    squareFeet:
-      Number.parseInt(formData.get("squareFeet") as string) || undefined,
   };
 
   await updateListing(id, data);

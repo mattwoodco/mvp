@@ -1,0 +1,23 @@
+{
+  "name": "@mvp/storage",
+  "private": true,
+  "version": "1.0.0",
+  "files": ["src/**"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vercel/blob": "^0.22.3"
+  },
+  "devDependencies": {
+    "@mvp/tsconfig": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}

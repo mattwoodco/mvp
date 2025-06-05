@@ -49,13 +49,8 @@ export async function createListing(data: {
   id: string;
   title: string;
   description?: string;
-  address: string;
   price: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  squareFeet?: number;
   userId: string;
-  images?: string[];
 }) {
   const now = new Date();
   const [newListing] = await db
@@ -75,13 +70,8 @@ export async function updateListing(
   data: Partial<{
     title: string;
     description: string;
-    address: string;
     price: string;
-    bedrooms: number;
-    bathrooms: number;
-    squareFeet: number;
     isActive: boolean;
-    images: string[];
   }>,
 ) {
   const [updatedListing] = await db
