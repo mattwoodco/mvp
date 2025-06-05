@@ -1,0 +1,31 @@
+{
+  "name": "@mvp/database",
+  "private": true,
+  "version": "1.0.0",
+  "files": ["src/**", "drizzle/**"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "db:gen": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:std": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.33.0",
+    "postgres": "^3.4.4",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@mvp/tsconfig": "workspace:*",
+    "drizzle-kit": "^0.24.0",
+    "typescript": "^5.8.3"
+  }
+}
