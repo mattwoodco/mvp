@@ -6,6 +6,7 @@
   "exports": {
     "./button": "./src/components/button.tsx",
     "./input": "./src/components/input.tsx",
+    "./input-otp": "./src/components/input-otp.tsx",
     "./utils": "./src/utils/index.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./postcss.config": "./postcss.config.js",
@@ -22,6 +23,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "input-otp": "^1.2.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.0"

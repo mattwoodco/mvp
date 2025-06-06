@@ -16,6 +16,7 @@
   "dependencies": {
     "@mvp/ui": "workspace:*",
     "@mvp/database": "workspace:*",
+    "@mvp/auth": "workspace:*",
     "@vercel/blob": "^0.22.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
