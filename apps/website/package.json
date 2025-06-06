@@ -18,6 +18,7 @@
     "@mdx-js/react": "^3.1.0",
     "@mvp/database": "workspace:*",
     "@mvp/ai": "workspace:*",
+    "@mvp/agent": "workspace:*",
     "@mvp/chat": "workspace:*",
     "@mvp/workflow-generation": "workspace:*",
     "@mvp/auth": "workspace:*",
@@ -30,6 +31,7 @@
     "next-themes": "^0.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "reactflow": "^11.11.4",
     "sonner": "^1.7.2"
   },
   "devDependencies": {

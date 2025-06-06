@@ -1,0 +1,8 @@
+{
+  "extends": "@mvp/tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "jsx": "preserve"
+  }
+}
