@@ -1,38 +1,61 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import {
-  sendMagicLink,
-  signInWithEmailPassword,
-} from "../actions/auth-actions";
-import type { LoginActionState, MagicLinkActionState } from "../types";
+import { signInWithEmailPassword } from "../actions/auth-actions";
+import { authClient } from "../client";
+import type { LoginActionState } from "../types";
 
 const initialLoginState: LoginActionState = { status: "idle" };
-const initialMagicLinkState: MagicLinkActionState = { status: "idle" };
 
 export function LoginForm() {
   const [mode, setMode] = useState<"password" | "magic">("password");
+  const [magicLinkStatus, setMagicLinkStatus] = useState<{
+    status: "idle" | "loading" | "sent" | "error";
+    message?: string;
+  }>({ status: "idle" });
 
   const [loginState, loginAction, isLoginPending] = useActionState(
     signInWithEmailPassword,
     initialLoginState,
   );
-  const [magicLinkState, magicLinkAction, isMagicLinkPending] = useActionState(
-    sendMagicLink,
-    initialMagicLinkState,
-  );
 
-  if (magicLinkState.status === "sent") {
+  const handleMagicLink = async (formData: FormData) => {
+    const email = formData.get("email") as string;
+    if (!email) return;
+
+    setMagicLinkStatus({ status: "loading" });
+
+    try {
+      await authClient.signIn.magicLink({
+        email,
+        callbackURL: "/",
+      });
+      setMagicLinkStatus({
+        status: "sent",
+        message: "Check your email for a magic link to sign in",
+      });
+    } catch (error) {
+      setMagicLinkStatus({
+        status: "error",
+        message: "Failed to send magic link",
+      });
+    }
+  };
+
+  if (magicLinkStatus.status === "sent") {
     return (
       <div className="w-full max-w-md mx-auto">
         <div className="bg-green-50 border border-green-200 rounded-md p-4 text-center">
           <h3 className="text-lg font-medium text-green-900 mb-2">
             Check your email
           </h3>
-          <p className="text-green-700">{magicLinkState.message}</p>
+          <p className="text-green-700">{magicLinkStatus.message}</p>
           <button
             type="button"
-            onClick={() => setMode("password")}
+            onClick={() => {
+              setMode("password");
+              setMagicLinkStatus({ status: "idle" });
+            }}
             className="mt-4 text-sm text-green-600 hover:text-green-800 underline"
           >
             Back to login
@@ -88,6 +111,11 @@ export function LoginForm() {
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="you@example.com"
+                defaultValue={
+                  process.env.NODE_ENV === "development"
+                    ? "matt@mattwood.co"
+                    : ""
+                }
               />
             </div>
 
@@ -125,7 +153,7 @@ export function LoginForm() {
             </button>
           </form>
         ) : (
-          <form action={magicLinkAction} className="space-y-4">
+          <form action={handleMagicLink} className="space-y-4">
             <div>
               <label
                 htmlFor="magic-email"
@@ -140,21 +168,28 @@ export function LoginForm() {
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="you@example.com"
+                defaultValue={
+                  process.env.NODE_ENV === "development"
+                    ? "matt@mattwood.co"
+                    : ""
+                }
               />
             </div>
 
-            {magicLinkState.status === "error" && (
+            {magicLinkStatus.status === "error" && (
               <div className="text-red-600 text-sm">
-                {magicLinkState.message}
+                {magicLinkStatus.message}
               </div>
             )}
 
             <button
               type="submit"
-              disabled={isMagicLinkPending}
+              disabled={magicLinkStatus.status === "loading"}
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isMagicLinkPending ? "Sending..." : "Send Magic Link"}
+              {magicLinkStatus.status === "loading"
+                ? "Sending..."
+                : "Send Magic Link"}
             </button>
           </form>
         )}

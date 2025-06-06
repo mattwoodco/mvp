@@ -1,12 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import type {
-  LoginActionState,
-  MagicLinkActionState,
-  RegisterActionState,
-} from "../types";
-import { authFormSchema, magicLinkSchema, registerFormSchema } from "../types";
+import type { LoginActionState, RegisterActionState } from "../types";
+import { authFormSchema, registerFormSchema } from "../types";
 
 export async function signInWithEmailPassword(
   _: LoginActionState,
@@ -80,43 +76,6 @@ export async function signUpWithEmailPassword(
       return {
         status: "error",
         message: authError.message || "Failed to create account",
-      };
-    }
-  } catch (error) {
-    return {
-      status: "error",
-      message: "An unexpected error occurred",
-    };
-  }
-}
-
-export async function sendMagicLink(
-  _: MagicLinkActionState,
-  formData: FormData,
-): Promise<MagicLinkActionState> {
-  try {
-    const validatedData = magicLinkSchema.parse({
-      email: formData.get("email"),
-    });
-
-    const { auth } = await import("../auth");
-
-    try {
-      await auth.api.sendMagicLink({
-        body: {
-          email: validatedData.email,
-          callbackURL: "/",
-        },
-      });
-
-      return {
-        status: "sent",
-        message: "Check your email for a magic link to sign in",
-      };
-    } catch (authError: any) {
-      return {
-        status: "error",
-        message: "Failed to send magic link",
       };
     }
   } catch (error) {

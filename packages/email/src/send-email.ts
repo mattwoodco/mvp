@@ -1,6 +1,15 @@
 "use server";
 
+import { config } from "dotenv";
 import { Resend } from "resend";
+
+config({ path: ".env" });
+config({
+  path: `.env.${process.env.NEXT_PUBLIC_APP_ENV || "local"}`,
+});
+
+const key = process.env.RESEND_API_KEY;
+console.log("🚀 ~ key:", key);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

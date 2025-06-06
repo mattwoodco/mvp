@@ -1,4 +1,6 @@
 export { auth } from "./auth";
+export { authClient } from "./client";
 export * from "./components";
-export { authHandlers, GET, POST } from "./handlers";
-export { authMiddleware, config } from "./middleware";
+export * from "./handlers";
+export * from "./middleware";
+export * from "./types";

@@ -51,6 +51,14 @@ export const auth = betterAuth({
     nextCookies(),
   ],
   callbacks: {
+    async jwt({ token, user }: { token: any; user: any }) {
+      console.log("JWT callback", { token, user });
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
+    },
     user: {
       created: async ({ user }: { user: any }) => {
         console.log("User created:", user.email);
