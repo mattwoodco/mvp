@@ -1,0 +1,9 @@
+{
+  "extends": "@mvp/tsconfig/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*", "emails/**/*"],
+  "exclude": ["node_modules", "dist", ".react-email"]
+}
