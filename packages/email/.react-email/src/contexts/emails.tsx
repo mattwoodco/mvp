@@ -1,8 +1,8 @@
-"use client";
-import { createContext, useContext, useState } from "react";
-import { getEmailsDirectoryMetadataAction } from "../actions/get-emails-directory-metadata-action";
-import { useHotreload } from "../hooks/use-hot-reload";
-import type { EmailsDirectory } from "../utils/get-emails-directory-metadata";
+'use client';
+import { createContext, useContext, useState } from 'react';
+import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
+import { useHotreload } from '../hooks/use-hot-reload';
+import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 
 const EmailsContext = createContext<
   | {
@@ -14,9 +14,9 @@ const EmailsContext = createContext<
 export const useEmails = () => {
   const providerValue = useContext(EmailsContext);
 
-  if (typeof providerValue === "undefined") {
+  if (typeof providerValue === 'undefined') {
     throw new Error(
-      "Cannot call `useEmail()` outside of an EmailsContext provider!",
+      'Cannot call `useEmail()` outside of an EmailsContext provider!',
     );
   }
 
@@ -30,7 +30,7 @@ export const EmailsProvider = (props: {
   const [emailsDirectoryMetadata, setEmailsDirectoryMetadata] =
     useState<EmailsDirectory>(props.initialEmailsDirectoryMetadata);
 
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== "true") {
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // this will not change on runtime so it doesn't violate
     // the rules of hooks
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -42,7 +42,7 @@ export const EmailsProvider = (props: {
         setEmailsDirectoryMetadata(metadata);
       } else {
         throw new Error(
-          "Hot reloading: unable to find the emails directory to update the sidebar",
+          'Hot reloading: unable to find the emails directory to update the sidebar',
         );
       }
     });

@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { getEmailPathFromSlug } from "../actions/get-email-path-from-slug";
+import { useState } from 'react';
+import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import {
   type EmailRenderingResult,
   renderEmailByPath,
-} from "../actions/render-email-by-path";
-import { useHotreload } from "./use-hot-reload";
+} from '../actions/render-email-by-path';
+import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
   emailPath: string,
@@ -14,7 +14,7 @@ export const useEmailRenderingResult = (
     serverEmailRenderedResult,
   );
 
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== "true") {
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useHotreload(async (changes) => {
       for await (const change of changes) {

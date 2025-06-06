@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
-} from "../actions/render-email-by-path";
+} from '../actions/render-email-by-path';
 
 const lastRenderingMetadataPerEmailPath = {} as Record<
   string,
@@ -19,18 +19,18 @@ export const useRenderingMetadata = (
   serverRenderingMetadata: EmailRenderingResult,
 ): RenderedEmailMetadata | undefined => {
   useEffect(() => {
-    if ("markup" in renderingResult) {
+    if ('markup' in renderingResult) {
       lastRenderingMetadataPerEmailPath[emailPath] = renderingResult;
     } else if (
-      typeof serverRenderingMetadata !== "undefined" &&
-      "markup" in serverRenderingMetadata &&
-      typeof lastRenderingMetadataPerEmailPath[emailPath] === "undefined"
+      typeof serverRenderingMetadata !== 'undefined' &&
+      'markup' in serverRenderingMetadata &&
+      typeof lastRenderingMetadataPerEmailPath[emailPath] === 'undefined'
     ) {
       lastRenderingMetadataPerEmailPath[emailPath] = serverRenderingMetadata;
     }
   }, [renderingResult, emailPath, serverRenderingMetadata]);
 
-  return "error" in renderingResult
+  return 'error' in renderingResult
     ? lastRenderingMetadataPerEmailPath[emailPath]
     : renderingResult;
 };

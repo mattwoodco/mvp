@@ -1,16 +1,16 @@
-"use client";
-import * as ToggleGroup from "@radix-ui/react-toggle-group";
-import { motion } from "framer-motion";
-import type * as React from "react";
-import { cn } from "../utils";
-import { tabTransition } from "../utils/constants";
-import { Heading } from "./heading";
-import { IconHideSidebar } from "./icons/icon-hide-sidebar";
-import { IconMonitor } from "./icons/icon-monitor";
-import { IconPhone } from "./icons/icon-phone";
-import { IconSource } from "./icons/icon-source";
-import { Send } from "./send";
-import { Tooltip } from "./tooltip";
+'use client';
+import * as ToggleGroup from '@radix-ui/react-toggle-group';
+import { motion } from 'framer-motion';
+import type * as React from 'react';
+import { cn } from '../utils';
+import { tabTransition } from '../utils/constants';
+import { Heading } from './heading';
+import { IconHideSidebar } from './icons/icon-hide-sidebar';
+import { IconMonitor } from './icons/icon-monitor';
+import { IconPhone } from './icons/icon-phone';
+import { IconSource } from './icons/icon-source';
+import { Send } from './send';
+import { Tooltip } from './tooltip';
 
 interface TopbarProps {
   currentEmailOpenSlug: string;
@@ -70,14 +70,14 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                 <Tooltip.Trigger asChild>
                   <div
                     className={cn(
-                      "px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12",
+                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        "text-slate-11": activeView !== "desktop",
-                        "text-slate-12": activeView === "desktop",
+                        'text-slate-11': activeView !== 'desktop',
+                        'text-slate-12': activeView === 'desktop',
                       },
                     )}
                   >
-                    {activeView === "desktop" && (
+                    {activeView === 'desktop' && (
                       <motion.span
                         animate={{ opacity: 1 }}
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
@@ -98,14 +98,14 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                 <Tooltip.Trigger asChild>
                   <div
                     className={cn(
-                      "px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12",
+                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        "text-slate-11": activeView !== "mobile",
-                        "text-slate-12": activeView === "mobile",
+                        'text-slate-11': activeView !== 'mobile',
+                        'text-slate-12': activeView === 'mobile',
                       },
                     )}
                   >
-                    {activeView === "mobile" && (
+                    {activeView === 'mobile' && (
                       <motion.span
                         animate={{ opacity: 1 }}
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"
@@ -126,14 +126,14 @@ export const Topbar: React.FC<Readonly<TopbarProps>> = ({
                 <Tooltip.Trigger asChild>
                   <div
                     className={cn(
-                      "px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12",
+                      'px-3 py-2 transition ease-in-out duration-200 relative hover:text-slate-12',
                       {
-                        "text-slate-11": activeView !== "source",
-                        "text-slate-12": activeView === "source",
+                        'text-slate-11': activeView !== 'source',
+                        'text-slate-12': activeView === 'source',
                       },
                     )}
                   >
-                    {activeView === "source" && (
+                    {activeView === 'source' && (
                       <motion.span
                         animate={{ opacity: 1 }}
                         className="absolute left-0 right-0 top-0 bottom-0 bg-slate-4"

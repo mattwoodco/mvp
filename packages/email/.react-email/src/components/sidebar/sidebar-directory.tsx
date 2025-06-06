@@ -1,13 +1,13 @@
-"use client";
-import * as Collapsible from "@radix-ui/react-collapsible";
-import * as React from "react";
-import { cn } from "../../utils";
-import type { EmailsDirectory } from "../../utils/get-emails-directory-metadata";
-import { Heading } from "../heading";
-import { IconArrowDown } from "../icons/icon-arrow-down";
-import { IconFolder } from "../icons/icon-folder";
-import { IconFolderOpen } from "../icons/icon-folder-open";
-import { SidebarDirectoryChildren } from "./sidebar-directory-children";
+'use client';
+import * as Collapsible from '@radix-ui/react-collapsible';
+import * as React from 'react';
+import { cn } from '../../utils';
+import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
+import { Heading } from '../heading';
+import { IconArrowDown } from '../icons/icon-arrow-down';
+import { IconFolder } from '../icons/icon-folder';
+import { IconFolderOpen } from '../icons/icon-folder-open';
+import { SidebarDirectoryChildren } from './sidebar-directory-children';
 
 interface SidebarDirectoryProps {
   emailsDirectoryMetadata: EmailsDirectory;
@@ -37,7 +37,7 @@ export const SidebarDirectory = ({
 
   return (
     <Collapsible.Root
-      className={cn("group", className)}
+      className={cn('group', className)}
       onOpenChange={(isOpening) => {
         if (isOpening) {
           persistedOpenDirectories.add(directoryMetadata.absolutePath);
@@ -51,9 +51,9 @@ export const SidebarDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          "text-[14px] flex items-center font-medium gap-2 justify-between w-full my-1",
+          'text-[14px] flex items-center font-medium gap-2 justify-between w-full my-1',
           {
-            "cursor-pointer": !isEmpty,
+            'cursor-pointer': !isEmpty,
           },
         )}
       >

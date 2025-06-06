@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function TwoFactorPage() {
+function TwoFactorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -13,5 +14,13 @@ export default function TwoFactorPage() {
         <p>2FA verification page</p>
       </div>
     </div>
+  );
+}
+
+export default function TwoFactorPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TwoFactorContent />
+    </Suspense>
   );
 }

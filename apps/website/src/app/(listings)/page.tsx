@@ -1,22 +1,23 @@
 import { getListings } from "@mvp/database";
+import { Button } from "@mvp/ui/button";
+import { Link } from "lucide-react";
+import { DeleteButton } from "./delete-button";
+import { UploadForm } from "./upload-form";
 
 export default async function ListingsPage() {
   const listings = await getListings();
 
   return (
     <div className="container mx-auto py-6">
-      hello
-      {/* <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Listings</h1>
         <Button asChild>
           <Link href="/listing/new">Create Listing</Link>
         </Button>
       </div>
-
       <div className="mb-8">
         <UploadForm />
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {listings.map((listing) => (
           <div
@@ -39,7 +40,6 @@ export default async function ListingsPage() {
           </div>
         ))}
       </div>
-
       {listings.length === 0 && (
         <div className="text-center py-12">
           <p className="text-gray-500 mb-4">No listings found</p>
@@ -47,7 +47,7 @@ export default async function ListingsPage() {
             <Link href="/listing/new">Create Your First Listing</Link>
           </Button>
         </div>
-      )} */}
+      )}
     </div>
   );
 }
