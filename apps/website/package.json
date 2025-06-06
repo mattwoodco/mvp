@@ -16,6 +16,9 @@
   "dependencies": {
     "@mvp/ui": "workspace:*",
     "@mvp/database": "workspace:*",
+    "@repo/tasks": "workspace:*",
+    "@trigger.dev/sdk": "^3.0.0",
+    "@trigger.dev/react": "^3.0.0",
     "@vercel/blob": "^0.22.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",

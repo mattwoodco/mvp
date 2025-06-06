@@ -6,6 +6,8 @@
   "exports": {
     "./button": "./src/components/button.tsx",
     "./input": "./src/components/input.tsx",
+    "./card": "./src/components/card.tsx",
+    "./progress": "./src/components/progress.tsx",
     "./utils": "./src/utils/index.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./postcss.config": "./postcss.config.js",
@@ -20,6 +22,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-progress": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "react": "19.1.0",

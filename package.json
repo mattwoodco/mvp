@@ -2,7 +2,7 @@
   "name": "mvp2",
   "private": true,
   "type": "module",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": ["apps/*", "packages/*", "mvp/*"],
   "scripts": {
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build' --",
     "dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --parallel' --",

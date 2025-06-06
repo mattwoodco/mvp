@@ -1,0 +1,23 @@
+{
+  "name": "@repo/tasks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "dev": "trigger dev",
+    "deploy": "trigger deploy"
+  },
+  "dependencies": {
+    "@trigger.dev/sdk": "^3.0.0",
+    "@trigger.dev/build": "^3.0.0",
+    "fluent-ffmpeg": "^2.1.3",
+    "@vercel/blob": "^0.23.4"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.24",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}
