@@ -1,13 +1,11 @@
-import { ModeToggle } from "@mvp/ui/mode-toggle";
-
 export default function HomePage() {
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        {/* <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold">Dark Mode Example</h1>
           <ModeToggle />
-        </div>
+        </div> */}
 
         <div className="space-y-6">
           <div className="p-6 bg-card text-card-foreground rounded-lg border shadow-sm">
