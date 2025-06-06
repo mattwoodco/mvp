@@ -1,13 +1,13 @@
-import * as Popover from '@radix-ui/react-popover';
-import * as React from 'react';
-import { toast } from 'sonner';
-import { inter } from '../app/inter';
-import { Button } from './button';
-import { Text } from './text';
+import * as Popover from "@radix-ui/react-popover";
+import * as React from "react";
+import { toast } from "sonner";
+import { inter } from "../app/inter";
+import { Button } from "./button";
+import { Text } from "./text";
 
 export const Send = ({ markup }: { markup: string }) => {
-  const [to, setTo] = React.useState('');
-  const [subject, setSubject] = React.useState('Testing React Email');
+  const [to, setTo] = React.useState("");
+  const [subject, setSubject] = React.useState("Testing React Email");
   const [isSending, setIsSending] = React.useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = React.useState(false);
 
@@ -16,9 +16,9 @@ export const Send = ({ markup }: { markup: string }) => {
       e.preventDefault();
       setIsSending(true);
 
-      const response = await fetch('https://react.email/api/send/test', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("https://react.email/api/send/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           to,
           subject,
@@ -31,9 +31,9 @@ export const Send = ({ markup }: { markup: string }) => {
         toast.error(error);
       }
 
-      toast.success('Email sent! Check your inbox.');
+      toast.success("Email sent! Check your inbox.");
     } catch (exception) {
-      toast.error('Something went wrong. Please try again.');
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setIsSending(false);
     }
@@ -43,10 +43,10 @@ export const Send = ({ markup }: { markup: string }) => {
     <Popover.Root
       onOpenChange={() => {
         if (!isPopOverOpen) {
-          document.body.classList.add('popup-open');
+          document.body.classList.add("popup-open");
           setIsPopOverOpen(true);
         } else {
-          document.body.classList.remove('popup-open');
+          document.body.classList.remove("popup-open");
           setIsPopOverOpen(false);
         }
       }}
@@ -109,7 +109,7 @@ export const Send = ({ markup }: { markup: string }) => {
             />
             <div className="flex items-center justify-between mt-3">
               <Text className="inline-block" size="1">
-                Powered by{' '}
+                Powered by{" "}
                 <a
                   className="text-white/85 hover:text-slate-12 transition ease-in-out duration-300"
                   href="https://resend.com"

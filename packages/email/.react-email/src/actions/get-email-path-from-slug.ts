@@ -1,12 +1,12 @@
-'use server';
-import fs from 'node:fs';
-import path from 'node:path';
-import { cache } from 'react';
-import { emailsDirectoryAbsolutePath } from '../utils/emails-directory-absolute-path';
+"use server";
+import fs from "node:fs";
+import path from "node:path";
+import { cache } from "react";
+import { emailsDirectoryAbsolutePath } from "../utils/emails-directory-absolute-path";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getEmailPathFromSlug = cache(async (slug: string) => {
-  if (['.tsx', '.jsx', '.ts', '.js'].includes(path.extname(slug)))
+  if ([".tsx", ".jsx", ".ts", ".js"].includes(path.extname(slug)))
     return path.join(emailsDirectoryAbsolutePath, slug);
 
   const pathWithoutExtension = path.join(emailsDirectoryAbsolutePath, slug);

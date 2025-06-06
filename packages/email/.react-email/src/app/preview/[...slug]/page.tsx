@@ -1,16 +1,14 @@
-import path from 'node:path';
-import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
-import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
-import { renderEmailByPath } from '../../../actions/render-email-by-path';
-import { emailsDirectoryAbsolutePath } from '../../../utils/emails-directory-absolute-path';
-import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
-import Home from '../../page';
-import Preview from './preview';
+import path from "node:path";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { getEmailPathFromSlug } from "../../../actions/get-email-path-from-slug";
+import { renderEmailByPath } from "../../../actions/render-email-by-path";
+import { emailsDirectoryAbsolutePath } from "../../../utils/emails-directory-absolute-path";
+import { getEmailsDirectoryMetadata } from "../../../utils/get-emails-directory-metadata";
+import Home from "../../page";
+import Preview from "./preview";
 
 export const dynamicParams = true;
-
-
 
 export interface PreviewParams {
   slug: string[];
@@ -24,12 +22,12 @@ const Page = async ({
   const params = await paramsPromise;
   // will come in here as segments of a relative path to the email
   // ex: ['authentication', 'verify-password.tsx']
-  const slug = decodeURIComponent(params.slug.join('/'));
+  const slug = decodeURIComponent(params.slug.join("/"));
   const emailsDirMetadata = await getEmailsDirectoryMetadata(
     emailsDirectoryAbsolutePath,
   );
 
-  if (typeof emailsDirMetadata === 'undefined') {
+  if (typeof emailsDirMetadata === "undefined") {
     throw new Error(
       `Could not find the emails directory specified under ${emailsDirectoryAbsolutePath}!
 
@@ -43,7 +41,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   } catch (exception) {
     if (exception instanceof Error) {
       console.warn(exception.message);
-      redirect('/');
+      redirect("/");
     }
     throw exception;
   }
@@ -51,8 +49,8 @@ This is most likely not an issue with the preview server. Maybe there was a typo
   const serverEmailRenderingResult = await renderEmailByPath(emailPath);
 
   if (
-    process.env.NEXT_PUBLIC_IS_BUILDING === 'true' &&
-    'error' in serverEmailRenderingResult
+    process.env.NEXT_PUBLIC_IS_BUILDING === "true" &&
+    "error" in serverEmailRenderingResult
   ) {
     throw new Error(serverEmailRenderingResult.error.message, {
       cause: serverEmailRenderingResult.error,
@@ -80,14 +78,11 @@ export async function generateMetadata({
   params: Promise<PreviewParams>;
 }) {
   const { slug } = await params;
-  return { title: `${path.basename(slug.join('/'))} — React Email` };
+  return { title: `${path.basename(slug.join("/"))} — React Email` };
 }
 
 export default Page;
 
-
-export function generateStaticParams() { 
-  return Promise.resolve(
-    [{"slug":["magic-link"]}]
-  );
+export function generateStaticParams() {
+  return Promise.resolve([{ slug: ["magic-link"] }]);
 }

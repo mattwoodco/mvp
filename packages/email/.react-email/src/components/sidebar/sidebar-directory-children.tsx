@@ -1,11 +1,11 @@
-import * as Collapsible from '@radix-ui/react-collapsible';
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { cn } from '../../utils';
-import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
-import { IconFile } from '../icons/icon-file';
-import { SidebarDirectory } from './sidebar-directory';
+import * as Collapsible from "@radix-ui/react-collapsible";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { cn } from "../../utils";
+import type { EmailsDirectory } from "../../utils/get-emails-directory-metadata";
+import { IconFile } from "../icons/icon-file";
+import { SidebarDirectory } from "./sidebar-directory";
 
 export const SidebarDirectoryChildren = (props: {
   emailsDirectoryMetadata: EmailsDirectory;
@@ -24,7 +24,7 @@ export const SidebarDirectoryChildren = (props: {
           forceMount
         >
           <motion.div
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             initial={{ opacity: 0, height: 0 }}
           >
@@ -53,11 +53,11 @@ export const SidebarDirectoryChildren = (props: {
 
                     const removeExtensionFrom = (path: string) => {
                       if (
-                        path.split('.').pop() === 'tsx' ||
-                        path.split('.').pop() === 'jsx' ||
-                        path.split('.').pop() === 'js'
+                        path.split(".").pop() === "tsx" ||
+                        path.split(".").pop() === "jsx" ||
+                        path.split(".").pop() === "js"
                       ) {
-                        return path.split('.').slice(0, -1).join('.');
+                        return path.split(".").slice(0, -1).join(".");
                       }
 
                       return path;
@@ -78,10 +78,10 @@ export const SidebarDirectoryChildren = (props: {
                         <motion.span
                           animate={{ x: 0, opacity: 1 }}
                           className={cn(
-                            'text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition-colors',
+                            "text-[14px] flex items-center align-middle pl-3 h-8 max-w-full rounded-md text-slate-11 relative transition-colors",
                             {
-                              'text-cyan-11': isCurrentPage,
-                              'hover:text-slate-12':
+                              "text-cyan-11": isCurrentPage,
+                              "hover:text-slate-12":
                                 props.currentEmailOpenSlug !== emailSlug,
                             },
                           )}

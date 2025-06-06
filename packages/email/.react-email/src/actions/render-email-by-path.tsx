@@ -1,13 +1,13 @@
-'use server';
-import fs from 'node:fs';
-import path from 'node:path';
-import chalk from 'chalk';
-import logSymbols from 'log-symbols';
-import ora from 'ora';
-import { getEmailComponent } from '../utils/get-email-component';
-import { improveErrorWithSourceMap } from '../utils/improve-error-with-sourcemap';
-import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
-import type { ErrorObject } from '../utils/types/error-object';
+"use server";
+import fs from "node:fs";
+import path from "node:path";
+import chalk from "chalk";
+import logSymbols from "log-symbols";
+import ora from "ora";
+import { getEmailComponent } from "../utils/get-email-component";
+import { improveErrorWithSourceMap } from "../utils/improve-error-with-sourcemap";
+import { registerSpinnerAutostopping } from "../utils/register-spinner-autostopping";
+import type { ErrorObject } from "../utils/types/error-object";
 
 export interface RenderedEmailMetadata {
   markup: string;
@@ -35,17 +35,17 @@ export const renderEmailByPath = async (
 
   const emailFilename = path.basename(emailPath);
   let spinner: ora.Ora | undefined;
-  if (process.env.NEXT_PUBLIC_IS_BUILDING !== 'true') {
+  if (process.env.NEXT_PUBLIC_IS_BUILDING !== "true") {
     spinner = ora({
       text: `Rendering email template ${emailFilename}\n`,
-      prefixText: ' ',
+      prefixText: " ",
     }).start();
     registerSpinnerAutostopping(spinner);
   }
 
   const componentResult = await getEmailComponent(emailPath);
 
-  if ('error' in componentResult) {
+  if ("error" in componentResult) {
     spinner?.stopAndPersist({
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
@@ -73,7 +73,7 @@ export const renderEmailByPath = async (
       },
     );
 
-    const reactMarkup = await fs.promises.readFile(emailPath, 'utf-8');
+    const reactMarkup = await fs.promises.readFile(emailPath, "utf-8");
 
     const milisecondsToRendered = performance.now() - timeBeforeEmailRendered;
     let timeForConsole = `${milisecondsToRendered.toFixed(0)}ms`;
@@ -93,7 +93,7 @@ export const renderEmailByPath = async (
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
       // only seem to happen with React 18, as it has no similar incident with React 19.
-      markup: markup.replaceAll('\0', ''),
+      markup: markup.replaceAll("\0", ""),
       plainText,
       reactMarkup,
     };

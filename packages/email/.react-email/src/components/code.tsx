@@ -1,7 +1,7 @@
-import type { Language } from 'prism-react-renderer';
-import { Highlight } from 'prism-react-renderer';
-import * as React from 'react';
-import { cn } from '../utils';
+import type { Language } from "prism-react-renderer";
+import { Highlight } from "prism-react-renderer";
+import * as React from "react";
+import { cn } from "../utils";
 
 interface CodeProps {
   children: string;
@@ -11,33 +11,33 @@ interface CodeProps {
 
 const theme = {
   plain: {
-    color: '#EDEDEF',
+    color: "#EDEDEF",
     fontSize: 13,
-    fontFamily: 'MonoLisa, Menlo, monospace',
+    fontFamily: "MonoLisa, Menlo, monospace",
   },
   styles: [
     {
-      types: ['comment'],
+      types: ["comment"],
       style: {
-        color: '#706F78',
+        color: "#706F78",
       },
     },
     {
-      types: ['atrule', 'keyword', 'attr-name', 'selector'],
+      types: ["atrule", "keyword", "attr-name", "selector"],
       style: {
-        color: '#7E7D86',
+        color: "#7E7D86",
       },
     },
     {
-      types: ['punctuation', 'operator'],
+      types: ["punctuation", "operator"],
       style: {
-        color: '#706F78',
+        color: "#706F78",
       },
     },
     {
-      types: ['class-name', 'function', 'tag', 'key-white'],
+      types: ["class-name", "function", "tag", "key-white"],
       style: {
-        color: '#EDEDEF',
+        color: "#EDEDEF",
       },
     },
   ],
@@ -45,7 +45,7 @@ const theme = {
 
 export const Code: React.FC<Readonly<CodeProps>> = ({
   children,
-  language = 'html',
+  language = "html",
 }) => {
   const value = children.trim();
 
@@ -57,7 +57,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             className="absolute right-0 top-0 h-px w-[200px]"
             style={{
               background:
-                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
+                "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",
             }}
           />
           <pre className="p-4 h-[650px] overflow-auto">
@@ -70,9 +70,9 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                 <div
                   key={i}
                   {...lineProps}
-                  className={cn('whitespace-pre', {
+                  className={cn("whitespace-pre", {
                     "before:text-slate-11 before:mr-2 before:content-['$']":
-                      language === 'bash' && tokens.length === 1,
+                      language === "bash" && tokens.length === 1,
                   })}
                 >
                   {line.map((token, key) => {
@@ -81,10 +81,10 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
                       key,
                     });
                     const isException =
-                      token.content === 'from' &&
-                      line[key + 1]?.content === ':';
+                      token.content === "from" &&
+                      line[key + 1]?.content === ":";
                     const newTypes = isException
-                      ? [...token.types, 'key-white']
+                      ? [...token.types, "key-white"]
                       : token.types;
                     token.types = newTypes;
 
@@ -102,7 +102,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
             className="absolute left-0 bottom-0 h-px w-[200px]"
             style={{
               background:
-                'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
+                "linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)",
             }}
           />
         </>
