@@ -10,9 +10,14 @@ import remarkGfm from "remark-gfm";
 interface ChatMessageProps {
   message: Message;
   className?: string;
+  isLoading?: boolean;
 }
 
-export function ChatMessage({ message, className }: ChatMessageProps) {
+export function ChatMessage({
+  message,
+  className,
+  isLoading,
+}: ChatMessageProps) {
   const isUser = message.role === "user";
 
   return (

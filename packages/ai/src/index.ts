@@ -1,24 +1,25 @@
 export {
-  generateText,
-  generateObject,
-  streamText,
-  streamObject,
-  tool,
   createDataStreamResponse,
-  experimental_streamUI,
-  experimental_streamObject,
-  experimental_generateObject,
-  CoreMessage,
-  CoreTool,
-  GenerateTextResult,
-  GenerateObjectResult,
-  StreamTextResult,
-  StreamObjectResult,
+  generateObject,
+  generateText,
+  streamObject,
+  streamText,
+  tool,
 } from "ai";
 
-export { openai, createOpenAI } from "@ai-sdk/openai";
-export { google, createGoogleGenerativeAI } from "@ai-sdk/google";
-export { mistral, createMistral } from "@ai-sdk/mistral";
+export type {
+  CoreMessage,
+  CoreTool,
+  GenerateObjectResult,
+  GenerateTextResult,
+  Message,
+  StreamObjectResult,
+  StreamTextResult,
+} from "ai";
+
+export { createGoogleGenerativeAI, google } from "@ai-sdk/google";
+export { createMistral, mistral } from "@ai-sdk/mistral";
+export { createOpenAI, openai } from "@ai-sdk/openai";
 
 // Re-export provider configurations
 export * from "./providers/index";

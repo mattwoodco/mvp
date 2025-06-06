@@ -17,7 +17,7 @@ export interface AIProviders {
 
 export type SupportedProvider = keyof AIProviders;
 
-export interface ChatMessage extends CoreMessage {
+export type ChatMessage = CoreMessage & {
   id?: string;
   createdAt?: Date;
-}
+};

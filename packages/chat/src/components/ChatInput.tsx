@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { Send } from "lucide-react";
 import React, { type FormEvent } from "react";
-import { useChatContext } from "./ChatProvider";
+import { useChatContext } from "./ChatProvider.js";
 
 interface ChatInputProps {
   onSubmit: (message: string) => void;

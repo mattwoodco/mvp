@@ -1,9 +1,10 @@
 "use client";
 
-import clsx from "clsx";
-import React, { useEffect, useRef } from "react";
-import { ChatMessage } from "./ChatMessage";
-import { useChatContext } from "./ChatProvider";
+import type { Message } from "@mvp/ai";
+import { cn } from "@mvp/ui/utils";
+import { useEffect, useRef } from "react";
+import { ChatMessage } from "./ChatMessage.js";
+import { useChatContext } from "./ChatProvider.js";
 
 interface ChatMessagesProps {
   className?: string;
@@ -18,15 +19,19 @@ export function ChatMessages({ className }: ChatMessagesProps) {
   }, [messages]);
 
   return (
-    <div className={clsx("flex flex-col gap-4 overflow-y-auto p-4", className)}>
+    <div className={cn("flex flex-col gap-4 overflow-y-auto p-4", className)}>
       {messages.length === 0 && (
         <div className="text-center text-gray-500 py-8">
           No messages yet. Start a conversation!
         </div>
       )}
 
-      {messages.map((message) => (
-        <ChatMessage key={message.id} message={message} />
+      {messages.map((message: Message) => (
+        <ChatMessage
+          key={message.id}
+          message={message}
+          isLoading={isLoading && message === messages[messages.length - 1]}
+        />
       ))}
 
       {isLoading && (

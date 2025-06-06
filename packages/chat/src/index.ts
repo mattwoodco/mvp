@@ -1,9 +1,9 @@
 export { Chat } from "./components/Chat";
-export { ChatMessage } from "./components/ChatMessage";
 export { ChatInput } from "./components/ChatInput";
+export { ChatMessage } from "./components/ChatMessage";
 export { ChatMessages } from "./components/ChatMessages";
 export { ChatProvider, useChatContext } from "./components/ChatProvider";
 export type {
-  ChatProviderProps,
   ChatContextType,
+  ChatProviderProps,
 } from "./components/ChatProvider";

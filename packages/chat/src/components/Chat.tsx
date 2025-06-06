@@ -2,7 +2,6 @@
 
 import type { Message } from "ai";
 import clsx from "clsx";
-import React from "react";
 import { ChatInput } from "./ChatInput";
 import { ChatMessages } from "./ChatMessages";
 import { ChatProvider } from "./ChatProvider";
