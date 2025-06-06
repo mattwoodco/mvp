@@ -9,6 +9,9 @@
         "NEXT_PUBLIC_APP_ENV",
         "BLOB_READ_WRITE_TOKEN",
         "DATABASE_URL",
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "NEXT_PUBLIC_BETTER_AUTH_URL",
         "AUTH_GOOGLE_ID",
         "AUTH_GOOGLE_SECRET",
         "RESEND_API_KEY",
@@ -31,12 +34,20 @@
         "NEXT_PUBLIC_APP_ENV",
         "BLOB_READ_WRITE_TOKEN",
         "DATABASE_URL",
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "NEXT_PUBLIC_BETTER_AUTH_URL",
         "AUTH_GOOGLE_ID",
         "AUTH_GOOGLE_SECRET",
         "RESEND_API_KEY",
         "FROM_EMAIL"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "cache": false,
+      "persistent": true
+    },
+    "email:dev": {
+      "env": ["RESEND_API_KEY", "FROM_EMAIL"],
       "cache": false,
       "persistent": true
     },

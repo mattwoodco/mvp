@@ -14,34 +14,9 @@ export type BaseComponentProps = {
 };
 
 export type WithChildren<T = Record<string, never>> = T & {
-  children?: any;
+  children?: React.ReactNode;
 };
 
 export type PropsWithClassName<T = Record<string, never>> = T & {
   className?: string;
-};
-
-// Theme types
-export type Theme = "light" | "dark" | "system";
-
-export type ThemeProviderProps = {
-  children: any;
-  attribute?: string;
-  defaultTheme?: Theme;
-  enableSystem?: boolean;
-  disableTransitionOnChange?: boolean;
-  storageKey?: string;
-  themes?: string[];
-  forcedTheme?: Theme;
-  enableColorScheme?: boolean;
-  scriptProps?: any;
-  nonce?: string;
-};
-
-export type UseThemeProps = {
-  theme?: Theme;
-  setTheme: (theme: Theme) => void;
-  themes: Theme[];
-  systemTheme?: "light" | "dark";
-  resolvedTheme?: "light" | "dark";
 };
