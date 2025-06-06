@@ -21,6 +21,7 @@
     "@mvp/chat": "workspace:*",
     "@mvp/workflow-generation": "workspace:*",
     "@mvp/auth": "workspace:*",
+    "@mvp/payments": "workspace:*",
     "@mvp/markdown": "workspace:*",
     "@mvp/ui": "workspace:*",
     "@next/mdx": "^15.3.0",

@@ -32,7 +32,13 @@
         "OLLAMA_MODEL",
         "TWILIO_ACCOUNT_SID",
         "TWILIO_AUTH_TOKEN",
-        "TWILIO_PHONE_NUMBER"
+        "TWILIO_PHONE_NUMBER",
+        "STRIPE_SECRET_KEY",
+        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+        "STRIPE_WEBHOOK_SECRET",
+        "STRIPE_PRICE_BASIC_ID",
+        "STRIPE_PRICE_PREMIUM_ID",
+        "STRIPE_CONNECT_CLIENT_ID"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "dependsOn": ["^build"],
@@ -74,7 +80,13 @@
         "OLLAMA_MODEL",
         "TWILIO_ACCOUNT_SID",
         "TWILIO_AUTH_TOKEN",
-        "TWILIO_PHONE_NUMBER"
+        "TWILIO_PHONE_NUMBER",
+        "STRIPE_SECRET_KEY",
+        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+        "STRIPE_WEBHOOK_SECRET",
+        "STRIPE_PRICE_BASIC_ID",
+        "STRIPE_PRICE_PREMIUM_ID",
+        "STRIPE_CONNECT_CLIENT_ID"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "cache": false,
