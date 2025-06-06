@@ -8,7 +8,10 @@ interface MDXOptions {
   };
 }
 
-export function configureMDX(nextConfig: NextConfig = {}, mdxOptions: MDXOptions = {}): NextConfig {
+export function configureMDX(
+  nextConfig: NextConfig = {},
+  mdxOptions: MDXOptions = {},
+): NextConfig {
   const defaultOptions: MDXOptions = {
     extension: /\.mdx?$/,
     options: {
@@ -17,17 +20,8 @@ export function configureMDX(nextConfig: NextConfig = {}, mdxOptions: MDXOptions
     },
   };
 
-  const mergedOptions = {
-    ...defaultOptions,
-    ...mdxOptions,
-    options: {
-      ...defaultOptions.options,
-      ...mdxOptions.options,
-    },
-  };
-
   return {
     ...nextConfig,
-    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+    pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   };
 }
