@@ -10,8 +10,8 @@
     "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",
     "db:std": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:std' --",
     "db:nuke": "sh -c 'dotenv -e .env.${1:-local} -- ./packages/database/scripts/reset-db.sh' --",
-    "sync-envs": "node scripts/sync-envs.js",
-    "clean": "git clean -xdf node_modules",
+    "email:dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo run email:dev' --",
+    "clean": "git clean -xdf .turbo .next node_modules",
     "clean:workspaces": "turbo clean",
     "format": "biome format --write .",
     "lint": "turbo lint && manypkg check",
@@ -30,5 +30,8 @@
     "dotenv-cli": "^8.0.0",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "react": "19.1.0"
   }
 }

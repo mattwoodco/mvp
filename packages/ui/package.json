@@ -7,6 +7,8 @@
     "./button": "./src/components/button.tsx",
     "./input": "./src/components/input.tsx",
     "./input-otp": "./src/components/input-otp.tsx",
+    "./theme-provider": "./src/components/theme-provider.tsx",
+    "./mode-toggle": "./src/components/mode-toggle.tsx",
     "./utils": "./src/utils/index.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./postcss.config": "./postcss.config.js",
@@ -26,11 +28,13 @@
     "input-otp": "^1.2.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "tailwind-merge": "^3.3.0"
+    "tailwind-merge": "^3.3.0",
+    "next-themes": "^0.4.4",
+    "lucide-react": "^0.468.0"
   },
   "devDependencies": {
-    "@types/react": "19.1.6",
-    "@types/react-dom": "19.1.5",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.0",
     "@mvp/tsconfig": "workspace:*",
     "@turbo/gen": "^2.5.4",
     "typescript": "^5.8.3",

@@ -111,11 +111,6 @@ export const users = pgTable("users", {
 - Restart dev server after .env changes
 - Check Vercel env vars in dashboard
 
-**Session issues in production:**
-- Ensure NEXTAUTH_URL matches production URL
-- Set secure cookies in production
-- Check CORS settings
-
 ### 8. Cost Optimization
 
 - SMS: $0.0075 per message (US)

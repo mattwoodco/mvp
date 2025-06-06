@@ -1,0 +1,73 @@
+import { MdxLayout, MdxCard } from "@mvp/markdown";
+import { Button } from "@mvp/ui/button";
+
+export const metadata = {
+  title: "Hello MDX World",
+  description: "A demonstration of MDX with Next.js 15 and React 19",
+};
+
+export default function Layout({ children }) {
+  return (
+    <MdxLayout title="Hello MDX World" description="Welcome to MDX in our monorepo">
+      {children}
+    </MdxLayout>
+  );
+}
+
+# Hello MDX World! 🚀
+
+This is a **demonstration** of MDX working in our Next.js 15 application with React 19.
+
+## Features
+
+- ✨ **MDX Support**: Write JSX directly in Markdown
+- 🎨 **Styled Components**: Using our shared markdown package
+- 🌗 **Dark Mode Ready**: All components support dark mode
+- 📦 **Monorepo Structure**: Shared components across apps
+
+<MdxCard title="Interactive Example" className="my-6">
+  <span>This card component comes from our shared markdown package!</span>
+  <div className="mt-4 flex gap-2">
+    <Button>Click me!</Button>
+    <Button variant="outline">Or me!</Button>
+  </div>
+</MdxCard>
+
+## Code Example
+
+Here's how you can use a button in MDX:
+
+```tsx
+import { Button } from "@mvp/ui/button";
+
+<Button>Interactive Button</Button>
+```
+
+## Lists Work Too
+
+### Ordered List
+1. First item
+2. Second item
+3. Third item
+
+### Unordered List
+- Bullet point one
+- Bullet point two
+- Bullet point three
+
+## Table Example
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| MDX | ✅ | Fully working |
+| Tailwind v4 | ✅ | Latest version |
+| React 19 | ✅ | Using latest |
+| Next.js 15 | ✅ | App router |
+
+---
+
+<div className="mt-8 p-4 bg-muted rounded-lg">
+  <div className="text-center">
+    🎉 <strong>Success!</strong> MDX is working perfectly with our monorepo setup.
+  </div>
+</div>
