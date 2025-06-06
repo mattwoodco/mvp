@@ -21,7 +21,12 @@ export interface OTPFormRenderProps {
 export declare function OTPForm(props: OTPFormProps): React.ReactElement;
 
 // For use with React applications
-export const createOTPForm = (React: any) => {
+export const createOTPForm = (React: { 
+  useState: {
+    (initialState: string): [string, (newState: string) => void];
+    <T>(initialState: T | (() => T)): [T, (newState: T | ((prevState: T) => T)) => void];
+  };
+}) => {
   return function OTPForm({
     length = 6,
     onComplete,

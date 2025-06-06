@@ -43,11 +43,11 @@ export type AuthActionState = {
   field?: string;
 };
 
-export type LoginActionState = AuthActionState & {
+export type LoginActionState = Omit<AuthActionState, "status"> & {
   status: "idle" | "loading" | "success" | "error" | "invalid_credentials";
 };
 
-export type RegisterActionState = AuthActionState & {
+export type RegisterActionState = Omit<AuthActionState, "status"> & {
   status:
     | "idle"
     | "loading"
@@ -57,6 +57,6 @@ export type RegisterActionState = AuthActionState & {
     | "invalid_data";
 };
 
-export type MagicLinkActionState = AuthActionState & {
+export type MagicLinkActionState = Omit<AuthActionState, "status"> & {
   status: "idle" | "loading" | "success" | "error" | "sent";
 };

@@ -89,9 +89,7 @@ export async function signUpWithEmailPassword(
 export async function signOutAction() {
   try {
     const { auth } = await import("../auth");
-    await auth.api.signOut({
-      body: {},
-    });
+    await auth.api.signOut();
   } catch (error) {
     console.error("Sign out error:", error);
   }
