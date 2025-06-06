@@ -1,38 +1,42 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { VideoGenerationForm } from './VideoGenerationForm';
-import { VideoPlayer } from './VideoPlayer';
-import type { VideoGenerationFormData, VideoGenerationResult } from '../types';
-import { Sparkles } from 'lucide-react';
-import clsx from 'clsx';
+import clsx from "clsx";
+import { Sparkles } from "lucide-react";
+import React, { useState } from "react";
+import type { VideoGenerationFormData, VideoGenerationResult } from "../types";
+import { VideoGenerationForm } from "./VideoGenerationForm";
+import { VideoPlayer } from "./VideoPlayer";
 
 interface VideoGenerationWorkflowProps {
   onGenerate: (data: VideoGenerationFormData) => Promise<VideoGenerationResult>;
   className?: string;
 }
 
-export function VideoGenerationWorkflow({ onGenerate, className }: VideoGenerationWorkflowProps) {
+export function VideoGenerationWorkflow({
+  onGenerate,
+  className,
+}: VideoGenerationWorkflowProps) {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedVideo, setGeneratedVideo] = useState<VideoGenerationResult | null>(null);
+  const [generatedVideo, setGeneratedVideo] =
+    useState<VideoGenerationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (data: VideoGenerationFormData) => {
     setIsGenerating(true);
     setError(null);
-    
+
     try {
       const result = await onGenerate(data);
       setGeneratedVideo(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate video');
+      setError(err instanceof Error ? err.message : "Failed to generate video");
     } finally {
       setIsGenerating(false);
     }
   };
 
   return (
-    <div className={clsx('max-w-4xl mx-auto space-y-8', className)}>
+    <div className={clsx("max-w-4xl mx-auto space-y-8", className)}>
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
           <Sparkles className="w-8 h-8 text-blue-500" />
@@ -59,7 +63,7 @@ export function VideoGenerationWorkflow({ onGenerate, className }: VideoGenerati
               <p className="text-red-700">{error}</p>
             </div>
           )}
-          
+
           {generatedVideo ? (
             <VideoPlayer
               videoUrl={generatedVideo.video.url}
@@ -67,7 +71,9 @@ export function VideoGenerationWorkflow({ onGenerate, className }: VideoGenerati
             />
           ) : (
             <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-              <p className="text-gray-500">Your generated video will appear here</p>
+              <p className="text-gray-500">
+                Your generated video will appear here
+              </p>
             </div>
           )}
         </div>

@@ -1,0 +1,30 @@
+{
+  "name": "@mvp/auth",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components": "./src/components/index.ts",
+    "./types": "./src/types/index.ts"
+  },
+  "dependencies": {
+    "better-auth": "^1.0.5",
+    "bcrypt-ts": "^5.0.2",
+    "zod": "^3.23.8",
+    "twilio": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@mvp/email": "*",
+    "next": "^15.0.0",
+    "react": "19.1.0",
+    "@mvp/ui": "*"
+  },
+  "devDependencies": {
+    "@mvp/database": "*",
+    "@mvp/tsconfig": "*",
+    "@types/node": "^20.0.0",
+    "@types/react": "19.1.6",
+    "next": "^15.0.0",
+    "typescript": "^5.8.3"
+  }
+}

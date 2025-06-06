@@ -1,4 +1,4 @@
-# @repo/chat
+# @mvp/chat
 
 Reusable React components for building chat interfaces with AI.
 
@@ -9,7 +9,7 @@ This package is part of the monorepo and is available as a workspace dependency.
 ```json
 {
   "dependencies": {
-    "@repo/chat": "workspace:*"
+    "@mvp/chat": "workspace:*"
   }
 }
 ```
@@ -21,7 +21,7 @@ This package is part of the monorepo and is available as a workspace dependency.
 The main chat component that combines all chat functionality.
 
 ```tsx
-import { Chat } from '@repo/chat';
+import { Chat } from '@mvp/chat';
 
 function MyApp() {
   const handleSubmit = async (message: string) => {
@@ -43,7 +43,7 @@ function MyApp() {
 Context provider for managing chat state.
 
 ```tsx
-import { ChatProvider, useChatContext } from '@repo/chat';
+import { ChatProvider, useChatContext } from '@mvp/chat';
 
 function MyChat() {
   return (
@@ -69,7 +69,7 @@ import {
   ChatProvider,
   ChatMessages, 
   ChatInput 
-} from '@repo/chat';
+} from '@mvp/chat';
 
 function CustomChat() {
   const handleSubmit = async (message: string) => {
@@ -91,9 +91,9 @@ function CustomChat() {
 ## Example with AI Integration
 
 ```tsx
-import { Chat } from '@repo/chat';
-import { streamText } from '@repo/ai';
-import { createOpenAIProvider } from '@repo/ai';
+import { Chat } from '@mvp/chat';
+import { streamText } from '@mvp/ai';
+import { createOpenAIProvider } from '@mvp/ai';
 import { useChat } from 'ai/react';
 
 function AIChat() {

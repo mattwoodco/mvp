@@ -1,9 +1,9 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const videoGenerationSchema = z.object({
-  prompt: z.string().min(10, 'Prompt must be at least 10 characters'),
-  aspectRatio: z.enum(['16:9', '9:16']).default('16:9'),
-  duration: z.enum(['8s']).default('8s'),
+  prompt: z.string().min(10, "Prompt must be at least 10 characters"),
+  aspectRatio: z.enum(["16:9", "9:16"]).default("16:9"),
+  duration: z.enum(["8s"]).default("8s"),
   style: z.string().optional(),
   cameraMotion: z.string().optional(),
   composition: z.string().optional(),

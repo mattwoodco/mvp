@@ -1,5 +1,5 @@
 {
-  "name": "@repo/workflow-generation",
+  "name": "@mvp/workflow-generation",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -17,26 +17,20 @@
     "lint": "biome check --write ."
   },
   "dependencies": {
-    "@repo/ai": "workspace:*",
-    "@repo/chat": "workspace:*",
-    "@repo/ui": "workspace:*",
-    "ai": "^5.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "@mvp/ai": "workspace:*",
+    "@mvp/chat": "workspace:*",
+    "@mvp/ui": "workspace:*",
+    "ai": "latest",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "zod": "^3.24.1",
-    "lucide-react": "^0.475.0",
-    "clsx": "^2.2.1",
     "react-hook-form": "^7.55.1",
     "@hookform/resolvers": "^3.10.0"
   },
   "devDependencies": {
-    "@repo/tsconfig": "workspace:*",
-    "@types/react": "^19.0.7",
-    "@types/react-dom": "^19.0.3",
+    "@mvp/tsconfig": "workspace:*",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
     "typescript": "^5.8.3"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
   }
 }

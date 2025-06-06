@@ -1,4 +1,4 @@
-# @repo/ai
+# @mvp/ai
 
 A unified AI SDK wrapper that provides a consistent interface for multiple AI providers.
 
@@ -9,7 +9,7 @@ This package is part of the monorepo and is available as a workspace dependency.
 ```json
 {
   "dependencies": {
-    "@repo/ai": "workspace:*"
+    "@mvp/ai": "workspace:*"
   }
 }
 ```
@@ -57,8 +57,8 @@ FAL_API_KEY=your-api-key
 ### Basic Text Generation
 
 ```typescript
-import { generateText } from '@repo/ai';
-import { createOpenAIProvider } from '@repo/ai';
+import { generateText } from '@mvp/ai';
+import { createOpenAIProvider } from '@mvp/ai';
 
 const openai = createOpenAIProvider();
 
@@ -73,7 +73,7 @@ console.log(result.text);
 ### Video Generation with fal.ai
 
 ```typescript
-import { generateVideo } from '@repo/ai/providers/fal';
+import { generateVideo } from '@mvp/ai/providers/fal';
 
 const result = await generateVideo('A serene sunset over the ocean', {
   aspectRatio: '16:9',
@@ -86,14 +86,14 @@ console.log(result.data.video.url);
 ### Using Different Providers
 
 ```typescript
-import { generateText } from '@repo/ai';
+import { generateText } from '@mvp/ai';
 import { 
   createOpenAIProvider,
   createGoogleVertexProvider,
   createMistralProvider,
   createCerebrasProvider,
   createOllamaProvider 
-} from '@repo/ai';
+} from '@mvp/ai';
 
 // OpenAI
 const openai = createOpenAIProvider();
@@ -134,8 +134,8 @@ const ollamaResult = await generateText({
 ### Streaming
 
 ```typescript
-import { streamText } from '@repo/ai';
-import { createOpenAIProvider } from '@repo/ai';
+import { streamText } from '@mvp/ai';
+import { createOpenAIProvider } from '@mvp/ai';
 
 const openai = createOpenAIProvider();
 
@@ -152,8 +152,8 @@ for await (const chunk of stream) {
 ### Structured Output
 
 ```typescript
-import { generateObject } from '@repo/ai';
-import { createOpenAIProvider } from '@repo/ai';
+import { generateObject } from '@mvp/ai';
+import { createOpenAIProvider } from '@mvp/ai';
 import { z } from 'zod';
 
 const openai = createOpenAIProvider();

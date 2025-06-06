@@ -1,26 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { generateVideo as falGenerateVideo } from '@repo/ai/providers/fal';
-import type { VideoGenerationFormData } from '@repo/workflow-generation';
+import { generateVideo as falGenerateVideo } from "@mvp/ai/providers/fal";
+import type { VideoGenerationFormData } from "@mvp/workflow-generation";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
     const data: VideoGenerationFormData = await request.json();
-    
+
     // Build the prompt with optional details
     let prompt = data.prompt;
-    
+
     if (data.style) {
       prompt += `\n\nStyle: ${data.style}`;
     }
-    
+
     if (data.cameraMotion) {
       prompt += `\n\nCamera motion: ${data.cameraMotion}`;
     }
-    
+
     if (data.composition) {
       prompt += `\n\nComposition: ${data.composition}`;
     }
-    
+
     if (data.ambiance) {
       prompt += `\n\nAmbiance: ${data.ambiance}`;
     }
@@ -43,10 +43,10 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Failed to generate video:', error);
+    console.error("Failed to generate video:", error);
     return NextResponse.json(
-      { error: 'Failed to generate video' },
-      { status: 500 }
+      { error: "Failed to generate video" },
+      { status: 500 },
     );
   }
 }

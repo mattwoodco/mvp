@@ -1,15 +1,12 @@
 import { getListings } from "@mvp/database";
-import { Button } from "@mvp/ui/button";
-import Link from "next/link";
-import { DeleteButton } from "./delete-button";
-import { UploadForm } from "./upload-form";
 
 export default async function ListingsPage() {
   const listings = await getListings();
 
   return (
     <div className="container mx-auto py-6">
-      <div className="flex justify-between items-center mb-6">
+      hello
+      {/* <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Listings</h1>
         <Button asChild>
           <Link href="/listing/new">Create Listing</Link>
@@ -50,7 +47,7 @@ export default async function ListingsPage() {
             <Link href="/listing/new">Create Your First Listing</Link>
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

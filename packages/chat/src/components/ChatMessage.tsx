@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import type { Message } from 'ai';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { User, Bot } from 'lucide-react';
-import clsx from 'clsx';
+import type { Message } from "ai";
+import clsx from "clsx";
+import { Bot, User } from "lucide-react";
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface ChatMessageProps {
   message: Message;
@@ -13,14 +13,14 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ message, className }: ChatMessageProps) {
-  const isUser = message.role === 'user';
+  const isUser = message.role === "user";
 
   return (
     <div
       className={clsx(
-        'flex gap-3 p-4 rounded-lg',
-        isUser ? 'bg-gray-50' : 'bg-white',
-        className
+        "flex gap-3 p-4 rounded-lg",
+        isUser ? "bg-gray-50" : "bg-white",
+        className,
       )}
     >
       <div className="flex-shrink-0">
@@ -35,7 +35,7 @@ export function ChatMessage({ message, className }: ChatMessageProps) {
         )}
       </div>
       <div className="flex-1 overflow-hidden">
-        <div className="font-medium mb-1">{isUser ? 'You' : 'Assistant'}</div>
+        <div className="font-medium mb-1">{isUser ? "You" : "Assistant"}</div>
         <div className="prose prose-sm max-w-none">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {message.content}

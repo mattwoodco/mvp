@@ -4,13 +4,13 @@
 
 I've created three new packages in the monorepo:
 
-1. **@repo/ai** - Server-side AI SDK wrapper
-2. **@repo/chat** - Reusable React chat components
-3. **@repo/workflow-generation** - Workflow generation components with video generation
+1. **@mvp/ai** - Server-side AI SDK wrapper
+2. **@mvp/chat** - Reusable React chat components
+3. **@mvp/workflow-generation** - Workflow generation components with video generation
 
 ## Package Details
 
-### @repo/ai (Server-side)
+### @mvp/ai (Server-side)
 
 Location: `/workspace/packages/ai`
 
@@ -27,7 +27,7 @@ Location: `/workspace/packages/ai`
 - `src/types.ts` - TypeScript types
 - `src/utils.ts` - Utility functions
 
-### @repo/chat (Client-side React)
+### @mvp/chat (Client-side React)
 
 Location: `/workspace/packages/chat`
 
@@ -45,7 +45,7 @@ Location: `/workspace/packages/chat`
 - `ChatMessage` - Individual message
 - `ChatInput` - User input component
 
-### @repo/workflow-generation
+### @mvp/workflow-generation
 
 Location: `/workspace/packages/workflow-generation`
 
@@ -104,7 +104,7 @@ To use the video generation in your app:
 
 ```typescript
 // In your page component
-import { VideoGenerationWorkflow } from "@repo/workflow-generation";
+import { VideoGenerationWorkflow } from "@mvp/workflow-generation";
 import { generateVideo } from "./actions";
 
 export default function VideosPage() {

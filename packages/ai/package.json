@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ai",
+  "name": "@mvp/ai",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -21,15 +21,15 @@
     "lint": "biome check --write ."
   },
   "dependencies": {
-    "ai": "^5.0.0",
-    "@ai-sdk/openai": "^2.0.0",
-    "@ai-sdk/google": "^2.0.0",
-    "@ai-sdk/mistral": "^2.0.0",
-    "@fal-ai/client": "^1.6.0",
+    "ai": "latest",
+    "@ai-sdk/openai": "latest",
+    "@ai-sdk/google": "latest",
+    "@ai-sdk/mistral": "latest",
+    "@fal-ai/client": "latest",
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@repo/tsconfig": "workspace:*",
+    "@mvp/tsconfig": "workspace:*",
     "@types/node": "^22.14.5",
     "typescript": "^5.8.3"
   }

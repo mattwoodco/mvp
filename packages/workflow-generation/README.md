@@ -1,4 +1,4 @@
-# @repo/workflow-generation
+# @mvp/workflow-generation
 
 Components for AI-powered workflow generation, including video generation with fal.ai's Veo 3 model.
 
@@ -9,7 +9,7 @@ This package is part of the monorepo and is available as a workspace dependency.
 ```json
 {
   "dependencies": {
-    "@repo/workflow-generation": "workspace:*"
+    "@mvp/workflow-generation": "workspace:*"
   }
 }
 ```
@@ -21,7 +21,7 @@ This package is part of the monorepo and is available as a workspace dependency.
 The main component that provides a complete video generation workflow.
 
 ```tsx
-import { VideoGenerationWorkflow } from '@repo/workflow-generation';
+import { VideoGenerationWorkflow } from '@mvp/workflow-generation';
 
 function VideoPage() {
   const handleGenerate = async (data) => {
@@ -49,7 +49,7 @@ function VideoPage() {
 Form component for configuring video generation parameters.
 
 ```tsx
-import { VideoGenerationForm } from '@repo/workflow-generation';
+import { VideoGenerationForm } from '@mvp/workflow-generation';
 
 function MyForm() {
   const handleSubmit = async (data) => {
@@ -71,7 +71,7 @@ function MyForm() {
 Component for displaying and downloading generated videos.
 
 ```tsx
-import { VideoPlayer } from '@repo/workflow-generation';
+import { VideoPlayer } from '@mvp/workflow-generation';
 
 function MyVideoPlayer() {
   return (
@@ -126,8 +126,8 @@ interface VideoGenerationResult {
 // app/actions.ts
 'use server';
 
-import { generateVideo } from '@repo/ai/providers/fal';
-import type { VideoGenerationFormData, VideoGenerationResult } from '@repo/workflow-generation';
+import { generateVideo } from '@mvp/ai/providers/fal';
+import type { VideoGenerationFormData, VideoGenerationResult } from '@mvp/workflow-generation';
 
 export async function generateVideoAction(data: VideoGenerationFormData): Promise<VideoGenerationResult> {
   const result = await generateVideo(data.prompt, {
@@ -150,7 +150,7 @@ export async function generateVideoAction(data: VideoGenerationFormData): Promis
 
 ```tsx
 // app/page.tsx
-import { VideoGenerationWorkflow } from '@repo/workflow-generation';
+import { VideoGenerationWorkflow } from '@mvp/workflow-generation';
 import { generateVideoAction } from './actions';
 
 export default function Page() {

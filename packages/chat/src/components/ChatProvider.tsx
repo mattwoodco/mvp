@@ -1,7 +1,13 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
-import type { Message } from 'ai';
+import type { Message } from "ai";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  type ReactNode,
+} from "react";
 
 export interface ChatContextType {
   messages: Message[];
@@ -22,9 +28,12 @@ export interface ChatProviderProps {
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
-export function ChatProvider({ children, initialMessages = [] }: ChatProviderProps) {
+export function ChatProvider({
+  children,
+  initialMessages = [],
+}: ChatProviderProps) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -51,7 +60,7 @@ export function ChatProvider({ children, initialMessages = [] }: ChatProviderPro
 export function useChatContext() {
   const context = useContext(ChatContext);
   if (!context) {
-    throw new Error('useChatContext must be used within a ChatProvider');
+    throw new Error("useChatContext must be used within a ChatProvider");
   }
   return context;
 }

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ChatProvider } from './ChatProvider';
-import { ChatMessages } from './ChatMessages';
-import { ChatInput } from './ChatInput';
-import type { Message } from 'ai';
-import clsx from 'clsx';
+import type { Message } from "ai";
+import clsx from "clsx";
+import React from "react";
+import { ChatInput } from "./ChatInput";
+import { ChatMessages } from "./ChatMessages";
+import { ChatProvider } from "./ChatProvider";
 
 interface ChatProps {
   onSubmit: (message: string) => void;
@@ -26,15 +26,12 @@ export function Chat({
     <ChatProvider initialMessages={initialMessages}>
       <div
         className={clsx(
-          'flex flex-col h-full bg-white rounded-lg shadow-lg',
-          className
+          "flex flex-col h-full bg-white rounded-lg shadow-lg",
+          className,
         )}
       >
-        <ChatMessages className={clsx('flex-1', messagesClassName)} />
-        <ChatInput
-          onSubmit={onSubmit}
-          className={inputClassName}
-        />
+        <ChatMessages className={clsx("flex-1", messagesClassName)} />
+        <ChatInput onSubmit={onSubmit} className={inputClassName} />
       </div>
     </ChatProvider>
   );

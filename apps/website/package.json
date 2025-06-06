@@ -14,17 +14,23 @@
     "test:watch": "bun test --watch"
   },
   "dependencies": {
-    "@mvp/ui": "workspace:*",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
     "@mvp/database": "workspace:*",
-    "@repo/ai": "workspace:*",
-    "@repo/chat": "workspace:*",
-    "@repo/workflow-generation": "workspace:*",
+    "@mvp/ai": "workspace:*",
+    "@mvp/chat": "workspace:*",
+    "@mvp/workflow-generation": "workspace:*",
+    "@mvp/auth": "workspace:*",
+    "@mvp/markdown": "workspace:*",
+    "@mvp/ui": "workspace:*",
+    "@next/mdx": "^15.3.0",
     "@vercel/blob": "^0.22.3",
+    "lucide-react": "^0.468.0",
+    "next": "15.3.3",
+    "next-themes": "^0.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "next": "15.3.3",
-    "sonner": "^1.7.2",
-    "lucide-react": "^0.468.0"
+    "sonner": "^1.7.2"
   },
   "devDependencies": {
     "@mvp/tsconfig": "workspace:*",
@@ -32,7 +38,9 @@
     "@types/node": "^22.15.29",
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.5",
+    "@types/mdx": "^2.0.10",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "tailwindcss": "^4"
   }
 }

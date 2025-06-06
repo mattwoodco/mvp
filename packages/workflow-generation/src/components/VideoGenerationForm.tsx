@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { VideoGenerationFormData, videoGenerationSchema } from '../types';
-import { Video, Loader2 } from 'lucide-react';
-import clsx from 'clsx';
+import { zodResolver } from "@hookform/resolvers/zod";
+import clsx from "clsx";
+import { Loader2, Video } from "lucide-react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { type VideoGenerationFormData, videoGenerationSchema } from "../types";
 
 interface VideoGenerationFormProps {
   onSubmit: (data: VideoGenerationFormData) => void | Promise<void>;
@@ -13,7 +13,11 @@ interface VideoGenerationFormProps {
   className?: string;
 }
 
-export function VideoGenerationForm({ onSubmit, isGenerating, className }: VideoGenerationFormProps) {
+export function VideoGenerationForm({
+  onSubmit,
+  isGenerating,
+  className,
+}: VideoGenerationFormProps) {
   const {
     register,
     handleSubmit,
@@ -21,19 +25,25 @@ export function VideoGenerationForm({ onSubmit, isGenerating, className }: Video
   } = useForm<VideoGenerationFormData>({
     resolver: zodResolver(videoGenerationSchema),
     defaultValues: {
-      aspectRatio: '16:9',
-      duration: '8s',
+      aspectRatio: "16:9",
+      duration: "8s",
     },
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={clsx('space-y-6', className)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={clsx("space-y-6", className)}
+    >
       <div>
-        <label htmlFor="prompt" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="prompt"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Video Prompt
         </label>
         <textarea
-          {...register('prompt')}
+          {...register("prompt")}
           id="prompt"
           rows={4}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -46,11 +56,14 @@ export function VideoGenerationForm({ onSubmit, isGenerating, className }: Video
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="aspectRatio" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="aspectRatio"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Aspect Ratio
           </label>
           <select
-            {...register('aspectRatio')}
+            {...register("aspectRatio")}
             id="aspectRatio"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -60,11 +73,14 @@ export function VideoGenerationForm({ onSubmit, isGenerating, className }: Video
         </div>
 
         <div>
-          <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-2">
+          <label
+            htmlFor="duration"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
             Duration
           </label>
           <select
-            {...register('duration')}
+            {...register("duration")}
             id="duration"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -74,11 +90,14 @@ export function VideoGenerationForm({ onSubmit, isGenerating, className }: Video
       </div>
 
       <div>
-        <label htmlFor="style" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="style"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Style (optional)
         </label>
         <input
-          {...register('style')}
+          {...register("style")}
           id="style"
           type="text"
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -87,11 +106,14 @@ export function VideoGenerationForm({ onSubmit, isGenerating, className }: Video
       </div>
 
       <div>
-        <label htmlFor="cameraMotion" className="block text-sm font-medium text-gray-700 mb-2">
+        <label
+          htmlFor="cameraMotion"
+          className="block text-sm font-medium text-gray-700 mb-2"
+        >
           Camera Motion (optional)
         </label>
         <input
-          {...register('cameraMotion')}
+          {...register("cameraMotion")}
           id="cameraMotion"
           type="text"
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -103,8 +125,8 @@ export function VideoGenerationForm({ onSubmit, isGenerating, className }: Video
         type="submit"
         disabled={isGenerating}
         className={clsx(
-          'w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed',
-          'transition-colors duration-200'
+          "w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed",
+          "transition-colors duration-200",
         )}
       >
         {isGenerating ? (

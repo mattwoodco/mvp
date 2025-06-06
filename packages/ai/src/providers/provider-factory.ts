@@ -1,24 +1,27 @@
-import type { AIProviders, SupportedProvider } from '../types';
-import { createOpenAIProvider } from './openai';
-import { createGoogleVertexProvider } from './google-vertex';
-import { createMistralProvider } from './mistral';
-import { createOllamaProvider } from './ollama';
-import { createCerebrasProvider } from './cerebras';
-import { createFalProvider } from './fal';
+import type { AIProviders, SupportedProvider } from "../types";
+import { createCerebrasProvider } from "./cerebras";
+import { createFalProvider } from "./fal";
+import { createGoogleVertexProvider } from "./google-vertex";
+import { createMistralProvider } from "./mistral";
+import { createOllamaProvider } from "./ollama";
+import { createOpenAIProvider } from "./openai";
 
-export function createProvider(provider: SupportedProvider, config?: AIProviders[SupportedProvider]) {
+export function createProvider(
+  provider: SupportedProvider,
+  config?: AIProviders[SupportedProvider],
+) {
   switch (provider) {
-    case 'openai':
+    case "openai":
       return createOpenAIProvider(config);
-    case 'google':
+    case "google":
       return createGoogleVertexProvider(config);
-    case 'mistral':
+    case "mistral":
       return createMistralProvider(config);
-    case 'ollama':
+    case "ollama":
       return createOllamaProvider(config);
-    case 'cerebras':
+    case "cerebras":
       return createCerebrasProvider(config);
-    case 'fal':
+    case "fal":
       return createFalProvider(config);
     default:
       throw new Error(`Unsupported provider: ${provider}`);

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Download, Play } from 'lucide-react';
-import clsx from 'clsx';
+import clsx from "clsx";
+import { Download, Play } from "lucide-react";
+import React from "react";
 
 interface VideoPlayerProps {
   videoUrl: string;
@@ -12,28 +12,29 @@ interface VideoPlayerProps {
 
 export function VideoPlayer({ videoUrl, className, title }: VideoPlayerProps) {
   const handleDownload = () => {
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = videoUrl;
-    link.download = title || 'generated-video.mp4';
+    link.download = title || "generated-video.mp4";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   return (
-    <div className={clsx('relative rounded-lg overflow-hidden shadow-lg', className)}>
-      <video
-        src={videoUrl}
-        controls
-        autoPlay
-        loop
-        className="w-full h-full"
-      >
+    <div
+      className={clsx(
+        "relative rounded-lg overflow-hidden shadow-lg",
+        className,
+      )}
+    >
+      <video src={videoUrl} controls autoPlay loop className="w-full h-full">
+        <track kind="captions" />
         Your browser does not support the video tag.
       </video>
-      
+
       <div className="absolute top-2 right-2">
         <button
+          type="button"
           onClick={handleDownload}
           className="p-2 bg-white bg-opacity-80 rounded-full hover:bg-opacity-100 transition-all duration-200"
           title="Download video"
