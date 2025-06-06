@@ -3,6 +3,9 @@
   "workspaces": {
     "": {
       "name": "mvp2",
+      "dependencies": {
+        "better-auth": "^1.2.8",
+      },
       "devDependencies": {
         "@biomejs/biome": "^1.9.4",
         "@manypkg/cli": "^0.24.0",
@@ -68,7 +71,7 @@
       "version": "1.0.0",
       "dependencies": {
         "bcrypt-ts": "^5.0.2",
-        "better-auth": "^1.0.5",
+        "better-auth": "^1.2.8",
         "twilio": "^5.0.0",
         "zod": "^3.23.8",
       },

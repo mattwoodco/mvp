@@ -49,12 +49,16 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, token, url }) => {
-      const { sendMagicLinkEmail } = await import("@mvp/email");
-      await sendMagicLinkEmail({
-        email: user.email,
-        token,
-        url,
-      });
+      try {
+        const { sendMagicLinkEmail } = await import("@mvp/email");
+        await sendMagicLinkEmail({
+          email: user.email,
+          token,
+          url,
+        });
+      } catch (error) {
+        console.error("Failed to send verification email:", error);
+      }
     },
   },
   session: {
@@ -64,8 +68,12 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async (params: MagicLinkParams) => {
-        const { sendMagicLinkEmail } = await import("@mvp/email");
-        await sendMagicLinkEmail(params);
+        try {
+          const { sendMagicLinkEmail } = await import("@mvp/email");
+          await sendMagicLinkEmail(params);
+        } catch (error) {
+          console.error("Failed to send magic link:", error);
+        }
       },
     }),
     twoFactor({
