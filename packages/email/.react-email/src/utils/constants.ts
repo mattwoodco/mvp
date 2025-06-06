@@ -1,5 +1,5 @@
 export const tabTransition = {
-  type: "spring",
+  type: 'spring',
   stiffness: 2000,
   damping: 80,
   mass: 1,

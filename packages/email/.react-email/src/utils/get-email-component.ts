@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import path from "node:path";
-import vm from "node:vm";
-import type { render } from "@react-email/render";
-import { type BuildFailure, type OutputFile, build } from "esbuild";
-import type React from "react";
-import type { RawSourceMap } from "source-map-js";
-import { renderingUtilitiesExporter } from "./esbuild/renderring-utilities-exporter";
-import { improveErrorWithSourceMap } from "./improve-error-with-sourcemap";
-import { staticNodeModulesForVM } from "./static-node-modules-for-vm";
-import type { EmailTemplate as EmailComponent } from "./types/email-template";
-import type { ErrorObject } from "./types/error-object";
+import path from 'node:path';
+import vm from 'node:vm';
+import type { render } from '@react-email/render';
+import { type BuildFailure, type OutputFile, build } from 'esbuild';
+import type React from 'react';
+import type { RawSourceMap } from 'source-map-js';
+import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
+import { improveErrorWithSourceMap } from './improve-error-with-sourcemap';
+import { staticNodeModulesForVM } from './static-node-modules-for-vm';
+import type { EmailTemplate as EmailComponent } from './types/email-template';
+import type { ErrorObject } from './types/error-object';
 
 export const getEmailComponent = async (
   emailPath: string,
@@ -31,18 +31,18 @@ export const getEmailComponent = async (
       bundle: true,
       entryPoints: [emailPath],
       plugins: [renderingUtilitiesExporter([emailPath])],
-      platform: "node",
+      platform: 'node',
       write: false,
 
-      format: "cjs",
-      jsx: "automatic",
-      logLevel: "silent",
+      format: 'cjs',
+      jsx: 'automatic',
+      logLevel: 'silent',
       // allows for using jsx on a .js file
       loader: {
-        ".js": "jsx",
+        '.js': 'jsx',
       },
-      outdir: "stdout", // just a stub for esbuild, it won't actually write to this folder
-      sourcemap: "external",
+      outdir: 'stdout', // just a stub for esbuild, it won't actually write to this folder
+      sourcemap: 'external',
     });
     outputFiles = buildData.outputFiles;
   } catch (exception) {
@@ -89,8 +89,8 @@ export const getEmailComponent = async (
     __dirname: path.dirname(emailPath),
     require: (specifiedModule: string) => {
       let m = specifiedModule;
-      if (specifiedModule.startsWith("node:")) {
-        m = m.split(":")[1]!;
+      if (specifiedModule.startsWith('node:')) {
+        m = m.split(':')[1]!;
       }
 
       if (m in staticNodeModulesForVM) {
@@ -113,16 +113,16 @@ export const getEmailComponent = async (
   };
   const sourceMapToEmail = JSON.parse(sourceMapFile.text) as RawSourceMap;
   // because it will have a path like <tsconfigLocation>/stdout/email.js.map
-  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, "../..");
+  sourceMapToEmail.sourceRoot = path.resolve(sourceMapFile.path, '../..');
   sourceMapToEmail.sources = sourceMapToEmail.sources.map((source) =>
-    path.resolve(sourceMapFile.path, "..", source),
+    path.resolve(sourceMapFile.path, '..', source),
   );
   try {
     vm.runInNewContext(builtEmailCode, fakeContext, { filename: emailPath });
   } catch (exception) {
     const error = exception as Error;
 
-    error.stack &&= error.stack.split("at Script.runInContext (node:vm")[0];
+    error.stack &&= error.stack.split('at Script.runInContext (node:vm')[0];
 
     return {
       error: improveErrorWithSourceMap(error, emailPath, sourceMapToEmail),

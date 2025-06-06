@@ -1,11 +1,11 @@
-"use client";
-import * as React from "react";
-import { cn } from "../utils";
-import { Logo } from "./logo";
-import { Sidebar } from "./sidebar";
-import { Topbar } from "./topbar";
+'use client';
+import * as React from 'react';
+import { cn } from '../utils';
+import { Logo } from './logo';
+import { Sidebar } from './sidebar';
+import { Topbar } from './topbar';
 
-type RootProps = React.ComponentPropsWithoutRef<"div">;
+type RootProps = React.ComponentPropsWithoutRef<'div'>;
 
 interface ShellProps extends RootProps {
   markup?: string;
@@ -61,30 +61,30 @@ export const Shell = ({
       <div className="flex bg-slate-2">
         <Sidebar
           className={cn(
-            "w-screen max-w-full bg-black h-screen lg:h-auto z-50 lg:z-auto lg:max-w-[275px] fixed top-[70px] lg:top-0 left-0",
+            'w-screen max-w-full bg-black h-screen lg:h-auto z-50 lg:z-auto lg:max-w-[275px] fixed top-[70px] lg:top-0 left-0',
             {
-              "translate-x-0 lg:-translate-x-full": sidebarToggled,
-              "-translate-x-full lg:translate-x-0": !sidebarToggled,
+              'translate-x-0 lg:-translate-x-full': sidebarToggled,
+              '-translate-x-full lg:translate-x-0': !sidebarToggled,
             },
           )}
           currentEmailOpenSlug={currentEmailOpenSlug}
           style={{
-            transition: triggerTransition ? "transform 0.2s ease-in-out" : "",
+            transition: triggerTransition ? 'transform 0.2s ease-in-out' : '',
           }}
         />
 
         <main
           className={cn(
-            "absolute will-change-width h-screen w-[100vw] right-0",
+            'absolute will-change-width h-screen w-[100vw] right-0',
             {
-              "lg:translate-x-0 lg:w-[calc(100vw)]": sidebarToggled,
-              "lg:translate-x-0 lg:w-[calc(100vw-275px)]": !sidebarToggled,
+              'lg:translate-x-0 lg:w-[calc(100vw)]': sidebarToggled,
+              'lg:translate-x-0 lg:w-[calc(100vw-275px)]': !sidebarToggled,
             },
           )}
           style={{
             transition: triggerTransition
-              ? "width 0.2s ease-in-out, transform 0.2s ease-in-out"
-              : "",
+              ? 'width 0.2s ease-in-out, transform 0.2s ease-in-out'
+              : '',
           }}
         >
           {currentEmailOpenSlug && pathSeparator ? (

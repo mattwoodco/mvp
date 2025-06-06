@@ -2,7 +2,7 @@
 
 import { OTPInput, OTPInputContext } from "input-otp";
 import * as React from "react";
-import { cn } from "../lib/utils";
+import { cn } from "../utils";
 
 const InputOTP = React.forwardRef<
   React.ElementRef<typeof OTPInput>,
@@ -33,7 +33,7 @@ const InputOTPSlot = React.forwardRef<
   React.ComponentPropsWithoutRef<"div"> & { index: number }
 >(({ index, className, ...props }, ref) => {
   const inputOTPContext = React.useContext(OTPInputContext);
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index];
+  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index] || {};
 
   return (
     <div
@@ -60,7 +60,7 @@ const InputOTPSeparator = React.forwardRef<
   React.ElementRef<"div">,
   React.ComponentPropsWithoutRef<"div">
 >(({ ...props }, ref) => (
-  <div ref={ref} role="separator" {...props}>
+  <div ref={ref} {...props}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -79,4 +79,4 @@ const InputOTPSeparator = React.forwardRef<
 ));
 InputOTPSeparator.displayName = "InputOTPSeparator";
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
+export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot };
