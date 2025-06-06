@@ -143,7 +143,6 @@
       "version": "0.1.0",
       "dependencies": {
         "@mvp/database": "workspace:*",
-        "drizzle-orm": "^0.33.0",
         "zod": "^3.22.4",
       },
       "devDependencies": {

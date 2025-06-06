@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "@mvp/database": "workspace:*",
-    "zod": "^3.22.4",
-    "drizzle-orm": "^0.33.0"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/react": "^19.1.6",

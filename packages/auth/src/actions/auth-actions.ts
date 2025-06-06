@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import type { LoginActionState, RegisterActionState } from "../types";
 import { authFormSchema, registerFormSchema } from "../types";
@@ -89,7 +90,11 @@ export async function signUpWithEmailPassword(
 export async function signOutAction() {
   try {
     const { auth } = await import("../auth");
-    await auth.api.signOut();
+    await auth.api.signOut({
+      headers: {
+        cookie: (await cookies()).toString(),
+      },
+    });
   } catch (error) {
     console.error("Sign out error:", error);
   }

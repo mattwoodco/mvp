@@ -1,11 +1,12 @@
 import type {
+  InferInsertModel,
+  InferSelectModel,
   account,
   listing,
   session,
   user,
   verification,
 } from "@mvp/database";
-import type { InferInsertModel, InferSelectModel } from "drizzle-orm";
 
 export type User = InferSelectModel<typeof user>;
 export type NewUser = InferInsertModel<typeof user>;
