@@ -57,5 +57,4 @@ bun typecheck     # typecheck all workspaces
 bun test          # test all workspaces
 bun format        # format all workspaces
 bun clean         # clean root node_modules
-bun clean:workspaces  # clean all workspace builds
 ```
