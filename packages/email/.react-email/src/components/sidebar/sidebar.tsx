@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import * as Collapsible from '@radix-ui/react-collapsible';
-import * as React from 'react';
-import { useEmails } from '../../contexts/emails';
-import { cn } from '../../utils';
-import { Logo } from '../logo';
-import { SidebarDirectoryChildren } from './sidebar-directory-children';
+import * as Collapsible from "@radix-ui/react-collapsible";
+import * as React from "react";
+import { useEmails } from "../../contexts/emails";
+import { cn } from "../../utils";
+import { Logo } from "../logo";
+import { SidebarDirectoryChildren } from "./sidebar-directory-children";
 
 interface SidebarProps {
   className?: string;
@@ -22,7 +22,7 @@ export const Sidebar = ({
 
   return (
     <aside
-      className={cn('border-r flex flex-col border-slate-6', className)}
+      className={cn("border-r flex flex-col border-slate-6", className)}
       style={{ ...style }}
     >
       <div className="p-4 h-[70px] flex-shrink items-center hidden lg:flex">
