@@ -84,6 +84,75 @@ function MyVideoPlayer() {
 }
 ```
 
+### AudioGenerationWorkflow
+
+The main component for AI-powered audio generation, supporting both voice synthesis and music generation.
+
+```tsx
+import { AudioGenerationWorkflow } from '@mvp/workflow-generation';
+
+function AudioPage() {
+  const handleGenerate = async (data) => {
+    // Call your API to generate audio
+    const response = await fetch('/api/generate-audio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    
+    return response.json();
+  };
+
+  return (
+    <AudioGenerationWorkflow 
+      onGenerate={handleGenerate}
+      className="py-8"
+    />
+  );
+}
+```
+
+### AudioGenerationForm
+
+Form component for configuring audio generation parameters.
+
+```tsx
+import { AudioGenerationForm } from '@mvp/workflow-generation';
+
+function MyForm() {
+  const handleSubmit = async (data) => {
+    console.log('Form data:', data);
+    // data includes: text, type, voice, stability, genre, mood, etc.
+  };
+
+  return (
+    <AudioGenerationForm
+      onSubmit={handleSubmit}
+      isGenerating={false}
+    />
+  );
+}
+```
+
+### AudioPlayer
+
+Component for playing and downloading generated audio.
+
+```tsx
+import { AudioPlayer } from '@mvp/workflow-generation';
+
+function MyAudioPlayer() {
+  return (
+    <AudioPlayer
+      audioBase64="..." // Base64 encoded audio
+      contentType="audio/mpeg"
+      title="Generated Voice"
+      description="AI-generated voice narration"
+    />
+  );
+}
+```
+
 ## Types
 
 ### VideoGenerationFormData
@@ -115,6 +184,49 @@ interface VideoGenerationResult {
     prompt: string;
     aspectRatio: string;
     duration: string;
+    generatedAt: Date;
+  };
+}
+```
+
+### AudioGenerationFormData
+
+```typescript
+interface AudioGenerationFormData {
+  text: string;
+  type: 'voice' | 'music';
+  // Voice options
+  voice?: string;
+  language?: string;
+  emotion?: string;
+  stability?: number;
+  similarity_boost?: number;
+  // Music options
+  genre?: string;
+  mood?: string;
+  tempo?: string;
+  instruments?: string;
+  duration?: '30s' | '60s' | '2m' | '3m';
+}
+```
+
+### AudioGenerationResult
+
+```typescript
+interface AudioGenerationResult {
+  id: string;
+  audio: {
+    url?: string;
+    base64?: string;
+    content_type: string;
+    duration?: number;
+    file_size?: number;
+  };
+  metadata?: {
+    text?: string;
+    type: 'voice' | 'music';
+    voice?: string;
+    genre?: string;
     generatedAt: Date;
   };
 }
@@ -156,6 +268,54 @@ import { generateVideoAction } from './actions';
 export default function Page() {
   return (
     <VideoGenerationWorkflow onGenerate={generateVideoAction} />
+  );
+}
+```
+
+## Example with Server Action (Audio)
+
+```tsx
+// app/actions.ts
+'use server';
+
+import { generateVoice } from '@mvp/ai/providers/elevenlabs';
+import type { AudioGenerationFormData, AudioGenerationResult } from '@mvp/workflow-generation';
+
+export async function generateAudioAction(data: AudioGenerationFormData): Promise<AudioGenerationResult> {
+  if (data.type === 'voice') {
+    const result = await generateVoice(data.text, {
+      voice: data.voice,
+      stability: data.stability,
+      similarity_boost: data.similarity_boost,
+    });
+
+    return {
+      id: `audio-${Date.now()}`,
+      audio: {
+        base64: result.audio_base64,
+        content_type: result.contentType,
+      },
+      metadata: {
+        text: data.text,
+        type: 'voice',
+        voice: data.voice,
+        generatedAt: new Date(),
+      },
+    };
+  }
+  
+  // Handle music generation...
+}
+```
+
+```tsx
+// app/page.tsx
+import { AudioGenerationWorkflow } from '@mvp/workflow-generation';
+import { generateAudioAction } from './actions';
+
+export default function Page() {
+  return (
+    <AudioGenerationWorkflow onGenerate={generateAudioAction} />
   );
 }
 ```

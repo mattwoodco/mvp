@@ -22,6 +22,7 @@ This package is part of the monorepo and is available as a workspace dependency.
 - **Cerebras** - Fast inference (OpenAI-compatible)
 - **Ollama** - Local models (OpenAI-compatible)
 - **fal.ai** - Video generation (Veo 3)
+- **ElevenLabs** - Voice generation and text-to-speech
 
 ## Environment Variables
 
@@ -47,6 +48,9 @@ CEREBRAS_MODEL=llama3.1-70b
 # Ollama (local)
 OLLAMA_API_URL=http://localhost:11434/v1
 OLLAMA_MODEL=llama2
+
+# ElevenLabs
+ELEVENLABS_API_KEY=your-api-key
 
 # fal.ai
 FAL_API_KEY=your-api-key
@@ -169,4 +173,29 @@ const result = await generateObject({
 });
 
 console.log(result.object);
+```
+
+### Voice Generation with ElevenLabs
+
+```typescript
+import { generateVoice } from '@mvp/ai/providers/elevenlabs';
+
+const result = await generateVoice('Hello, world!', {
+  voice: '21m00Tcm4TlvDq8ikWAM', // Rachel voice
+  stability: 0.5,
+  similarity_boost: 0.5,
+});
+
+// Result contains base64 audio data
+console.log(result.audio_base64);
+console.log(result.contentType); // 'audio/mpeg'
+```
+
+### Getting Available Voices
+
+```typescript
+import { getVoices } from '@mvp/ai/providers/elevenlabs';
+
+const voices = await getVoices();
+console.log(voices); // Array of available voices
 ```

@@ -1,4 +1,7 @@
 export { VideoGenerationForm } from "./components/VideoGenerationForm";
-export { VideoPlayer } from "./components/VideoPlayer";
 export { VideoGenerationWorkflow } from "./components/VideoGenerationWorkflow";
-export type { VideoGenerationFormData, VideoGenerationResult } from "./types";
+export { VideoPlayer } from "./components/VideoPlayer";
+export { AudioGenerationForm } from "./components/AudioGenerationForm";
+export { AudioGenerationWorkflow } from "./components/AudioGenerationWorkflow";
+export { AudioPlayer } from "./components/AudioPlayer";
+export * from "./types";

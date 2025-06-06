@@ -13,6 +13,10 @@
     "./providers/fal": {
       "types": "./src/providers/fal.ts",
       "default": "./src/providers/fal.ts"
+    },
+    "./providers/elevenlabs": {
+      "types": "./src/providers/elevenlabs.ts",
+      "default": "./src/providers/elevenlabs.ts"
     }
   },
   "scripts": {
