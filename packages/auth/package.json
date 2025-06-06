@@ -1,0 +1,23 @@
+{
+  "name": "@mvp/auth",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "better-auth": "^1.0.5"
+  },
+  "peerDependencies": {
+    "@mvp/email": "*",
+    "next": "^15.0.0",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@mvp/database": "*",
+    "@mvp/tsconfig": "*",
+    "@types/node": "^20.0.0",
+    "next": "^15.0.0",
+    "typescript": "^5.8.3"
+  }
+}

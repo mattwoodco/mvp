@@ -10,6 +10,7 @@
     "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",
     "db:std": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:std' --",
     "db:nuke": "sh -c 'dotenv -e .env.${1:-local} -- ./packages/database/scripts/reset-db.sh' --",
+    "email:dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo run email:dev' --",
     "sync-envs": "node scripts/sync-envs.js",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
