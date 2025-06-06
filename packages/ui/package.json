@@ -9,6 +9,11 @@
     "./input-otp": "./src/components/input-otp.tsx",
     "./theme-provider": "./src/components/theme-provider.tsx",
     "./mode-toggle": "./src/components/mode-toggle.tsx",
+    "./table": "./src/components/table.tsx",
+    "./dropdown-menu": "./src/components/dropdown-menu.tsx",
+    "./tabs": "./src/components/tabs.tsx",
+    "./card": "./src/components/card.tsx",
+    "./badge": "./src/components/badge.tsx",
     "./utils": "./src/utils/index.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./postcss.config": "./postcss.config.js",
@@ -22,15 +27,17 @@
     "generate:component": "turbo gen react-component"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "input-otp": "^1.2.4",
+    "lucide-react": "^0.468.0",
+    "next-themes": "^0.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "tailwind-merge": "^3.3.0",
-    "next-themes": "^0.4.4",
-    "lucide-react": "^0.468.0"
+    "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.6",

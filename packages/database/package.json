@@ -7,7 +7,8 @@
     ".": "./src/index.ts",
     "./client": "./src/client.ts",
     "./server": "./src/server.ts",
-    "./schema": "./src/schema.ts"
+    "./schema": "./src/schema.ts",
+    "./lib/admin-queries": "./src/lib/admin-queries.ts"
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules",
