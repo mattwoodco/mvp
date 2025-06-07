@@ -1,13 +1,5 @@
-import { config } from "dotenv";
 import type { ReactElement } from "react";
 import { Resend } from "resend";
-
-config({ path: "../../.env" });
-config({ path: "../../.env.local" });
-
-if (process.env.VERCEL_ENV) {
-  config({ path: `../../.vercel/.env.${process.env.VERCEL_ENV}.local` });
-}
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
