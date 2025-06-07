@@ -1,0 +1,25 @@
+{
+  "name": "@mvp/chrome-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension to automatically save generated images from Midjourney",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo 'Chrome extension build - no build step needed'",
+    "dev": "echo 'Chrome extension dev - load as unpacked extension'",
+    "zip": "zip -r midjourney-scraper-extension.zip . -x 'node_modules/*' 'package.json' 'README.md' '*.zip'",
+    "validate": "echo 'Validating manifest...' && node -e 'JSON.parse(require(\"fs\").readFileSync(\"manifest.json\"))' && echo 'Manifest is valid JSON'"
+  },
+  "keywords": ["chrome-extension", "midjourney", "image-scraper", "automation"],
+  "author": "Your Name",
+  "license": "MIT",
+  "files": [
+    "manifest.json",
+    "background.js",
+    "content.js",
+    "config.js",
+    "popup.html",
+    "popup.js",
+    "icons/"
+  ]
+}

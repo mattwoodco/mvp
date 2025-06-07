@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midjourney Image Scraper</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 360px;
+      min-height: 400px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      margin: 0;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .status-card {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #e9ecef;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .status-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .status-label {
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    .status-value {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .status-indicator {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .status-indicator.online {
+      background: #28a745;
+    }
+
+    .status-indicator.offline {
+      background: #dc3545;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #495057;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #667eea;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+    }
+
+    .button:hover {
+      background: #5a6fd8;
+    }
+
+    .button.secondary {
+      background: #6c757d;
+    }
+
+    .button.secondary:hover {
+      background: #5a6268;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #495057;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
+    }
+
+    .settings-section {
+      border-top: 1px solid #e9ecef;
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+
+    .settings-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #495057;
+    }
+
+    .recent-images {
+      margin-top: 20px;
+    }
+
+    .recent-images-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #495057;
+    }
+
+    .image-thumbnail {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+      margin-right: 8px;
+      border: 1px solid #e9ecef;
+    }
+
+    .thumbnails-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #6c757d;
+    }
+
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .success {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎨 Midjourney Scraper</h1>
+      <p>Automatically save generated images</p>
+    </div>
+
+    <div class="content">
+      <div id="loading" class="loading">
+        Loading extension data...
+      </div>
+
+      <div id="main-content" style="display: none;">
+        <!-- Status Card -->
+        <div class="status-card">
+          <div class="status-item">
+            <span class="status-label">
+              <span id="login-indicator" class="status-indicator"></span>
+              Login Status
+            </span>
+            <span id="login-status" class="status-value">Checking...</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">Images Saved</span>
+            <span id="images-count" class="status-value">0</span>
+          </div>
+          <div class="status-item">
+            <span class="status-label">API Status</span>
+            <span id="api-status" class="status-value">Not configured</span>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <div class="control-group">
+            <label class="control-label">Auto-save Images</label>
+            <label class="toggle-switch">
+              <input type="checkbox" id="auto-save-toggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          
+          <div class="control-group">
+            <button id="open-midjourney" class="button">Open Midjourney</button>
+          </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div class="settings-section">
+          <div class="settings-title">API Configuration</div>
+          
+          <div class="input-group">
+            <label for="api-url">API Base URL</label>
+            <input type="url" id="api-url" placeholder="https://api.yourservice.com">
+          </div>
+          
+          <div class="input-group">
+            <label for="api-key">API Key</label>
+            <input type="password" id="api-key" placeholder="Your API key">
+          </div>
+          
+          <button id="save-settings" class="button">Save Settings</button>
+        </div>
+
+        <!-- Recent Images -->
+        <div class="recent-images">
+          <div class="recent-images-title">Recent Images</div>
+          <div id="thumbnails-container" class="thumbnails-container">
+            <!-- Thumbnails will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="message-container"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
