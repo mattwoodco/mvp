@@ -1,13 +1,23 @@
-export * from "./server";
+// Client exports (for components)
 export * from "./client";
-export * from "./schema";
-export * from "./plugins";
+
+// Server exports
+export * from "./server";
+
+// Hooks
 export * from "./hooks";
 
-// Re-export commonly used types and utilities from better-auth
+// Types
 export type {
   User,
   Session,
   Account,
   Verification,
 } from "better-auth";
+
+export type { Auth } from "./server";
+
+export * from "./schema";
+export * from "./plugins";
+export * from "./middleware";
+export * from "./upload";

@@ -1,4 +1,4 @@
 export * from "./client";
 export * from "./lib/mutations";
 export * from "./lib/queries";
-export * from "./schema";
+export * from "./schemas";

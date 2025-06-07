@@ -1,6 +1,8 @@
-import { getSessionCookie } from 'better-auth/cookies'
-import { type NextRequest } from 'next/server'
+import type { NextRequest } from "next/server";
+import { auth } from "./server";
 
-export function getSessionFromRequest(request: NextRequest) {
-  return getSessionCookie(request)
+export async function getSessionFromRequest(request: NextRequest) {
+  return await auth.api.getSession({
+    headers: request.headers,
+  });
 }

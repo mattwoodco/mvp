@@ -1,29 +1,36 @@
-import { betterAuth } from 'better-auth'
-import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { nextCookies } from 'better-auth/next-js'
-import { magicLink } from 'better-auth/plugins/magic-link'
-import { db } from '@mvp/database/server'
+import { db } from "@mvp/database/server";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { nextCookies } from "better-auth/next-js";
+import { magicLink } from "better-auth/plugins/magic-link";
 
-export const createAuth = (config: {
-  sendMagicLink: (params: { email: string; token: string; url: string }) => Promise<void>
-}) => {
-  return betterAuth({
-    baseURL: process.env.NEXT_PUBLIC_SITE_URL,
-    secret: process.env.BETTER_AUTH_SECRET,
-    database: drizzleAdapter(db, {
-      provider: 'pg',
-    }),
-    socialProviders: {
-      google: {
-        clientId: process.env.AUTH_GOOGLE_ID!,
-        clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-      },
+export const auth = betterAuth({
+  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
+  secret: process.env.BETTER_AUTH_SECRET,
+  database: drizzleAdapter(db, {
+    provider: "pg",
+  }),
+  emailAndPassword: {
+    enabled: true,
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.AUTH_GOOGLE_ID!,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
     },
-    plugins: [
-      magicLink({
-        sendMagicLink: config.sendMagicLink,
-      }),
-      nextCookies(),
-    ],
-  })
-}
+  },
+  plugins: [
+    magicLink({
+      sendMagicLink: async ({ email, url, token }) => {
+        // Your magic link implementation
+      },
+    }),
+    nextCookies(),
+  ],
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // 1 day
+  },
+});
+
+export type Auth = typeof auth;

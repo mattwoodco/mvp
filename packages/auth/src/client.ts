@@ -1,7 +1,8 @@
-import { createAuthClient } from 'better-auth/react'
+import { createAuthClient } from "better-auth/react";
+import type { Auth } from "./server";
 
-export const authClient = createAuthClient({
+export const authClient = createAuthClient<Auth>({
   baseURL: process.env.NEXT_PUBLIC_SITE_URL,
-})
+});
 
-export type AuthSession = typeof authClient.session
+export const { signIn, signUp, signOut, useSession, getSession } = authClient;
