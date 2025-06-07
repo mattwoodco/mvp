@@ -30,5 +30,5 @@
     "down": "cd packages/database && docker compose down && cd ../storage && docker compose down"
   },
   "type": "module",
-  "workspaces": ["packages/*", "apps/*", "packages/email/*"]
+  "workspaces": ["packages/*", "apps/*"]
 }
