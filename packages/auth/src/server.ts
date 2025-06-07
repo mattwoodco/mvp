@@ -1,4 +1,5 @@
 import { db } from "@mvp/database/server";
+import { sendMagicLinkEmail } from "@mvp/email/utils";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
@@ -27,7 +28,6 @@ export const auth = betterAuth({
           url,
           token,
         });
-        // Your magic link implementation
       },
     }),
     nextCookies(),
