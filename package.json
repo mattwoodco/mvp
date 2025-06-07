@@ -1,5 +1,5 @@
 {
-  "name": "mvp2",
+  "name": "mvp",
   "private": true,
   "type": "module",
   "workspaces": ["apps/*", "packages/*"],
