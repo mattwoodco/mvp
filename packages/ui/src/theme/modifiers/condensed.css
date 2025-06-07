@@ -1,0 +1,36 @@
+[data-modifier="condensed"] {
+  --font-family-base: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-size-base: 0.875rem;
+  --spacing-base: 0.75rem;
+  --border-radius-base: calc(var(--radius) - 2px);
+  --shadow-base: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --transition-base: all 100ms ease;
+}
+
+[data-modifier="condensed"] * {
+  letter-spacing: -0.01em;
+}
+
+[data-modifier="condensed"] .p-4,
+[data-modifier="condensed"] .px-4,
+[data-modifier="condensed"] .py-4 {
+  padding: 0.75rem;
+}
+
+[data-modifier="condensed"] .m-4,
+[data-modifier="condensed"] .mx-4,
+[data-modifier="condensed"] .my-4 {
+  margin: 0.75rem;
+}
+
+[data-modifier="condensed"] .gap-4 {
+  gap: 0.75rem;
+}
+
+[data-modifier="condensed"] .space-y-4 > * + * {
+  margin-top: 0.75rem;
+}
+
+[data-modifier="condensed"] .space-x-4 > * + * {
+  margin-left: 0.75rem;
+}

@@ -1,0 +1,45 @@
+[data-modifier="cyberpunk"] {
+  --font-family-base: "Space Grotesk", monospace;
+  --border-radius-base: 0rem;
+  --shadow-base: 0 0 0 2px currentColor;
+  --transition-base: all 100ms linear;
+}
+
+[data-modifier="cyberpunk"] * {
+  letter-spacing: 0.05em;
+}
+
+[data-modifier="cyberpunk"] button {
+  font-family: var(--font-family-base);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+[data-modifier="cyberpunk"] .shadow-sm,
+[data-modifier="cyberpunk"] .shadow,
+[data-modifier="cyberpunk"] .shadow-md,
+[data-modifier="cyberpunk"] .shadow-lg,
+[data-modifier="cyberpunk"] .hover\:shadow-lg:hover {
+  box-shadow: var(--shadow-base);
+}
+
+[data-modifier="cyberpunk"] .rounded,
+[data-modifier="cyberpunk"] .rounded-sm,
+[data-modifier="cyberpunk"] .rounded-md,
+[data-modifier="cyberpunk"] .rounded-lg,
+[data-modifier="cyberpunk"] .rounded-xl {
+  border-radius: 0;
+}
+
+[data-modifier="cyberpunk"] .border {
+  border-width: 2px;
+}
+
+[data-modifier="cyberpunk"] input,
+[data-modifier="cyberpunk"] textarea,
+[data-modifier="cyberpunk"] select {
+  font-family: var(--font-family-base);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
