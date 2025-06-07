@@ -18,6 +18,7 @@
       "dependencies": {
         "@mdx-js/loader": "^3.1.0",
         "@mdx-js/react": "^3.1.0",
+        "@mvp/auth": "workspace:*",
         "@mvp/database": "workspace:*",
         "@mvp/markdown": "workspace:*",
         "@mvp/ui": "workspace:*",
