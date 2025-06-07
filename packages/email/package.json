@@ -1,0 +1,33 @@
+{
+  "name": "@mvp/email",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "exports": {
+    "./emails/*": "./emails/*.tsx",
+    "./render": "./render.ts",
+    "./utils": "./utils/index.ts"
+  },
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "dev": "email dev -p 3003",
+    "build": "email build",
+    "start": "email start"
+  },
+  "dependencies": {
+    "@mvp/ui": "workspace:*",
+    "@react-email/components": "0.0.41",
+    "@react-email/render": "1.1.2",
+    "@react-email/tailwind": "1.0.5",
+    "date-fns": "^4.1.0",
+    "react-email": "4.0.15",
+    "resend": "^4.5.2",
+    "responsive-react-email": "^0.0.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

@@ -3,6 +3,7 @@ import { Button } from "@mvp/ui/button";
 import { ModeToggle } from "@mvp/ui/theme";
 import Link from "next/link";
 import { DeleteButton } from "./delete-button";
+import { SendFoodEmailButton } from "./send-food-email-button";
 import { UploadForm } from "./upload-form";
 
 export default async function ListingsPage() {
@@ -13,6 +14,7 @@ export default async function ListingsPage() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Listings</h1>
         <div className="flex items-center gap-4">
+          <SendFoodEmailButton />
           <ModeToggle />
           <Button asChild>
             <Link href="/listing/new">Create Listing</Link>
