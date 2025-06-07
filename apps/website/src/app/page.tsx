@@ -4,6 +4,7 @@ import Link from "next/link";
 import { DeleteButton } from "./(listings)/delete-button";
 import { SendFoodEmailButton } from "./(listings)/send-food-email-button";
 import { UploadForm } from "./(listings)/upload-form";
+import { UserSection } from "./user-section";
 
 export default async function ListingsPage() {
   const listings = await getListings();
@@ -13,6 +14,7 @@ export default async function ListingsPage() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Listings</h1>
         <div className="flex items-center gap-4">
+          <UserSection />
           <Button variant="outline" size="sm" asChild>
             <Link href="/settings/preferences">Theme Settings</Link>
           </Button>
