@@ -6,6 +6,7 @@
   "scripts": {
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build' --",
     "dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --parallel' --",
+    "dev:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --filter=@mvp/email' --",
     "db:push": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:push' --",
     "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",
     "db:std": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:std' --",
