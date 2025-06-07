@@ -1,0 +1,67 @@
+{
+  "name": "@repo/agent",
+  "version": "0.1.0",
+  "description": "Multi-chain AI agent system using Mistral SDK and Cerebras for video script generation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint . --max-warnings 0",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mistralai/mistralai": "^1.7.1",
+    "@anthropic-ai/sdk": "^0.32.0",
+    "reactflow": "^11.11.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.23.8",
+    "nanoid": "^5.0.9",
+    "p-queue": "^8.0.1",
+    "p-limit": "^5.0.0",
+    "eventemitter3": "^5.0.1",
+    "retry": "^0.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5",
+    "@types/retry": "^0.12.5",
+    "typescript": "^5.3.3",
+    "eslint": "^8.57.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js",
+      "require": "./dist/types.js"
+    },
+    "./agents": {
+      "types": "./dist/agents/index.d.ts",
+      "import": "./dist/agents/index.js",
+      "require": "./dist/agents/index.js"
+    },
+    "./tools": {
+      "types": "./dist/tools/index.d.ts",
+      "import": "./dist/tools/index.js",
+      "require": "./dist/tools/index.js"
+    },
+    "./workflows": {
+      "types": "./dist/workflows/index.d.ts",
+      "import": "./dist/workflows/index.js",
+      "require": "./dist/workflows/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js",
+      "require": "./dist/components/index.js"
+    }
+  },
+  "files": ["dist/**/*"]
+}
