@@ -2,8 +2,8 @@ import { getListings } from "@mvp/database";
 import { Button } from "@mvp/ui/button";
 import { ModeToggle } from "@mvp/ui/theme";
 import Link from "next/link";
-import { DeleteButton } from "./delete-button";
-import { UploadForm } from "./upload-form";
+import { DeleteButton } from "./(listings)/delete-button";
+import { UploadForm } from "./(listings)/upload-form";
 
 export default async function ListingsPage() {
   const listings = await getListings();
