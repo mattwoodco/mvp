@@ -1,0 +1,43 @@
+[data-modifier="elegant"] {
+  --font-family-base: "Playfair Display", serif;
+  --border-radius-base: calc(var(--radius) + 2px);
+  --shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px
+    rgb(0 0 0 / 0.1);
+  --transition-base: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-modifier="elegant"] * {
+  letter-spacing: 0.01em;
+}
+
+[data-modifier="elegant"] h1,
+[data-modifier="elegant"] h2,
+[data-modifier="elegant"] h3,
+[data-modifier="elegant"] h4,
+[data-modifier="elegant"] h5,
+[data-modifier="elegant"] h6 {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+}
+
+[data-modifier="elegant"] button {
+  font-family: var(--font-family-base);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+[data-modifier="elegant"] .shadow-sm,
+[data-modifier="elegant"] .shadow,
+[data-modifier="elegant"] .shadow-md,
+[data-modifier="elegant"] .shadow-lg,
+[data-modifier="elegant"] .hover\:shadow-lg:hover {
+  box-shadow: var(--shadow-base);
+}
+
+[data-modifier="elegant"] .rounded,
+[data-modifier="elegant"] .rounded-sm,
+[data-modifier="elegant"] .rounded-md,
+[data-modifier="elegant"] .rounded-lg,
+[data-modifier="elegant"] .rounded-xl {
+  border-radius: var(--border-radius-base);
+}

@@ -2,16 +2,16 @@
 
 Shared UI components and theming for the MVP project.
 
-## Dark Mode
+## 🎨 Modular Theming System
 
-This package provides dark mode support using `next-themes` and Tailwind CSS.
+This package provides a powerful modular theming system that combines base themes (light/dark) with style modifiers.
 
 ### Quick Start
 
-1. **Wrap your app** with `ThemeProvider` in your root layout:
+1. **Wrap your app** with both providers in your root layout:
 
 ```tsx
-import { ThemeProvider } from "@mvp/ui/theme"
+import { ThemeProvider, ThemeModifierProvider } from "@mvp/ui/theme"
 
 export default function RootLayout({ children }) {
   return (
@@ -23,7 +23,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ThemeModifierProvider>
+            {children}
+          </ThemeModifierProvider>
         </ThemeProvider>
       </body>
     </html>
@@ -31,28 +33,69 @@ export default function RootLayout({ children }) {
 }
 ```
 
-2. **Add the mode toggle** anywhere in your app:
+2. **Add the theme switcher** anywhere in your app:
 
 ```tsx
-import { ModeToggle } from "@mvp/ui/theme"
+import { ThemeSwitcher } from "@mvp/ui/theme"
 
 export function Header() {
   return (
     <header>
-      <ModeToggle />
+      <ThemeSwitcher />
     </header>
+  )
+}
+```
+
+### Theme Modifiers
+
+Choose from 5 distinct style modifiers that work with both light and dark themes:
+
+- **Default** - Clean, standard design
+- **Condensed** - Compact spacing and typography
+- **Minimal** - Sharp edges, no shadows, clean lines
+- **Elegant** - Serif fonts, sophisticated spacing
+- **Natural** - Organic colors, soft rounded elements
+- **Cyberpunk** - Neon colors, futuristic monospace
+
+### Components
+
+- `ThemeProvider` - Base theme provider (light/dark)
+- `ThemeModifierProvider` - Modifier provider (condensed, minimal, etc.)
+- `ThemeSwitcher` - Combined theme + modifier selector
+
+- `ThemeDemo` - Showcase component
+
+### Hooks
+
+```tsx
+import { useTheme, useThemeModifier } from "@mvp/ui/theme"
+
+function MyComponent() {
+  const { theme, setTheme } = useTheme()
+  const { modifier, setModifier } = useThemeModifier()
+  
+  return (
+    <div>
+      Current: {theme}-{modifier}
+    </div>
   )
 }
 ```
 
 ### How it Works
 
-- Uses CSS variables defined in `src/globals.css`
+- Uses CSS variables and `data-modifier` attributes
 - Automatically respects system preferences
-- Persists user choice in localStorage
-- Applies `.dark` class to `<html>` element
-- All UI components automatically adapt to the theme
+- Persists choices in localStorage
+- Modular CSS files for each modifier
+- Zero runtime overhead
 
-### Customizing Colors
+### Customizing
 
-Edit the CSS variables in `src/globals.css` to customize your theme colors.
+Each modifier is defined in its own CSS file:
+- `src/components/theme/modifiers/condensed.css`
+- `src/components/theme/modifiers/minimal.css`
+- etc.
+
+Edit these files to customize the modifiers or create new ones.

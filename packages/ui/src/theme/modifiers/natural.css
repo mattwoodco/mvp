@@ -1,0 +1,35 @@
+[data-modifier="natural"] {
+  --font-family-base: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --border-radius-base: calc(var(--radius) + 4px);
+  --shadow-base: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --transition-base: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-modifier="natural"] * {
+  letter-spacing: -0.01em;
+}
+
+[data-modifier="natural"] button {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+[data-modifier="natural"] .shadow-sm,
+[data-modifier="natural"] .shadow,
+[data-modifier="natural"] .shadow-md,
+[data-modifier="natural"] .shadow-lg,
+[data-modifier="natural"] .hover\:shadow-lg:hover {
+  box-shadow: var(--shadow-base);
+}
+
+[data-modifier="natural"] .rounded,
+[data-modifier="natural"] .rounded-sm,
+[data-modifier="natural"] .rounded-md,
+[data-modifier="natural"] .rounded-lg,
+[data-modifier="natural"] .rounded-xl {
+  border-radius: var(--border-radius-base);
+}
+
+[data-modifier="natural"] .border {
+  border-width: 1.5px;
+}

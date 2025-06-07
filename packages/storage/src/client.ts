@@ -13,6 +13,8 @@ import {
 } from "@vercel/blob/client";
 import { uploadBrowser } from "./minio-browser";
 
+declare const window: Window & typeof globalThis;
+
 const token = process.env.BLOB_READ_WRITE_TOKEN;
 
 function isLocalEnv(): boolean {
@@ -30,6 +32,10 @@ function checkToken() {
 
 function createPath(filename: string) {
   return `storage/${filename}`;
+}
+
+function isBrowser(): boolean {
+  return typeof window !== "undefined";
 }
 
 /**
@@ -66,9 +72,8 @@ export async function upload(
 ): Promise<string | null> {
   console.log("Storage upload debugging:");
   console.log("  - NEXT_PUBLIC_APP_ENV:", process.env.NEXT_PUBLIC_APP_ENV);
-  console.log("  - NEXT_PUBLIC_APP_ENV:", process.env.NEXT_PUBLIC_APP_ENV);
   console.log("  - isLocalEnv():", isLocalEnv());
-  console.log("  - typeof window:", typeof window);
+  console.log("  - isBrowser():", isBrowser());
 
   if (isLocalEnv()) {
     console.log("Using minio browser upload");
