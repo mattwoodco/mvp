@@ -1,0 +1,5 @@
+{
+  "extends": "@mvp/tsconfig/react-library.json",
+  "include": ["emails", "components", "utils"],
+  "exclude": ["node_modules"]
+}

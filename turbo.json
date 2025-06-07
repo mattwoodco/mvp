@@ -23,7 +23,8 @@
         ".expo/**",
         "dist/**",
         "build/**",
-        "lib/**"
+        "lib/**",
+        ".react-email/**"
       ]
     },
     "dev": {

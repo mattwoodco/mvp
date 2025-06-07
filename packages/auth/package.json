@@ -21,6 +21,7 @@
   "dependencies": {
     "better-auth": "^1.2.8",
     "@mvp/database": "workspace:*",
+    "@mvp/email": "workspace:*",
     "drizzle-orm": "^0.33.0"
   },
   "peerDependencies": {

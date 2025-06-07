@@ -2,6 +2,7 @@ import { getListings } from "@mvp/database";
 import { Button } from "@mvp/ui/button";
 import Link from "next/link";
 import { DeleteButton } from "./(listings)/delete-button";
+import { SendFoodEmailButton } from "./(listings)/send-food-email-button";
 import { UploadForm } from "./(listings)/upload-form";
 
 export default async function ListingsPage() {
@@ -15,6 +16,8 @@ export default async function ListingsPage() {
           <Button variant="outline" size="sm" asChild>
             <Link href="/settings/preferences">Theme Settings</Link>
           </Button>
+          <SendFoodEmailButton />
+
           <Button asChild>
             <Link href="/listing/new">Create Listing</Link>
           </Button>
