@@ -1,0 +1,27 @@
+{
+  "name": "@mvp/markdown",
+  "private": true,
+  "version": "1.0.0",
+  "files": ["src"],
+  "exports": {
+    "./components": "./src/components/mdx-components.tsx",
+    "./layout": "./src/components/markdown-layout.tsx"
+  },
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mvp/ui": "workspace:*",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.5",
+    "@mvp/tsconfig": "workspace:*",
+    "typescript": "^5.8.3"
+  }
+}
