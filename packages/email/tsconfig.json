@@ -1,13 +1,5 @@
 {
-  "extends": "@mvp/tsconfig/base.json",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2022",
-    "skipLibCheck": true
-  },
-  "include": ["src/**/*"],
+  "extends": "@mvp/tsconfig/react-library.json",
+  "include": ["emails", "components", "utils"],
   "exclude": ["node_modules"]
 }
