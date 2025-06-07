@@ -159,6 +159,6 @@ export default Page;
 
 export function generateStaticParams() { 
   return Promise.resolve(
-    [{"slug":["magic-link"]}]
+    [{"slug":["food"]},{"slug":["magic-link"]}]
   );
 }

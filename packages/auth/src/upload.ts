@@ -25,13 +25,10 @@ export async function uploadAvatar(file: File) {
     })
     .where(eq(user.id, session.user.id));
 
-  await auth.api.updateSession({
+  await auth.api.updateUser({
     headers: await headers(),
-    data: {
-      user: {
-        ...session.user,
-        image: imageUrl,
-      },
+    body: {
+      image: imageUrl,
     },
   });
 

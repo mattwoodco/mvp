@@ -1,4 +1,4 @@
-import { MagicLinkEmail } from "../emails/magic-link";
+import MagicLinkEmail from "../emails/magic-link";
 import { sendEmail } from "./send-email";
 
 type MagicLinkParams = {
