@@ -2,7 +2,7 @@
   "name": "mvp",
   "private": true,
   "type": "module",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": ["packages/*", "apps/*", "packages/email/*"],
   "scripts": {
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build' --",
     "dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --parallel' --",
@@ -11,7 +11,6 @@
     "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",
     "db:std": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:std' --",
     "db:nuke": "sh -c 'dotenv -e .env.${1:-local} -- ./packages/database/scripts/reset-db.sh' --",
-    "sync-envs": "node scripts/sync-envs.js",
     "clean": "git clean -xdf node_modules",
     "clean:workspaces": "turbo clean",
     "format": "biome format --write .",

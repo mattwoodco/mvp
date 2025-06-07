@@ -7,3 +7,4 @@ export { sendMagicLinkEmail } from "./utils/magic-link";
 
 // Email templates
 export { MagicLinkEmail } from "./emails/magic-link";
+export { WelcomeEmail } from "./emails/welcome";

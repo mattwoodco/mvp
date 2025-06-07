@@ -1,20 +1,35 @@
 {
   "name": "@mvp/auth",
-  "version": "0.0.1",
   "private": true,
-  "type": "module",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "version": "1.0.0",
+  "files": ["src/**"],
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./server": "./src/server.ts",
+    "./schema": "./src/schema/index.ts",
+    "./plugins": "./src/plugins/index.ts",
+    "./middleware": "./src/middleware.ts",
+    "./hooks": "./src/hooks.ts"
+  },
   "scripts": {
+    "clean": "git clean -xdf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "better-auth": "^1.2.8",
     "@mvp/database": "workspace:*",
     "@mvp/email": "workspace:*",
-    "better-auth": "^1.0.26"
+    "drizzle-orm": "^0.33.0"
+  },
+  "peerDependencies": {
+    "next": "^14.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.6",
+    "@mvp/tsconfig": "workspace:*",
+    "@types/node": "^20.0.0",
     "typescript": "^5.8.3"
   }
 }
