@@ -1,5 +1,6 @@
 import { getListings } from "@mvp/database";
 import { Button } from "@mvp/ui/button";
+import { ModeToggle } from "@mvp/ui/theme";
 import Link from "next/link";
 import { DeleteButton } from "./delete-button";
 import { UploadForm } from "./upload-form";
@@ -11,9 +12,12 @@ export default async function ListingsPage() {
     <div className="container mx-auto py-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Listings</h1>
-        <Button asChild>
-          <Link href="/listing/new">Create Listing</Link>
-        </Button>
+        <div className="flex items-center gap-4">
+          <ModeToggle />
+          <Button asChild>
+            <Link href="/listing/new">Create Listing</Link>
+          </Button>
+        </div>
       </div>
 
       <div className="mb-8">

@@ -9,7 +9,8 @@
     "./utils": "./src/utils/index.ts",
     "./tailwind.config": "./tailwind.config.ts",
     "./postcss.config": "./postcss.config.js",
-    "./globals.css": "./src/globals.css"
+    "./globals.css": "./src/globals.css",
+    "./theme": "./src/components/theme.tsx"
   },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
@@ -22,6 +23,8 @@
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "next-themes": "^0.4.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tailwind-merge": "^3.3.0"
