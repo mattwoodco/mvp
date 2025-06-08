@@ -30,19 +30,15 @@ export function useRequireAuth() {
 }
 
 export function useAvatarUpload() {
-  const { user } = useRequireAuth();
+  const { user } = useAuth();
 
-  const handleUpload = useCallback(async (file: File) => {
-    if (!file.type.startsWith("image/")) {
-      throw new Error("File must be an image");
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      throw new Error("File size must be less than 5MB");
-    }
-
-    return await uploadAvatar(file);
-  }, []);
+  const handleUpload = useCallback(
+    async (file: File) => {
+      if (!user) throw new Error("Unauthorized");
+      return uploadAvatar(file);
+    },
+    [user],
+  );
 
   return { handleUpload, currentAvatar: user?.image };
 }

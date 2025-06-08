@@ -28,20 +28,22 @@ export function UploadForm() {
   };
 
   return (
-    <div className="border rounded-lg p-6 bg-gray-50">
-      <h3 className="text-lg font-semibold mb-4">Upload File</h3>
+    <div className="border border-border rounded-lg p-6 bg-card">
+      <h3 className="text-lg font-semibold text-foreground mb-4">
+        Upload File
+      </h3>
 
       <div className="space-y-4">
         <div>
           <input
             type="file"
             onChange={(e) => setFile(e.target.files?.[0] || null)}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
           />
         </div>
 
         {file && (
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-muted-foreground">
             Selected: {file.name} ({(file.size / 1024).toFixed(1)} KB)
           </div>
         )}
@@ -55,8 +57,8 @@ export function UploadForm() {
         </Button>
 
         {uploadedUrl && (
-          <div className="p-3 bg-green-50 rounded border border-green-200">
-            <p className="text-sm text-green-700 font-medium">
+          <div className="p-3 bg-primary/5 rounded border border-primary/20">
+            <p className="text-sm text-primary font-medium">
               Upload successful!
             </p>
             {uploadedFileType?.startsWith("image/") ? (
@@ -67,7 +69,7 @@ export function UploadForm() {
                     alt="Uploaded file"
                     width={400}
                     height={300}
-                    className="max-w-full h-auto max-h-64 rounded border object-contain"
+                    className="max-w-full h-auto max-h-64 rounded border border-border object-contain"
                     unoptimized
                   />
                 </div>
@@ -75,7 +77,7 @@ export function UploadForm() {
                   href={uploadedUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block mt-2 text-sm text-blue-600 hover:underline break-all"
+                  className="block mt-2 text-sm text-primary hover:underline break-all"
                 >
                   {uploadedUrl}
                 </a>
@@ -85,7 +87,7 @@ export function UploadForm() {
                 href={uploadedUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-blue-600 hover:underline break-all"
+                className="text-sm text-primary hover:underline break-all"
               >
                 {uploadedUrl}
               </a>

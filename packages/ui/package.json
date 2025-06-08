@@ -12,7 +12,8 @@
     "./globals.css": "./src/globals.css",
     "./theme": "./src/theme/index.ts",
     "./theme-demo": "./src/theme/theme-demo.tsx",
-    "./dropdown-menu": "./src/components/dropdown-menu.tsx"
+    "./dropdown-menu": "./src/components/dropdown-menu.tsx",
+    "./layout": "./src/components/layout/index.ts"
   },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",

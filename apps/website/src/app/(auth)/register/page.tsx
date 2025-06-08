@@ -1,71 +1,77 @@
 "use client";
 
-import { magicLink, signIn } from "@mvp/auth/client";
+import { signIn, signUp } from "@mvp/auth/client";
 import { Button } from "@mvp/ui/button";
 import { Input } from "@mvp/ui/input";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const DEFAULT_EMAIL =
   process.env.NODE_ENV === "development" ? "matt@mattwood.co" : "";
 
-function LoginContent() {
+export default function RegisterPage() {
   const [email, setEmail] = useState(DEFAULT_EMAIL);
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [magicLinkEmail, setMagicLinkEmail] = useState(DEFAULT_EMAIL);
+  const [magicLinkName, setMagicLinkName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMagicLinkLoading, setIsMagicLinkLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"email-password" | "magic-link">(
     "email-password",
   );
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from") || "/";
 
-  const handleEmailPasswordSignIn = async (e: React.FormEvent) => {
+  const handleEmailPasswordSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const result = await signIn.email({
+      const result = await signUp.email({
         email,
         password,
-        callbackURL: from,
+        name,
+        callbackURL: "/",
       });
 
       if (result.error) {
-        toast.error(result.error.message || "Failed to sign in");
+        toast.error(result.error.message || "Failed to sign up");
       } else {
-        toast.success("Signed in successfully!");
+        toast.success("Account created successfully!");
         setEmail("");
         setPassword("");
-        router.push(from);
+        setName("");
+        router.push("/");
       }
     } catch (error) {
-      console.error("Signin error:", error);
-      toast.error("Failed to sign in. Please try again.");
+      console.error("Signup error:", error);
+      toast.error("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleMagicLinkSignIn = async (e: React.FormEvent) => {
+  const handleMagicLinkSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsMagicLinkLoading(true);
 
     try {
       const result = await signIn.magicLink({
         email: magicLinkEmail,
-        callbackURL: from,
+        name: magicLinkName,
+        callbackURL: "/",
       });
 
       if (result.error) {
         toast.error(result.error.message || "Failed to send magic link");
       } else {
-        toast.success("Magic link sent! Check your email.");
+        toast.success(
+          "Magic link sent! Check your email to complete registration.",
+        );
         setMagicLinkEmail("");
+        setMagicLinkName("");
       }
     } catch (error) {
       console.error("Magic link error:", error);
@@ -80,10 +86,10 @@ function LoginContent() {
       <div className="w-full max-w-md p-6 bg-card border border-border rounded-lg shadow-md">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-center text-foreground">
-            Sign In
+            Create Account
           </h1>
           <p className="mt-2 text-sm text-center text-muted-foreground">
-            Choose your preferred method to sign in to your account
+            Choose your preferred method to create your account
           </p>
         </div>
 
@@ -115,7 +121,23 @@ function LoginContent() {
         </div>
 
         {activeTab === "email-password" && (
-          <form onSubmit={handleEmailPasswordSignIn} className="space-y-4">
+          <form onSubmit={handleEmailPasswordSignUp} className="space-y-4">
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-foreground mb-1"
+              >
+                Full Name
+              </label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Enter your full name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
             <div>
               <label
                 htmlFor="email"
@@ -142,20 +164,37 @@ function LoginContent() {
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Create a password (min. 8 characters)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                minLength={8}
               />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing in..." : "Sign In"}
+              {isLoading ? "Creating account..." : "Create Account"}
             </Button>
           </form>
         )}
 
         {activeTab === "magic-link" && (
-          <form onSubmit={handleMagicLinkSignIn} className="space-y-4">
+          <form onSubmit={handleMagicLinkSignUp} className="space-y-4">
+            <div>
+              <label
+                htmlFor="magic-name"
+                className="block text-sm font-medium text-foreground mb-1"
+              >
+                Full Name
+              </label>
+              <Input
+                id="magic-name"
+                type="text"
+                placeholder="Enter your full name"
+                value={magicLinkName}
+                onChange={(e) => setMagicLinkName(e.target.value)}
+                required
+              />
+            </div>
             <div>
               <label
                 htmlFor="magic-email"
@@ -184,27 +223,13 @@ function LoginContent() {
 
         <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground">
-            Don't have an account?{" "}
-            <Link href="/register" className="text-primary hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <Link href="/login" className="text-primary hover:underline">
+              Sign in
             </Link>
           </p>
         </div>
       </div>
     </div>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center text-foreground">
-          Loading...
-        </div>
-      }
-    >
-      <LoginContent />
-    </Suspense>
   );
 }
