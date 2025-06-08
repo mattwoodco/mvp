@@ -27,7 +27,15 @@
     "db:up": "cd packages/database && docker compose up -d",
     "storage:up": "cd packages/storage && docker compose up -d",
     "up": "bun run db:up && bun run storage:up",
-    "down": "cd packages/database && docker compose down && cd ../storage && docker compose down"
+    "down": "cd packages/database && docker compose down && cd ../storage && docker compose down",
+    "stripe:setup": "bun scripts/setup-stripe.ts",
+    "stripe:refresh": "bun scripts/stripe-refresh.ts",
+    "stripe:nuke": "bun scripts/stripe-nuke.ts",
+    "stripe:listen": "stripe listen --forward-to localhost:3000/api/stripe/webhooks",
+    "stripe:products": "stripe products list",
+    "stripe:prices": "stripe prices list",
+    "stripe:customers": "stripe customers list",
+    "stripe:dashboard": "stripe open dashboard"
   },
   "type": "module",
   "workspaces": ["packages/*", "apps/*"]
