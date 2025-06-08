@@ -3,6 +3,8 @@ import { CombinedThemeProvider } from "@mvp/ui/theme";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { MainLayout } from "@mvp/ui/layout";
+import { UserSection } from "./user-section";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <CombinedThemeProvider>{children}</CombinedThemeProvider>
+        <CombinedThemeProvider>
+          <MainLayout userSection={<UserSection />}>{children}</MainLayout>
+        </CombinedThemeProvider>
       </body>
     </html>
   );

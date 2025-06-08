@@ -12,20 +12,22 @@ export default function ProfilePage() {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleAvatarUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File size must be less than 5MB");
+      return;
+    }
 
     setIsUploading(true);
     try {
-      const newAvatarUrl = await handleUpload(file);
-      toast.success("Avatar uploaded successfully!");
+      await handleUpload(file);
+      toast.success("Avatar updated successfully");
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Failed to upload avatar";
-      toast.error(errorMessage);
+      console.error("Upload error:", error);
+      toast.error("Failed to upload avatar");
     } finally {
       setIsUploading(false);
     }
@@ -40,8 +42,8 @@ export default function ProfilePage() {
       <div className="container mx-auto py-12">
         <div className="max-w-2xl mx-auto">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto" />
-            <p className="mt-4 text-gray-600">Loading profile...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-foreground mx-auto" />
+            <p className="mt-4 text-muted-foreground">Loading profile...</p>
           </div>
         </div>
       </div>
@@ -52,10 +54,10 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto py-12">
         <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl font-bold text-foreground mb-4">
             Access Denied
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             You need to be logged in to view this page.
           </p>
         </div>
@@ -66,19 +68,19 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto py-12">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white border border-gray-200 rounded-lg shadow-md p-6">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="bg-card border border-border rounded-lg shadow-md p-6">
+          <h1 className="text-2xl font-bold text-foreground mb-6">
             Profile Settings
           </h1>
 
           {/* Avatar Section */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="text-lg font-semibold text-foreground mb-4">
               Profile Picture
             </h2>
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <div className="w-20 h-20 rounded-full bg-gray-200 overflow-hidden border-2 border-gray-300">
+                <div className="w-20 h-20 rounded-full bg-muted overflow-hidden border-2 border-border">
                   {currentAvatar ? (
                     <img
                       src={currentAvatar}
@@ -86,7 +88,7 @@ export default function ProfilePage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-500">
+                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                       <svg
                         className="w-8 h-8"
                         fill="none"
@@ -112,7 +114,7 @@ export default function ProfilePage() {
                 >
                   {isUploading ? "Uploading..." : "Change Avatar"}
                 </Button>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-muted-foreground mt-1">
                   JPG, PNG or GIF. Max size 5MB.
                 </p>
                 <input
@@ -128,7 +130,7 @@ export default function ProfilePage() {
 
           {/* User Information */}
           <div className="space-y-6">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold text-foreground">
               Account Information
             </h2>
 
@@ -136,7 +138,7 @@ export default function ProfilePage() {
               <div>
                 <label
                   htmlFor="user-name"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-foreground mb-1"
                 >
                   Full Name
                 </label>
@@ -145,14 +147,14 @@ export default function ProfilePage() {
                   type="text"
                   value={user.name || ""}
                   disabled
-                  className="bg-gray-50"
+                  className="bg-muted"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="user-email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-foreground mb-1"
                 >
                   Email Address
                 </label>
@@ -161,14 +163,14 @@ export default function ProfilePage() {
                   type="email"
                   value={user.email || ""}
                   disabled
-                  className="bg-gray-50"
+                  className="bg-muted"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="user-id"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-foreground mb-1"
                 >
                   User ID
                 </label>
@@ -177,13 +179,13 @@ export default function ProfilePage() {
                   type="text"
                   value={user.id || ""}
                   disabled
-                  className="bg-gray-50 font-mono text-xs"
+                  className="bg-muted font-mono text-xs"
                 />
               </div>
             </div>
 
-            <div className="pt-4 border-t border-gray-200">
-              <p className="text-sm text-gray-500">
+            <div className="pt-4 border-t border-border">
+              <p className="text-sm text-muted-foreground">
                 To update your email address or other account settings, please
                 contact support.
               </p>

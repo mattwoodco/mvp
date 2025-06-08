@@ -21,8 +21,8 @@ export function UserSection() {
   if (isLoading) {
     return (
       <div className="flex items-center gap-2">
-        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600" />
-        <span className="text-sm text-gray-600">Loading...</span>
+        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-foreground" />
+        <span className="text-sm text-muted-foreground">Loading...</span>
       </div>
     );
   }
@@ -47,12 +47,12 @@ export function UserSection() {
           <img
             src={user.image}
             alt="Profile"
-            className="w-8 h-8 rounded-full object-cover border border-gray-200"
+            className="w-8 h-8 rounded-full object-cover border border-border"
           />
         )}
         <div className="text-sm">
-          <p className="font-medium text-gray-900">{user.name || "User"}</p>
-          <p className="text-gray-500 text-xs">{user.email}</p>
+          <p className="font-medium text-foreground">{user.name || "User"}</p>
+          <p className="text-muted-foreground text-xs">{user.email}</p>
         </div>
       </div>
 
@@ -64,7 +64,7 @@ export function UserSection() {
           variant="outline"
           size="sm"
           onClick={handleLogout}
-          className="text-red-600 hover:text-red-700 hover:border-red-300"
+          className="text-destructive hover:text-destructive/90 hover:border-destructive/50"
         >
           Logout
         </Button>

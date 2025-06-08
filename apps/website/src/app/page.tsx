@@ -12,7 +12,7 @@ export default async function ListingsPage() {
   return (
     <div className="container mx-auto py-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Listings</h1>
+        <h1 className="text-3xl font-bold text-foreground">Listings</h1>
         <div className="flex items-center gap-4">
           <UserSection />
           <Button variant="outline" size="sm" asChild>
@@ -34,13 +34,13 @@ export default async function ListingsPage() {
         {listings.map((listing) => (
           <div
             key={listing.id}
-            className="border rounded-lg p-4 hover:shadow-lg transition-shadow"
+            className="border border-border rounded-lg p-4 hover:shadow-lg transition-shadow bg-card"
           >
             <div className="flex justify-between items-start mb-4">
-              <h2 className="text-xl font-semibold truncate">
+              <h2 className="text-xl font-semibold truncate text-foreground">
                 {listing.title}
               </h2>
-              <span className="text-green-600 font-bold">${listing.price}</span>
+              <span className="text-primary font-bold">${listing.price}</span>
             </div>
 
             <div className="flex gap-2">
@@ -55,7 +55,7 @@ export default async function ListingsPage() {
 
       {listings.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">No listings found</p>
+          <p className="text-muted-foreground mb-4">No listings found</p>
           <Button asChild>
             <Link href="/listing/new">Create Your First Listing</Link>
           </Button>

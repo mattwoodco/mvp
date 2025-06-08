@@ -8,11 +8,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
+const DEFAULT_EMAIL =
+  process.env.NODE_ENV === "development" ? "matt@mattwood.co" : "";
+
 export default function RegisterPage() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(DEFAULT_EMAIL);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [magicLinkEmail, setMagicLinkEmail] = useState("");
+  const [magicLinkEmail, setMagicLinkEmail] = useState(DEFAULT_EMAIL);
   const [magicLinkName, setMagicLinkName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMagicLinkLoading, setIsMagicLinkLoading] = useState(false);
@@ -37,10 +40,14 @@ export default function RegisterPage() {
         toast.error(result.error.message || "Failed to sign up");
       } else {
         toast.success("Account created successfully!");
+        setEmail("");
+        setPassword("");
+        setName("");
         router.push("/");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred");
+      console.error("Signup error:", error);
+      toast.error("Failed to create account. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -51,9 +58,9 @@ export default function RegisterPage() {
     setIsMagicLinkLoading(true);
 
     try {
-      // For magic link signup, we can use the sign in method since it auto-creates accounts
       const result = await signIn.magicLink({
         email: magicLinkEmail,
+        name: magicLinkName,
         callbackURL: "/",
       });
 
@@ -63,35 +70,38 @@ export default function RegisterPage() {
         toast.success(
           "Magic link sent! Check your email to complete registration.",
         );
+        setMagicLinkEmail("");
+        setMagicLinkName("");
       }
     } catch (error) {
-      toast.error("An unexpected error occurred");
+      console.error("Magic link error:", error);
+      toast.error("Failed to send magic link. Please try again.");
     } finally {
       setIsMagicLinkLoading(false);
     }
   };
 
   return (
-    <div className="container mx-auto flex items-center justify-center min-h-screen py-12">
-      <div className="w-full max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+    <div className="container mx-auto flex items-center justify-center py-12">
+      <div className="w-full max-w-md p-6 bg-card border border-border rounded-lg shadow-md">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-center text-gray-900">
+          <h1 className="text-2xl font-bold text-center text-foreground">
             Create Account
           </h1>
-          <p className="mt-2 text-sm text-center text-gray-600">
+          <p className="mt-2 text-sm text-center text-muted-foreground">
             Choose your preferred method to create your account
           </p>
         </div>
 
         <div className="mb-4">
-          <div className="flex rounded-lg bg-gray-100 p-1">
+          <div className="flex rounded-lg bg-muted p-1">
             <button
               type="button"
               onClick={() => setActiveTab("email-password")}
               className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                 activeTab === "email-password"
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Email & Password
@@ -101,8 +111,8 @@ export default function RegisterPage() {
               onClick={() => setActiveTab("magic-link")}
               className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                 activeTab === "magic-link"
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Magic Link
@@ -115,7 +125,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 Full Name
               </label>
@@ -131,7 +141,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 Email
               </label>
@@ -147,7 +157,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 Password
               </label>
@@ -172,7 +182,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="magic-name"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 Full Name
               </label>
@@ -188,7 +198,7 @@ export default function RegisterPage() {
             <div>
               <label
                 htmlFor="magic-email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-foreground mb-1"
               >
                 Email
               </label>
@@ -212,9 +222,9 @@ export default function RegisterPage() {
         )}
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-muted-foreground">
             Already have an account?{" "}
-            <Link href="/login" className="text-blue-600 hover:underline">
+            <Link href="/login" className="text-primary hover:underline">
               Sign in
             </Link>
           </p>
