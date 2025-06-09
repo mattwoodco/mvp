@@ -5,7 +5,8 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if this is a protected route
-  const isProtectedRoute = pathname.startsWith("/settings");
+  const isProtectedRoute =
+    pathname.startsWith("/settings") || pathname.startsWith("/agent");
 
   if (isProtectedRoute) {
     // Check for session cookie instead of full session verification
