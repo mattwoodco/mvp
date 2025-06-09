@@ -4,6 +4,14 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { magicLink } from "better-auth/plugins/magic-link";
 
+const googleConfig =
+  process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
+    ? {
+        clientId: process.env.AUTH_GOOGLE_ID,
+        clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      }
+    : undefined;
+
 export const auth = betterAuth({
   baseURL: process.env.NEXT_PUBLIC_SITE_URL,
   secret: process.env.BETTER_AUTH_SECRET,
@@ -13,12 +21,11 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  socialProviders: {
-    google: {
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-    },
-  },
+  socialProviders: googleConfig
+    ? {
+        google: googleConfig,
+      }
+    : undefined,
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url, token }) => {

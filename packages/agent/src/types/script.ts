@@ -71,12 +71,11 @@ export const ScriptGenerationRequestSchema = z.object({
   productDescription: z.string(),
   targetAudience: z.string(),
   keyBenefits: z.array(z.string()),
-  brandTone: z.string().optional(),
+  brandTone: z.string(),
   competitorInfo: z.string().optional(),
   customPrompt: z.string().optional(),
-
-  // Script variations to generate (up to 12)
-  variationCount: z.number().min(1).max(12).default(12),
+  variationCount: z.number().min(1).max(10),
+  generationId: z.string().optional(),
 
   // Optional attribute constraints
   requiredAttributes: ScriptAttributesSchema.partial().optional(),

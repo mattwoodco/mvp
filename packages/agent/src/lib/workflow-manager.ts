@@ -1,6 +1,9 @@
 import { EventEmitter } from "node:events";
+import { db, scriptGeneration, scriptVariation } from "@mvp/database";
+import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import PQueue from "p-queue";
+import { scriptGeneratorAgent } from "../agents/script-generator";
 import type {
   AgentStep,
   AgentWorkflow,
@@ -46,16 +49,29 @@ export class WorkflowManager extends EventEmitter {
       interval: 1000,
       intervalCap: 1,
     });
+
+    this.processingQueue.on("active", () => {
+      console.log(
+        `Queue size: ${this.processingQueue.size}, Pending: ${this.processingQueue.pending}`,
+      );
+    });
+
+    this.on("error", (error) => {
+      console.error("Workflow error:", error);
+    });
   }
 
   async createScriptGenerationWorkflow(
     request: ScriptGenerationRequest,
   ): Promise<string> {
     const workflowId = nanoid();
+    const generationId = request.generationId || workflowId;
+    console.log(`Creating workflow ${workflowId} for request:`, request);
+    console.log(`Using generation ID: ${generationId}`);
 
     const workflow: AgentWorkflow = {
       id: workflowId,
-      generationId: workflowId,
+      generationId,
       status: "pending",
       startTime: new Date(),
       totalSteps: 7,
@@ -64,9 +80,14 @@ export class WorkflowManager extends EventEmitter {
     };
 
     this.activeWorkflows.set(workflowId, workflow);
+    console.log(
+      `Added workflow ${workflowId} to active workflows. Total active: ${this.activeWorkflows.size}`,
+    );
 
-    // Add to processing queue
     this.processingQueue.add(() => this.executeWorkflow(workflowId, request));
+    console.log(
+      `Added workflow ${workflowId} to processing queue. Queue size: ${this.processingQueue.size}`,
+    );
 
     return workflowId;
   }
@@ -119,8 +140,13 @@ export class WorkflowManager extends EventEmitter {
     request: ScriptGenerationRequest,
   ): Promise<void> {
     const workflow = this.activeWorkflows.get(workflowId);
-    if (!workflow) return;
+    if (!workflow) {
+      console.error(`Workflow ${workflowId} not found in active workflows`);
+      return;
+    }
 
+    console.log(`Starting execution of workflow ${workflowId}`);
+    console.log(`Workflow generation ID: ${workflow.generationId}`);
     try {
       workflow.status = "running";
       this.emitProgress(workflowId);
@@ -135,50 +161,142 @@ export class WorkflowManager extends EventEmitter {
 
       // Step 2: Analyze Product & Audience
       await this.executeStep(workflow, 1, async () => {
-        await this.delay(1000); // Simulate analysis time
+        const result = await scriptGeneratorAgent.tools.analyzeScript.execute({
+          input: {
+            script: request.productDescription,
+            targetAudience: request.targetAudience,
+          },
+        });
         return {
-          analysis: "Product analysis complete",
-          targetSegments: ["millennials", "gen-z"],
+          analysis: result.analysis,
+          targetSegments: result.suggestions,
           keyTriggers: request.keyBenefits,
         };
       });
 
       // Step 3: Generate Attribute Variations
       await this.executeStep(workflow, 2, async () => {
-        const attributeCombinations = this.generateAttributeCombinations(
-          request.variationCount,
-        );
-        return { attributeCombinations, count: attributeCombinations.length };
+        const result =
+          await scriptGeneratorAgent.tools.generateScriptVariations.execute({
+            input: request,
+          });
+        return {
+          attributeCombinations: result.variations.map((v) => v.attributes),
+          count: result.totalGenerated,
+        };
       });
 
       // Step 4: Create Script Content
       await this.executeStep(workflow, 3, async () => {
-        await this.delay(2000); // Simulate script generation time
+        console.log(
+          `Starting script content generation for workflow ${workflowId}`,
+        );
+        console.log(`Using generation ID: ${workflow.generationId}`);
+
+        const result =
+          await scriptGeneratorAgent.tools.generateScriptVariations.execute({
+            input: request,
+          });
+
+        console.log(`Generated ${result.variations.length} variations`);
+        console.log(`First variation ID: ${result.variations[0]?.id}`);
+
+        // Save variations to database
+        await db.transaction(async (tx) => {
+          console.log(
+            `Starting database transaction for workflow ${workflowId}`,
+          );
+
+          // Update generation status
+          const updateResult = await tx
+            .update(scriptGeneration)
+            .set({
+              status: "completed",
+              completedAt: new Date(),
+              totalProcessingTime: Date.now() - workflow.startTime.getTime(),
+            })
+            .where(eq(scriptGeneration.id, workflow.generationId));
+
+          console.log(
+            `Updated generation status for ID: ${workflow.generationId}`,
+          );
+          console.log(`Update result:`, updateResult);
+
+          // Save variations
+          for (const variation of result.variations) {
+            console.log(
+              `Inserting variation ${variation.id} for generation ${workflow.generationId}`,
+            );
+            await tx.insert(scriptVariation).values({
+              id: variation.id,
+              generationId: workflow.generationId,
+              title: variation.title,
+              script: variation.script,
+              duration: variation.duration,
+              hook: variation.hook,
+              mainContent: variation.mainContent,
+              callToAction: variation.callToAction,
+              hookStyle: variation.attributes.hookStyle,
+              adCategory: variation.attributes.adCategory,
+              copywritingTone: variation.attributes.copywritingTone,
+              visualStyle: variation.attributes.visualStyle,
+              problemSolutionFraming:
+                variation.attributes.problemSolutionFraming,
+              pacingStyle: variation.attributes.pacingStyle,
+              ctaApproach: variation.attributes.ctaApproach,
+              estimatedEngagement: variation.estimatedEngagement,
+              targetPlatforms: variation.targetPlatforms,
+              processingTime: variation.processingTime,
+            });
+            console.log(`Successfully inserted variation ${variation.id}`);
+          }
+        });
+
         return {
-          message: "Scripts generated using Cerebras models",
-          scriptsGenerated: request.variationCount,
+          message: "Scripts generated successfully",
+          scriptsGenerated: result.totalGenerated,
+          variations: result.variations,
         };
       });
 
       // Step 5: Optimize for Platforms
       await this.executeStep(workflow, 4, async () => {
-        await this.delay(1500);
+        const result =
+          await scriptGeneratorAgent.tools.generateAttributeBasedScript.execute(
+            {
+              input: {
+                productInfo: {
+                  name: request.productName,
+                  description: request.productDescription,
+                  benefits: request.keyBenefits,
+                },
+                requiredAttributes: {
+                  hookStyle: "bold_statement",
+                  adCategory: "product_demo",
+                  platform: "tiktok",
+                },
+                userId: request.userId,
+              },
+            },
+          );
         return {
-          optimizations: [
-            "TikTok trending sounds",
-            "Instagram hashtags",
-            "YouTube keywords",
-          ],
-          platformSpecificVariations: 12,
+          optimizations: result.targetPlatforms,
+          platformSpecificVariations: 1,
         };
       });
 
       // Step 6: Analyze Performance
       await this.executeStep(workflow, 5, async () => {
-        await this.delay(1000);
+        const result = await scriptGeneratorAgent.tools.analyzeScript.execute({
+          input: {
+            script: request.productDescription,
+            targetAudience: request.targetAudience,
+          },
+        });
         return {
-          analysis: "Performance metrics calculated",
-          predictedEngagement: "High",
+          analysis: result.analysis,
+          predictedEngagement:
+            result.scores.conversionPotential > 7 ? "High" : "Medium",
           recommendedPlatforms: ["tiktok", "instagram_reels"],
         };
       });
@@ -196,6 +314,7 @@ export class WorkflowManager extends EventEmitter {
       workflow.endTime = new Date();
       this.emitProgress(workflowId);
     } catch (error) {
+      console.error(`Workflow ${workflowId} failed:`, error);
       workflow.status = "failed";
       workflow.endTime = new Date();
       this.emit("error", { workflowId, error });

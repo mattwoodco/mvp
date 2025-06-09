@@ -1,5 +1,5 @@
 {
-  "name": "@chatmtv/agent",
+  "name": "@mvp/agent",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -7,16 +7,19 @@
     ".": {
       "types": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./lib/defaults": {
+      "types": "./src/lib/defaults.ts",
+      "default": "./src/lib/defaults.ts"
     }
   },
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup",
-    "type-check": "tsc --noEmit"
+    "clean": "git clean -xdf .turbo node_modules",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "ai": "^3.4.32",
-    "@ai-sdk/openai": "^1.3.22",
+    "openai": "^4.28.0",
     "@ai-sdk/anthropic": "^0.0.54",
     "@ai-sdk/openai-compatible": "^0.2.14",
     "@cerebras/cerebras_cloud_sdk": "^1.11.0",
@@ -28,7 +31,6 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.17.13",
-    "tsup": "^8.3.5",
     "typescript": "^5.6.3",
     "@mvp/tsconfig": "workspace:*"
   },

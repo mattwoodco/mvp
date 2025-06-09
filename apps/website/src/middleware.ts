@@ -9,10 +9,12 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/settings") || pathname.startsWith("/agent");
 
   if (isProtectedRoute) {
-    // Check for session cookie instead of full session verification
+    // Check for session cookie
     const sessionCookie = request.cookies.get("better-auth.session_token");
+    const hasValidSession = !!sessionCookie;
 
-    if (!sessionCookie) {
+    if (!hasValidSession) {
+      // Store the original URL to redirect back after login
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
@@ -30,7 +32,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - login (login page)
+     * - register (register page)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|login|register).*)",
   ],
 };

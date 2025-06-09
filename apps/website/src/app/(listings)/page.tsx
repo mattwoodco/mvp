@@ -1,8 +1,8 @@
 import { getListings } from "@mvp/database";
 import { Button } from "@mvp/ui/button";
 import Link from "next/link";
-import { DeleteButton } from "../delete-button";
-import { UploadForm } from "../upload-form";
+import { DeleteButton } from "./delete-button";
+import { UploadForm } from "./upload-form";
 
 export default async function ListingsPage() {
   const listings = await getListings();

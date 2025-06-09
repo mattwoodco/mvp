@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -149,6 +150,24 @@ export const scriptVariation = pgTable("script_variation", {
   processingTime: integer("processing_time").notNull(), // in milliseconds
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
+
+// Add relations
+export const scriptGenerationRelations = relations(
+  scriptGeneration,
+  ({ many }) => ({
+    variations: many(scriptVariation),
+  }),
+);
+
+export const scriptVariationRelations = relations(
+  scriptVariation,
+  ({ one }) => ({
+    generation: one(scriptGeneration, {
+      fields: [scriptVariation.generationId],
+      references: [scriptGeneration.id],
+    }),
+  }),
+);
 
 // Agent workflows table
 export const agentWorkflow = pgTable("agent_workflow", {

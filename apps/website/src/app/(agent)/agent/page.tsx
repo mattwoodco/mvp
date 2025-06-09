@@ -1,5 +1,7 @@
 "use client";
 
+import type { ScriptGenerationResponse } from "@mvp/agent";
+import { defaultScriptRequest } from "@mvp/agent/lib/defaults";
 import { Button } from "@mvp/ui/button";
 import {
   Card,
@@ -9,8 +11,8 @@ import {
   CardTitle,
 } from "@mvp/ui/card";
 import { Input } from "@mvp/ui/input";
-import { Loader2, PlayCircle, Sparkles, Zap } from "lucide-react";
-import { useCallback, useState } from "react";
+import { AlertCircle, Loader2, PlayCircle, Sparkles, Zap } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 interface FormData {
   productName: string;
@@ -28,16 +30,21 @@ export default function AgentPage() {
   const [activeTab, setActiveTab] = useState<"form" | "workflow" | "results">(
     "form",
   );
+  const [generationId, setGenerationId] = useState<string | null>(null);
+  const [generatedScripts, setGeneratedScripts] =
+    useState<ScriptGenerationResponse | null>(null);
   const [formData, setFormData] = useState<FormData>({
-    productName: "",
-    productDescription: "",
-    targetAudience: "",
-    keyBenefits: [""],
-    brandTone: "",
-    competitorInfo: "",
-    customPrompt: "",
-    variationCount: 12,
+    productName: defaultScriptRequest.productName,
+    productDescription: defaultScriptRequest.productDescription,
+    targetAudience: defaultScriptRequest.targetAudience,
+    keyBenefits: defaultScriptRequest.keyBenefits,
+    brandTone: defaultScriptRequest.brandTone || "",
+    competitorInfo: defaultScriptRequest.competitorInfo || "",
+    customPrompt: defaultScriptRequest.customPrompt || "",
+    variationCount: defaultScriptRequest.variationCount,
   });
+  const [error, setError] = useState<string | null>(null);
+  const [isTimeout, setIsTimeout] = useState(false);
 
   const updateFormField = useCallback((field: keyof FormData, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -70,6 +77,8 @@ export default function AgentPage() {
       e.preventDefault();
       setIsGenerating(true);
       setActiveTab("workflow");
+      setError(null);
+      setIsTimeout(false);
 
       try {
         const response = await fetch("/api/agent/generate-scripts", {
@@ -84,19 +93,83 @@ export default function AgentPage() {
           throw new Error("Failed to start script generation");
         }
 
-        const { workflowId } = await response.json();
+        const { generationId: newGenerationId } = await response.json();
+        setGenerationId(newGenerationId);
 
-        // Simulate workflow progress
+        let attempts = 0;
+        const maxAttempts = 30; // 1 minute total (30 * 2 seconds)
+
+        const pollInterval = setInterval(async () => {
+          attempts++;
+          console.log(`Polling attempt ${attempts}/${maxAttempts}`);
+
+          try {
+            const scriptsResponse = await fetch(
+              `/api/agent/scripts/${newGenerationId}`,
+            );
+            console.log("Poll response status:", scriptsResponse.status);
+
+            if (scriptsResponse.ok) {
+              const data = await scriptsResponse.json();
+              console.log("Poll response data:", {
+                status: data.status,
+                variationsCount: data.variations?.length,
+              });
+
+              if (data.status === "completed") {
+                console.log("Generation completed successfully");
+                setGeneratedScripts(data);
+                setActiveTab("results");
+                setIsGenerating(false);
+                clearInterval(pollInterval);
+              } else if (data.status === "failed") {
+                console.error("Generation failed:", data.error);
+                throw new Error(data.error || "Script generation failed");
+              } else if (data.status === "pending") {
+                console.log("Generation still pending...");
+              }
+            } else {
+              console.error("Poll request failed:", scriptsResponse.status);
+              throw new Error(`HTTP error! status: ${scriptsResponse.status}`);
+            }
+          } catch (error) {
+            console.error("Polling error:", error);
+            clearInterval(pollInterval);
+            setIsGenerating(false);
+            setError(
+              error instanceof Error
+                ? error.message
+                : "Failed to generate scripts",
+            );
+          }
+
+          if (attempts >= maxAttempts) {
+            console.log("Max polling attempts reached");
+            clearInterval(pollInterval);
+            setIsGenerating(false);
+            setIsTimeout(true);
+          }
+        }, 2000);
+
+        // Clear interval after 2 minutes as a fallback
         setTimeout(() => {
-          setActiveTab("results");
-          setIsGenerating(false);
-        }, 5000);
+          clearInterval(pollInterval);
+          if (isGenerating) {
+            setIsGenerating(false);
+            setIsTimeout(true);
+          }
+        }, 120000);
       } catch (error) {
         setIsGenerating(false);
+        setError(
+          error instanceof Error
+            ? error.message
+            : "Failed to start script generation",
+        );
         console.error("Generation error:", error);
       }
     },
-    [formData],
+    [formData, isGenerating],
   );
 
   const TabButton = ({
@@ -409,38 +482,90 @@ export default function AgentPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-12">
-                <div className="max-w-2xl mx-auto">
-                  <div className="mb-6">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Zap className="w-8 h-8 text-green-600" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-green-800 mb-2">
-                      Scripts Generated Successfully!
-                    </h3>
-                    <p className="text-gray-600">
-                      {formData.variationCount} unique video ad scripts have
-                      been generated for {formData.productName}.
-                    </p>
-                  </div>
-
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-                    <p className="text-yellow-800 text-sm">
-                      <strong>Note:</strong> This is a demo interface. In the
-                      full implementation, you would see detailed script
-                      variations, performance predictions, and platform-specific
-                      optimizations here.
-                    </p>
-                  </div>
-
+              {generatedScripts ? (
+                <div className="space-y-6">
+                  {generatedScripts.variations.map((variation) => (
+                    <Card key={variation.id}>
+                      <CardHeader>
+                        <CardTitle>{variation.title}</CardTitle>
+                        <CardDescription>
+                          Duration: {variation.duration}s | Best for:{" "}
+                          {variation.targetPlatforms.join(", ")}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div>
+                          <h4 className="font-medium mb-2">Hook</h4>
+                          <p className="text-sm text-gray-600">
+                            {variation.hook}
+                          </p>
+                        </div>
+                        <div>
+                          <h4 className="font-medium mb-2">Main Content</h4>
+                          <p className="text-sm text-gray-600">
+                            {variation.mainContent}
+                          </p>
+                        </div>
+                        <div>
+                          <h4 className="font-medium mb-2">Call to Action</h4>
+                          <p className="text-sm text-gray-600">
+                            {variation.callToAction}
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <span className="font-medium">Hook Style:</span>{" "}
+                            {variation.attributes.hookStyle}
+                          </div>
+                          <div>
+                            <span className="font-medium">Ad Category:</span>{" "}
+                            {variation.attributes.adCategory}
+                          </div>
+                          <div>
+                            <span className="font-medium">Visual Style:</span>{" "}
+                            {variation.attributes.visualStyle}
+                          </div>
+                          <div>
+                            <span className="font-medium">
+                              Estimated Engagement:
+                            </span>{" "}
+                            {variation.estimatedEngagement}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                   <Button
                     onClick={() => setActiveTab("form")}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                   >
                     Generate More Scripts
                   </Button>
                 </div>
-              </div>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="max-w-2xl mx-auto">
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Zap className="w-8 h-8 text-green-600" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-green-800 mb-2">
+                        Scripts Generated Successfully!
+                      </h3>
+                      <p className="text-gray-600">
+                        {formData.variationCount} unique video ad scripts have
+                        been generated for {formData.productName}.
+                      </p>
+                    </div>
+                    <Button
+                      onClick={() => setActiveTab("form")}
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                    >
+                      Generate More Scripts
+                    </Button>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         )}

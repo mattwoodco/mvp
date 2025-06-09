@@ -2,7 +2,7 @@ import {
   type ScriptGenerationRequest,
   scriptGeneratorAgent,
   workflowManager,
-} from "@chatmtv/agent";
+} from "@mvp/agent";
 import { auth } from "@mvp/auth/server";
 import { db, scriptGeneration } from "@mvp/database";
 import { nanoid } from "nanoid";
@@ -11,10 +11,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    // Check authentication using better-auth
+    console.log("Starting script generation request");
+
     const session = await auth.api.getSession({
       headers: await headers(),
     });
+    console.log("Auth session:", session?.user?.id ? "Valid" : "Invalid");
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -22,9 +24,14 @@ export async function POST(request: Request) {
 
     const userId = session.user.id;
     const body = await request.json();
+    console.log("Request body:", JSON.stringify(body, null, 2));
 
-    // Validate request body
     if (!body.productName || !body.productDescription || !body.targetAudience) {
+      console.log("Missing required fields:", {
+        productName: !!body.productName,
+        productDescription: !!body.productDescription,
+        targetAudience: !!body.targetAudience,
+      });
       return NextResponse.json(
         {
           error:
@@ -34,7 +41,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create script generation request
     const scriptRequest: ScriptGenerationRequest = {
       userId,
       productName: body.productName,
@@ -47,7 +53,7 @@ export async function POST(request: Request) {
       variationCount: Math.min(body.variationCount || 12, 12),
     };
 
-    // Save request to database
+    console.log("Creating script generation record");
     const generationId = nanoid();
     await db.insert(scriptGeneration).values({
       id: generationId,
@@ -62,10 +68,14 @@ export async function POST(request: Request) {
       variationCount: scriptRequest.variationCount,
       status: "pending",
     });
+    console.log("Script generation record created:", generationId);
 
-    // Start workflow
-    const workflowId =
-      await workflowManager.createScriptGenerationWorkflow(scriptRequest);
+    console.log("Starting workflow");
+    const workflowId = await workflowManager.createScriptGenerationWorkflow({
+      ...scriptRequest,
+      generationId,
+    });
+    console.log("Workflow created:", workflowId);
 
     return NextResponse.json({
       success: true,
@@ -74,6 +84,13 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Script generation error:", error);
+    if (error instanceof Error) {
+      console.error("Error details:", {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      });
+    }
     return NextResponse.json(
       { error: "Failed to start script generation" },
       { status: 500 },
