@@ -10,6 +10,16 @@ export async function POST(request: Request) {
     console.log("[generate-scripts] Starting script generation request");
 
     console.log("[generate-scripts] Environment validation:");
+    console.log("[generate-scripts] NODE_ENV:", process.env.NODE_ENV);
+    console.log("[generate-scripts] VERCEL_ENV:", process.env.VERCEL_ENV);
+    console.log(
+      "[generate-scripts] NEXT_PUBLIC_APP_ENV:",
+      process.env.NEXT_PUBLIC_APP_ENV,
+    );
+    console.log(
+      "[generate-scripts] BETTER_AUTH_SECRET present:",
+      !!process.env.BETTER_AUTH_SECRET,
+    );
     console.log(
       "[generate-scripts] OPENAI_API_KEY present:",
       !!process.env.OPENAI_API_KEY,
@@ -26,8 +36,10 @@ export async function POST(request: Request) {
       "[generate-scripts] CEREBRAS_API_KEY length:",
       process.env.CEREBRAS_API_KEY?.length || 0,
     );
-    console.log("[generate-scripts] NODE_ENV:", process.env.NODE_ENV);
-    console.log("[generate-scripts] VERCEL_ENV:", process.env.VERCEL_ENV);
+    console.log(
+      "[generate-scripts] FAL_API_KEY present:",
+      !!process.env.FAL_API_KEY,
+    );
 
     const session = await auth.api.getSession({
       headers: await headers(),
