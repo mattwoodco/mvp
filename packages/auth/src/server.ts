@@ -12,6 +12,9 @@ const googleConfig =
       }
     : undefined;
 
+const isProduction = process.env.NODE_ENV === "production";
+const cookieDomain = isProduction ? "chatmtv.com" : undefined;
+
 export const auth = betterAuth({
   baseURL:
     process.env.BETTER_AUTH_URL ||
@@ -53,15 +56,9 @@ export const auth = betterAuth({
     sessionToken: {
       name: "better-auth.session_token",
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isProduction,
       sameSite: "lax",
-      domain:
-        process.env.NODE_ENV === "production"
-          ? process.env.NEXT_PUBLIC_SITE_URL?.replace(
-              /https?:\/\//,
-              "",
-            ).replace(/:\d+/, "")
-          : undefined,
+      domain: cookieDomain,
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     },

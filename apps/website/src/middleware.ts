@@ -1,3 +1,4 @@
+import { getSessionFromRequest } from "@mvp/auth/middleware";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
@@ -9,12 +10,30 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/settings") || pathname.startsWith("/agent");
 
   if (isProtectedRoute) {
-    // Check for session cookie
-    const sessionCookie = request.cookies.get("better-auth.session_token");
-    const hasValidSession = !!sessionCookie;
+    try {
+      // Check for valid session
+      const session = await getSessionFromRequest(request);
+      const hasValidSession = !!session?.user;
 
-    if (!hasValidSession) {
-      // Store the original URL to redirect back after login
+      console.log(`[Middleware] ${pathname}:`, {
+        hasSession: !!session,
+        hasUser: !!session?.user,
+        userId: session?.user?.id,
+        cookies: request.cookies.getAll().map((c) => c.name),
+      });
+
+      if (!hasValidSession) {
+        console.log(`[Middleware] Redirecting ${pathname} to login`);
+        // Store the original URL to redirect back after login
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("from", pathname);
+        return NextResponse.redirect(loginUrl);
+      }
+    } catch (error) {
+      console.error(
+        `[Middleware] Error validating session for ${pathname}:`,
+        error,
+      );
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);

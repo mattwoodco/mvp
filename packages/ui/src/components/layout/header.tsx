@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "../button";
 
 interface HeaderProps {
   userSection?: React.ReactNode;
@@ -12,12 +11,7 @@ export function Header({ userSection }: HeaderProps) {
         <Link href="/" className="text-xl font-bold">
           ChatMTV
         </Link>
-        <nav className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/logout">Logout</Link>
-          </Button>
-          {userSection}
-        </nav>
+        <nav className="flex items-center gap-4">{userSection}</nav>
       </div>
     </header>
   );
