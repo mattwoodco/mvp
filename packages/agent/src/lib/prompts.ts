@@ -1,7 +1,7 @@
 import type {
   ScriptAttributes,
   ScriptGenerationRequest,
-} from "../types/script";
+} from "../types/script.js";
 
 export const SCRIPT_GENERATION_SYSTEM_PROMPT = `You are an expert short-form video ad script writer specializing in high-converting TikTok, Instagram Reels, and YouTube Shorts content.
 

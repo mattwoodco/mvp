@@ -5,6 +5,7 @@
     { "path": "./packages/ui" },
     { "path": "./packages/email" },
     { "path": "./packages/auth" },
+    { "path": "./packages/agent" },
     { "path": "./packages/markdown" },
     { "path": "./packages/storage" },
     { "path": "./packages/payments" },

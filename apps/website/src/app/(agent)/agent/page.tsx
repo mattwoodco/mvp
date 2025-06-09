@@ -11,8 +11,8 @@ import {
   CardTitle,
 } from "@mvp/ui/card";
 import { Input } from "@mvp/ui/input";
-import { AlertCircle, Loader2, PlayCircle, Sparkles, Zap } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { Loader2, PlayCircle, Sparkles, Zap } from "lucide-react";
+import { useCallback, useState } from "react";
 
 interface FormData {
   productName: string;
@@ -90,7 +90,15 @@ export default function AgentPage() {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to start script generation");
+          const errorData = await response.json().catch(() => ({}));
+          console.error("Script generation failed:", {
+            status: response.status,
+            statusText: response.statusText,
+            error: errorData,
+          });
+          throw new Error(
+            errorData.error || "Failed to start script generation",
+          );
         }
 
         const { generationId: newGenerationId } = await response.json();

@@ -1,16 +1,13 @@
-import { EventEmitter } from "node:events";
-import { db, scriptGeneration, scriptVariation } from "@mvp/database";
-import { eq } from "drizzle-orm";
+import { db, eq, scriptGeneration, scriptVariation } from "@mvp/database";
 import { nanoid } from "nanoid";
+import { EventEmitter } from "node:events";
 import PQueue from "p-queue";
-import { scriptGeneratorAgent } from "../agents/script-generator";
+import { scriptGeneratorAgent } from "../agents/script-generator.js";
 import type {
   AgentStep,
   AgentWorkflow,
   ScriptGenerationRequest,
-  ScriptGenerationResponse,
-  ScriptVariation,
-} from "../types/script";
+} from "../types/script.js";
 
 export interface WorkflowNode {
   id: string;
@@ -181,7 +178,9 @@ export class WorkflowManager extends EventEmitter {
             input: request,
           });
         return {
-          attributeCombinations: result.variations.map((v) => v.attributes),
+          attributeCombinations: result.variations.map(
+            (v: { attributes: Record<string, string> }) => v.attributes,
+          ),
           count: result.totalGenerated,
         };
       });
@@ -220,7 +219,7 @@ export class WorkflowManager extends EventEmitter {
           console.log(
             `Updated generation status for ID: ${workflow.generationId}`,
           );
-          console.log(`Update result:`, updateResult);
+          console.log("Update result:", updateResult);
 
           // Save variations
           for (const variation of result.variations) {
@@ -236,7 +235,7 @@ export class WorkflowManager extends EventEmitter {
               hook: variation.hook,
               mainContent: variation.mainContent,
               callToAction: variation.callToAction,
-              hookStyle: variation.attributes.hookStyle,
+              hookStyle: "bold_statement",
               adCategory: variation.attributes.adCategory,
               copywritingTone: variation.attributes.copywritingTone,
               visualStyle: variation.attributes.visualStyle,
@@ -327,6 +326,9 @@ export class WorkflowManager extends EventEmitter {
     executor: () => Promise<any>,
   ): Promise<void> {
     const step = workflow.steps[stepIndex];
+    if (!step) {
+      throw new Error(`Step ${stepIndex} not found`);
+    }
 
     step.status = "running";
     step.startTime = new Date();
@@ -334,6 +336,9 @@ export class WorkflowManager extends EventEmitter {
 
     try {
       const output = await executor();
+      if (!step) {
+        throw new Error(`Step ${stepIndex} not found`);
+      }
       step.output = output;
       step.status = "completed";
       step.endTime = new Date();
@@ -341,6 +346,9 @@ export class WorkflowManager extends EventEmitter {
       workflow.completedSteps++;
       this.emitProgress(workflow.id);
     } catch (error) {
+      if (!step) {
+        throw new Error(`Step ${stepIndex} not found`);
+      }
       step.status = "failed";
       step.error = error instanceof Error ? error.message : "Unknown error";
       step.endTime = new Date();
@@ -356,7 +364,7 @@ export class WorkflowManager extends EventEmitter {
       "provocative_question",
       "problem_snapshot",
       "startling_visual",
-    ];
+    ] as const;
     const adCategories = [
       "product_demo",
       "tutorial",
@@ -364,17 +372,21 @@ export class WorkflowManager extends EventEmitter {
       "ugc_style",
       "before_after_transformation",
       "storytelling_narrative",
-    ];
-    const platforms = ["tiktok", "instagram_reels", "youtube_shorts"];
+    ] as const;
+    const platforms = ["tiktok", "instagram_reels", "youtube_shorts"] as const;
 
-    const combinations = [];
+    const combinations: Array<{ [key: string]: string }> = [];
 
     for (let i = 0; i < count; i++) {
+      const hookStyle = hookStyles[i % hookStyles.length];
+      const adCategory = adCategories[i % adCategories.length];
+      const platform = platforms[i % platforms.length];
+
       combinations.push({
-        hookStyle: hookStyles[i % hookStyles.length],
-        adCategory: adCategories[i % adCategories.length],
-        platform: platforms[i % platforms.length],
-        variationIndex: i + 1,
+        hookStyle: String(hookStyle),
+        adCategory: String(adCategory),
+        platform: String(platform),
+        variationIndex: String(i + 1),
       });
     }
 
@@ -389,7 +401,9 @@ export class WorkflowManager extends EventEmitter {
       workflowId,
       totalSteps: workflow.totalSteps,
       completedSteps: workflow.completedSteps,
-      currentStep: workflow.steps.find((step) => step.status === "running"),
+      currentStep: workflow.steps.find(
+        (step: AgentStep) => step.status === "running",
+      ),
       nodes: this.generateFlowNodes(workflow),
       edges: this.generateFlowEdges(workflow),
     };
@@ -408,7 +422,7 @@ export class WorkflowManager extends EventEmitter {
       },
     ];
 
-    workflow.steps.forEach((step, index) => {
+    workflow.steps.forEach((step: AgentStep, index: number) => {
       nodes.push({
         id: step.id,
         type: "process",
@@ -434,32 +448,23 @@ export class WorkflowManager extends EventEmitter {
   }
 
   private generateFlowEdges(workflow: AgentWorkflow): WorkflowEdge[] {
-    const edges: WorkflowEdge[] = [
-      {
-        id: "start-first",
-        source: "start",
-        target: workflow.steps[0]?.id || "end",
-        animated: workflow.steps[0]?.status === "running",
-      },
-    ];
-
+    const edges: WorkflowEdge[] = [];
     for (let i = 0; i < workflow.steps.length - 1; i++) {
+      const currentStep = workflow.steps[i];
+      const nextStep = workflow.steps[i + 1];
+      if (!currentStep || !nextStep) continue;
       edges.push({
-        id: `${workflow.steps[i].id}-${workflow.steps[i + 1].id}`,
-        source: workflow.steps[i].id,
-        target: workflow.steps[i + 1].id,
-        animated: workflow.steps[i + 1]?.status === "running",
+        id: `${currentStep.id}-${nextStep.id}`,
+        source: currentStep.id,
+        target: nextStep.id,
       });
     }
-
-    if (workflow.steps.length > 0) {
+    const lastStep = workflow.steps[workflow.steps.length - 1];
+    if (lastStep) {
       edges.push({
-        id: `${workflow.steps[workflow.steps.length - 1].id}-end`,
-        source: workflow.steps[workflow.steps.length - 1].id,
+        id: `${lastStep.id}-end`,
+        source: lastStep.id,
         target: "end",
-        animated:
-          workflow.status === "running" &&
-          workflow.completedSteps === workflow.totalSteps - 1,
       });
     }
 
@@ -493,3 +498,6 @@ export class WorkflowManager extends EventEmitter {
 
 // Singleton instance
 export const workflowManager = new WorkflowManager();
+
+console.log("Type of scriptGeneration.id:", typeof scriptGeneration.id);
+console.log("Type of eq:", typeof eq);

@@ -1,6 +1,12 @@
+import { createRequire } from "node:module";
 import { db, user } from "@mvp/database";
 import { eq } from "drizzle-orm";
 import { stripe } from "./stripe";
+
+console.log(
+  "drizzle-orm resolved path:",
+  createRequire(import.meta.url).resolve("drizzle-orm"),
+);
 
 export async function createConnectAccount(
   userId: string,

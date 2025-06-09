@@ -1,21 +1,19 @@
+import type { LanguageModel } from "@mastra/core";
 import { Agent } from "@mastra/core/agent";
 import { createTool } from "@mastra/core/tools";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import {
-  PERFORMANCE_PREDICTION_PROMPT,
   SCRIPT_ANALYSIS_PROMPT,
   SCRIPT_GENERATION_SYSTEM_PROMPT,
   generateScriptPrompt,
-} from "../lib/prompts";
-import { MODELS, getBestModelForTask, getLLMProvider } from "../lib/providers";
+} from "../lib/prompts.js";
+import { getLLMProvider } from "../lib/providers.js";
 import {
-  type ScriptAttributes,
-  type ScriptGenerationRequest,
   ScriptGenerationRequestSchema,
   type ScriptVariation,
   ScriptVariationSchema,
-} from "../types/script";
+} from "../types/script.js";
 
 // Tool for generating script variations
 export const generateScriptVariationsTool = createTool({
@@ -28,53 +26,76 @@ export const generateScriptVariationsTool = createTool({
     processingTime: z.number(),
     totalGenerated: z.number(),
   }),
-  execute: async ({ input }) => {
+  execute: async (context: any) => {
+    const input = context.input;
     const startTime = Date.now();
-    console.log(`Starting script generation for product: ${input.productName}`);
+    console.log(
+      "[Script Generator] Starting script generation for product:",
+      input.productName,
+    );
+    console.log("[Script Generator] Input validation:", {
+      hasProductName: !!input.productName,
+      hasProductDescription: !!input.productDescription,
+      hasTargetAudience: !!input.targetAudience,
+      keyBenefitsCount: input.keyBenefits?.length,
+      variationCount: input.variationCount,
+    });
 
     try {
       let model: Awaited<ReturnType<typeof getLLMProvider>>;
       try {
+        console.log("[Script Generator] Initializing LLM provider");
         model = await getLLMProvider("creative");
-        console.log("Using LLM provider for generation");
+        console.log("[Script Generator] LLM provider initialized successfully");
       } catch (error) {
-        console.error("Failed to initialize LLM provider:", error);
+        console.error(
+          "[Script Generator] LLM provider initialization failed:",
+          error,
+        );
         throw new Error("LLM provider initialization failed");
       }
 
       const prompt = generateScriptPrompt(input);
-      console.log("Generated prompt for script generation");
-      console.log("Prompt:", prompt);
+      console.log("[Script Generator] Generated prompt for script generation");
+      console.log("[Script Generator] Prompt length:", prompt.length);
 
       let text: string;
       try {
+        console.log("[Script Generator] Sending request to LLM");
         const response = await model.generateText({
           prompt,
           temperature: 0.8,
           maxTokens: 4000,
         });
         text = response.text;
-        console.log("Successfully generated text from LLM");
-        console.log("Generated text:", text);
+        console.log("[Script Generator] Successfully generated text from LLM");
+        console.log("[Script Generator] Generated text length:", text.length);
       } catch (error) {
-        console.error("LLM generation failed:", error);
+        console.error("[Script Generator] LLM generation failed:", error);
         throw new Error("Failed to generate text from LLM");
       }
 
       let variations: ScriptVariation[];
       try {
+        console.log("[Script Generator] Parsing generated scripts");
         variations = parseGeneratedScripts(text, input.userId);
         console.log(
-          `Successfully parsed ${variations.length} script variations`,
+          "[Script Generator] Successfully parsed script variations:",
+          {
+            count: variations.length,
+            firstVariationId: variations[0]?.id,
+          },
         );
-        console.log("Parsed variations:", JSON.stringify(variations, null, 2));
       } catch (error) {
-        console.error("Script parsing failed:", error);
+        console.error("[Script Generator] Script parsing failed:", error);
         throw new Error("Failed to parse generated scripts");
       }
 
       const processingTime = Date.now() - startTime;
-      console.log(`Script generation completed in ${processingTime}ms`);
+      console.log("[Script Generator] Script generation completed:", {
+        processingTime,
+        variationsCount: variations.length,
+      });
 
       return {
         variations,
@@ -82,7 +103,7 @@ export const generateScriptVariationsTool = createTool({
         totalGenerated: variations.length,
       };
     } catch (error) {
-      console.error("Script generation failed:", error);
+      console.error("[Script Generator] Script generation failed:", error);
       throw new Error(
         `Failed to generate scripts: ${error instanceof Error ? error.message : "Unknown error"}`,
       );
@@ -112,7 +133,8 @@ export const analyzeScriptTool = createTool({
     }),
     suggestions: z.array(z.string()),
   }),
-  execute: async ({ input }) => {
+  execute: async (context: any) => {
+    const input = context.input;
     const model = await getLLMProvider("reasoning");
 
     const prompt = `${SCRIPT_ANALYSIS_PROMPT}
@@ -180,7 +202,8 @@ export const generateAttributeBasedScriptTool = createTool({
     userId: z.string(),
   }),
   outputSchema: ScriptVariationSchema,
-  execute: async ({ input }) => {
+  execute: async (context: any) => {
+    const input = context.input;
     const startTime = Date.now();
     const model = await getLLMProvider("creative");
 
@@ -233,6 +256,10 @@ Generate a single, high-quality script that perfectly matches these requirements
 // Main Script Generator Agent
 export const scriptGeneratorAgent = new Agent({
   name: "Script Generator Agent",
+  model: async ({ runtimeContext }) => {
+    const provider = await getLLMProvider("creative");
+    return provider as unknown as LanguageModel;
+  },
   instructions: `${SCRIPT_GENERATION_SYSTEM_PROMPT}
 
 You are a specialized AI agent for generating high-converting short-form video ad scripts. Your capabilities include:
@@ -253,8 +280,6 @@ When generating scripts:
 
 Maintain a professional but creative tone, and always provide actionable insights.`,
 
-  model: getLLMProvider("creative"),
-
   tools: {
     generateScriptVariations: generateScriptVariationsTool,
     analyzeScript: analyzeScriptTool,
@@ -267,6 +292,12 @@ function parseGeneratedScripts(
   generatedText: string,
   userId: string,
 ): ScriptVariation[] {
+  const allowedCopywritingTones = [
+    "conversational_casual",
+    "direct_authentic",
+    "peer_to_peer",
+    "empathetic_relatable",
+  ];
   const scripts = generatedText
     .split(/Script \d+:/)
     .filter(
@@ -275,7 +306,7 @@ function parseGeneratedScripts(
     )
     .map((script) => {
       const lines = script.trim().split("\n");
-      const title = lines[0].trim().replace(/^["']|["']$/g, "");
+      const title = lines[0]?.trim().replace(/^["']|["']$/g, "") || "";
       const hookMatch = script.match(/Hook[^:]*:\s*([^\n]+)/);
       const mainContentMatch = script.match(/Main Content[^:]*:\s*([^\n]+)/);
       const ctaMatch = script.match(/Call-to-Action[^:]*:\s*([^\n]+)/);
@@ -293,35 +324,93 @@ function parseGeneratedScripts(
       const durationMatch = script.match(/Duration:\s*(\d+)/);
       const platformsMatch = script.match(/Best Platforms:\s*([^\n]+)/);
 
+      const copywritingToneRaw = copywritingToneMatch?.[1]?.trim();
+      const copywritingTone =
+        copywritingToneRaw === "conversational_casual" ||
+        copywritingToneRaw === "direct_authentic" ||
+        copywritingToneRaw === "peer_to_peer" ||
+        copywritingToneRaw === "empathetic_relatable"
+          ? (copywritingToneRaw as
+              | "conversational_casual"
+              | "direct_authentic"
+              | "peer_to_peer"
+              | "empathetic_relatable")
+          : "conversational_casual";
+      const visualStyleRaw = visualStyleMatch?.[1]?.trim();
+      const visualStyle =
+        visualStyleRaw === "quick_cuts_dynamic" ||
+        visualStyleRaw === "split_screen_comparison" ||
+        visualStyleRaw === "text_overlay_heavy" ||
+        visualStyleRaw === "ugc_handheld_style" ||
+        visualStyleRaw === "transformation_reveal"
+          ? (visualStyleRaw as
+              | "quick_cuts_dynamic"
+              | "split_screen_comparison"
+              | "text_overlay_heavy"
+              | "ugc_handheld_style"
+              | "transformation_reveal")
+          : "quick_cuts_dynamic";
       const attributes = {
-        hookStyle: (hookStyleMatch?.[1].trim() as any) || "bold_statement",
-        adCategory: (adCategoryMatch?.[1].trim() as any) || "product_demo",
-        copywritingTone:
-          (copywritingToneMatch?.[1].trim() as any) || "conversational_casual",
-        visualStyle:
-          (visualStyleMatch?.[1].trim() as any) || "quick_cuts_dynamic",
+        hookStyle:
+          (hookStyleMatch?.[1]?.trim() as
+            | "bold_statement"
+            | "provocative_question"
+            | "problem_snapshot"
+            | "startling_visual") || "bold_statement",
+        adCategory:
+          (adCategoryMatch?.[1]?.trim() as
+            | "product_demo"
+            | "tutorial"
+            | "customer_testimonial"
+            | "ugc_style"
+            | "before_after_transformation"
+            | "storytelling_narrative") || "product_demo",
+        copywritingTone,
+        visualStyle,
         problemSolutionFraming:
-          (problemSolutionMatch?.[1].trim() as any) || "pain_point_focus",
+          (problemSolutionMatch?.[1]?.trim() as
+            | "pain_point_focus"
+            | "lifestyle_aspiration"
+            | "social_proof_validation"
+            | "trend_alignment") || "pain_point_focus",
         pacingStyle:
-          (pacingStyleMatch?.[1].trim() as any) || "steady_build_30sec",
+          (pacingStyleMatch?.[1]?.trim() as
+            | "rapid_fire_15sec"
+            | "steady_build_30sec"
+            | "story_arc_45sec") || "steady_build_30sec",
         ctaApproach:
-          (ctaApproachMatch?.[1].trim() as any) || "soft_recommendation",
+          (ctaApproachMatch?.[1]?.trim() as
+            | "soft_recommendation"
+            | "urgent_scarcity"
+            | "social_proof_driven"
+            | "embedded_natural") || "soft_recommendation",
       };
+
+      console.log(
+        "Allowed copywritingTone values: conversational_casual, direct_authentic, peer_to_peer, empathetic_relatable",
+      );
+      console.log(
+        "Setting copywritingTone:",
+        copywritingToneMatch?.[1]?.trim(),
+      );
 
       return {
         id: nanoid(),
         title: title || "Untitled Script",
         script: script.trim(),
-        duration: durationMatch ? Number.parseInt(durationMatch[1]) : 30,
+        duration: durationMatch
+          ? Number.parseInt(durationMatch[1] || "30")
+          : 30,
         attributes,
-        hook: hookMatch?.[1].trim() || "Hook content",
-        mainContent: mainContentMatch?.[1].trim() || "Main content",
-        callToAction: ctaMatch?.[1].trim() || "CTA content",
-        estimatedEngagement: "medium",
-        targetPlatforms: (platformsMatch?.[1]
-          .trim()
-          .split(",")
-          .map((p) => p.trim().toLowerCase()) as any[]) || ["tiktok"],
+        hook: hookMatch?.[1]?.trim() || "Hook content",
+        mainContent: mainContentMatch?.[1]?.trim() || "Main content",
+        callToAction: ctaMatch?.[1]?.trim() || "CTA content",
+        estimatedEngagement: "medium" as const,
+        targetPlatforms: (
+          platformsMatch?.[1]?.trim().split(",") || ["tiktok"]
+        ).map(
+          (p) => p.trim() as "tiktok" | "instagram_reels" | "youtube_shorts",
+        ),
         generatedAt: new Date(),
         processingTime: 1500,
       };

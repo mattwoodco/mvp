@@ -1,8 +1,9 @@
 {
   "extends": "@mvp/tsconfig/base.json",
-  "include": ["src", "."],
-  "exclude": ["node_modules"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
-    "composite": true
+    "composite": true,
+    "outDir": "./dist"
   }
 }

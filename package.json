@@ -14,7 +14,7 @@
   "scripts": {
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=./packages/* --filter=./apps/* --filter=!./packages/email/**' --",
     "build:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=@mvp/email' --",
-    "dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --parallel' --",
+    "dev": "dotenv -e .env.${1:-local} turbo dev --parallel",
     "dev:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --filter=@mvp/email' --",
     "db:push": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:push' --",
     "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",

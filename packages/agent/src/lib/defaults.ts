@@ -3,7 +3,7 @@ import type {
   ScriptGenerationRequest,
   ScriptGenerationResponse,
   ScriptVariation,
-} from "../types/script";
+} from "../types/script.js";
 
 export const defaultScriptRequest: ScriptGenerationRequest = {
   userId: "demo-user",
@@ -48,12 +48,12 @@ export const defaultScriptVariation: ScriptVariation = {
 };
 
 export const defaultScriptResponse: ScriptGenerationResponse = {
-  id: nanoid(),
-  userId: "demo-user",
+  id: "default",
+  userId: "default",
   status: "completed",
+  variations: [],
+  retryCount: 0,
   request: defaultScriptRequest,
-  variations: [defaultScriptVariation],
-  totalProcessingTime: 1500,
   generatedAt: new Date(),
-  completedAt: new Date(),
+  totalProcessingTime: 0,
 };

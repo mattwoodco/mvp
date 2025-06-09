@@ -1,48 +1,48 @@
 // Export types
-export type * from "./types/script";
+export type * from "./types/script.js";
 
 // Export providers and models
 export {
-  openaiProvider,
   cerebrasClient,
   cerebrasProvider,
-  MODELS,
-  MODEL_CHARACTERISTICS,
   getBestModelForTask,
-} from "./lib/providers";
+  MODEL_CHARACTERISTICS,
+  MODELS,
+  openaiProvider,
+} from "./lib/providers.js";
 
 // Export prompts
 export {
-  SCRIPT_GENERATION_SYSTEM_PROMPT,
-  generateScriptPrompt,
   generateAttributeVariationPrompt,
-  SCRIPT_ANALYSIS_PROMPT,
+  generateScriptPrompt,
   PERFORMANCE_PREDICTION_PROMPT,
-} from "./lib/prompts";
+  SCRIPT_ANALYSIS_PROMPT,
+  SCRIPT_GENERATION_SYSTEM_PROMPT,
+} from "./lib/prompts.js";
 
 // Export agents and tools
 export {
-  scriptGeneratorAgent,
-  generateScriptVariationsTool,
   analyzeScriptTool,
   generateAttributeBasedScriptTool,
-} from "./agents/script-generator";
+  generateScriptVariationsTool,
+  scriptGeneratorAgent,
+} from "./agents/script-generator.js";
 
 // Export workflow management
 export {
   WorkflowManager,
   workflowManager,
-  type WorkflowNode,
   type WorkflowEdge,
+  type WorkflowNode,
   type WorkflowProgress,
-} from "./lib/workflow-manager";
+} from "./lib/workflow-manager.js";
 
 // Export schemas for validation
 export {
-  ScriptAttributesSchema,
-  ScriptGenerationRequestSchema,
-  ScriptVariationSchema,
-  ScriptGenerationResponseSchema,
   AgentStepSchema,
   AgentWorkflowSchema,
-} from "./types/script";
+  ScriptAttributesSchema,
+  ScriptGenerationRequestSchema,
+  ScriptGenerationResponseSchema,
+  ScriptVariationSchema,
+} from "./types/script.js";

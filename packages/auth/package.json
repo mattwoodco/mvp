@@ -22,11 +22,11 @@
   "dependencies": {
     "better-auth": "^1.2.8",
     "@mvp/database": "workspace:*",
-    "@mvp/email": "workspace:*",
-    "drizzle-orm": "^0.33.0"
+    "@mvp/email": "workspace:*"
   },
   "peerDependencies": {
-    "next": "^14.0.0"
+    "next": "^14.0.0",
+    "drizzle-orm": "^0.44.2"
   },
   "devDependencies": {
     "@mvp/tsconfig": "workspace:*",

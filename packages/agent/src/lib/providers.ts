@@ -17,11 +17,6 @@ export const cerebrasProvider = createOpenAICompatible({
   name: "cerebras",
   apiKey: process.env.CEREBRAS_API_KEY || "",
   baseURL: "https://api.cerebras.ai/v1",
-  defaultModel: "llama-4-scout-17b-16e-instruct",
-  defaultParams: {
-    temperature: 0.7,
-    max_tokens: 2000,
-  },
 });
 
 // Available models configuration
@@ -76,6 +71,10 @@ export function getBestModelForTask(
 }
 
 interface LLMProvider {
+  specificationVersion: string;
+  provider: string;
+  modelId: string;
+  defaultObjectGenerationMode: string;
   generateText: (params: {
     prompt: string;
     temperature?: number;
@@ -83,65 +82,109 @@ interface LLMProvider {
   }) => Promise<{ text: string }>;
 }
 
+interface OpenAICompatibleProviderSettings {
+  apiKey: string;
+  baseUrl: string;
+  model: string;
+  defaultModel?: string;
+}
+
 export async function getLLMProvider(
   taskType: "reasoning" | "creative" | "general" | "code",
 ): Promise<LLMProvider> {
   try {
+    console.log("[LLM Provider] Starting provider initialization");
+    console.log("[LLM Provider] Task type:", taskType);
+    console.log(
+      "[LLM Provider] Cerebras API key present:",
+      !!process.env.CEREBRAS_API_KEY,
+    );
+
     if (!process.env.CEREBRAS_API_KEY) {
-      console.warn("Cerebras API key not found, falling back to OpenAI");
+      console.warn(
+        "[LLM Provider] Cerebras API key not found, falling back to OpenAI",
+      );
       return {
+        specificationVersion: "1.0",
+        provider: "openai",
+        modelId: "gpt-4",
+        defaultObjectGenerationMode: "text",
         generateText: async (params) => {
+          console.log("[LLM Provider] Using OpenAI for text generation");
           const response = await openaiProvider.chat.completions.create({
             model: "gpt-4",
             messages: [{ role: "user", content: params.prompt }],
             temperature: params.temperature,
             max_tokens: params.maxTokens,
           });
-          return { text: response.choices[0].message.content || "" };
+          return { text: response.choices?.[0]?.message?.content || "" };
         },
       };
     }
 
     const model = getBestModelForTask(taskType);
+    console.log("[LLM Provider] Selected model:", model);
 
     try {
+      console.log("[LLM Provider] Testing Cerebras client");
       // List available models first
       const models = await cerebrasClient.models.list();
-      console.log("Available Cerebras models:", models);
+      console.log("[LLM Provider] Available Cerebras models:", models);
 
       // Test the Cerebras client
+      console.log("[LLM Provider] Testing model completion");
       await cerebrasClient.completions.create({
         model,
         prompt: "test",
         max_tokens: 1,
       });
+      console.log("[LLM Provider] Cerebras client test successful");
 
       return {
+        specificationVersion: "1.0",
+        provider: "cerebras",
+        modelId: model,
+        defaultObjectGenerationMode: "text",
         generateText: async (params) => {
+          console.log("[LLM Provider] Using Cerebras for text generation");
           const response = await cerebrasClient.completions.create({
             model,
             prompt: params.prompt,
             temperature: params.temperature,
             max_tokens: params.maxTokens,
           });
-          return { text: response.choices[0].text || "" };
+          return {
+            text:
+              (response.choices &&
+                Array.isArray(response.choices) &&
+                response.choices[0]?.text) ||
+              "",
+          };
         },
       };
     } catch (error) {
-      console.error("Cerebras provider test failed:", error);
+      console.error("[LLM Provider] Cerebras provider test failed:", error);
       throw error;
     }
   } catch (error) {
-    console.error("Cerebras provider failed, falling back to OpenAI:", error);
+    console.error(
+      "[LLM Provider] Cerebras provider failed, falling back to OpenAI:",
+      error,
+    );
     return {
+      specificationVersion: "1.0",
+      provider: "openai",
+      modelId: "gpt-4",
+      defaultObjectGenerationMode: "text",
       generateText: async (params) => {
+        console.log("[LLM Provider] Using OpenAI fallback for text generation");
         const response = await openaiProvider.chat.completions.create({
           model: "gpt-4",
           messages: [{ role: "user", content: params.prompt }],
           temperature: params.temperature,
           max_tokens: params.maxTokens,
         });
-        return { text: response.choices[0].message.content || "" };
+        return { text: response.choices?.[0]?.message?.content || "" };
       },
     };
   }
