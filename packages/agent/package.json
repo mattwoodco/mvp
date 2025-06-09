@@ -2,20 +2,15 @@
   "name": "@mvp/agent",
   "private": true,
   "version": "0.1.0",
-  "type": "module",
+  "files": ["src/**"],
   "exports": {
-    ".": {
-      "types": "./src/index.ts",
-      "default": "./dist/src/index.js"
-    },
-    "./lib/defaults": {
-      "types": "./src/lib/defaults.ts",
-      "default": "./dist/src/lib/defaults.js"
-    }
+    ".": "./src/index.ts",
+    "./lib/defaults": "./src/lib/defaults.ts"
   },
   "scripts": {
-    "build": "tsc",
     "clean": "git clean -xdf .turbo node_modules",
+    "lint": "biome check .",
+    "format": "biome format --write .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
