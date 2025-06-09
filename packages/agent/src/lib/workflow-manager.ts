@@ -3,10 +3,10 @@ import { nanoid } from "nanoid";
 import { EventEmitter } from "node:events";
 import PQueue from "p-queue";
 import { scriptGeneratorAgent } from "../agents/script-generator";
-import {
-  type AgentStep,
-  type AgentWorkflow,
-  type ScriptGenerationRequest,
+import type {
+  AgentStep,
+  AgentWorkflow,
+  ScriptGenerationRequest,
 } from "../types/script";
 
 export interface WorkflowNode {

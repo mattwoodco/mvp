@@ -13,7 +13,7 @@ const googleConfig =
     : undefined;
 
 export const auth = betterAuth({
-  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
+  baseURL: process.env.BETTER_AUTH_URL,
   secret: process.env.BETTER_AUTH_SECRET,
   database: drizzleAdapter(db, {
     provider: "pg",
