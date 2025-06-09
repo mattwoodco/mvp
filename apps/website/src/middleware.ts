@@ -5,16 +5,74 @@ import { NextResponse } from "next/server";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Debug logging for production
+  console.log(`[Middleware Debug] ${new Date().toISOString()} - ${pathname}`);
+  console.log(
+    "[Middleware Debug] Headers:",
+    Object.fromEntries(request.headers.entries()),
+  );
+  console.log("[Middleware Debug] Cookies:", request.cookies.getAll());
+
   // Check if this is a protected route
   const isProtectedRoute =
     pathname.startsWith("/settings") || pathname.startsWith("/agent");
 
   if (isProtectedRoute) {
     try {
-      // Check for valid session
+      // Method 1: Try the auth package session validation
+      console.log("[Middleware Debug] Attempting getSessionFromRequest...");
       const session = await getSessionFromRequest(request);
-      const hasValidSession = !!session?.user;
+      console.log("[Middleware Debug] Session result:", {
+        hasSession: !!session,
+        sessionData: session
+          ? `${JSON.stringify(session).substring(0, 100)}...`
+          : null,
+      });
 
+      // Method 2: Fallback to direct cookie check if session is null
+      if (!session) {
+        console.log(
+          "[Middleware Debug] Session null, checking cookies directly...",
+        );
+        const sessionCookie = request.cookies.get("better-auth.session_token");
+        console.log("[Middleware Debug] Direct cookie check:", {
+          cookieExists: !!sessionCookie,
+          cookieName: sessionCookie?.name,
+          cookieValueLength: sessionCookie?.value?.length,
+        });
+
+        // If cookie exists, try calling the API to validate
+        if (sessionCookie) {
+          console.log(
+            "[Middleware Debug] Cookie exists, validating via API...",
+          );
+          try {
+            const baseUrl = request.nextUrl.origin;
+            const response = await fetch(`${baseUrl}/api/auth/get-session`, {
+              headers: {
+                cookie: request.headers.get("cookie") || "",
+              },
+            });
+            const apiSession = await response.json();
+            console.log("[Middleware Debug] API validation result:", {
+              status: response.status,
+              hasUser: !!apiSession?.user,
+              userId: apiSession?.user?.id,
+            });
+
+            if (apiSession?.user) {
+              console.log(
+                "[Middleware Debug] API validation successful, allowing access",
+              );
+              return NextResponse.next();
+            }
+          } catch (apiError) {
+            console.error("[Middleware Debug] API validation error:", apiError);
+          }
+        }
+      }
+
+      const hasValidSession = !!session?.user;
       console.log(`[Middleware] ${pathname}:`, {
         hasSession: !!session,
         hasUser: !!session?.user,
