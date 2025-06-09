@@ -9,10 +9,10 @@ on:
   push:
     branches:
       - main
-    paths:
-      - apps/website/**
-      - packages/**
-      # - "!packages/email/**"
+    # paths:
+    #   - apps/website/**
+    #   - packages/**
+      
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
