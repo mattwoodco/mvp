@@ -23,5 +23,11 @@
   "terminal.integrated.localEchoStyle": "dim",
   "search.exclude": {
     "**/node_modules": true
+  },
+  "tailwindCSS.experimental.configFile": {
+    "apps/website/src/app/globals.css": "**"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
   }
 }

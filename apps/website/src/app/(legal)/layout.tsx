@@ -1,4 +1,3 @@
-import { MarkdownLayout } from "@mvp/markdown/layout";
 import type { Metadata } from "next";
 
 interface LegalLayoutProps {
@@ -14,5 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default function LegalLayout({ children }: LegalLayoutProps) {
-  return <MarkdownLayout>{children}</MarkdownLayout>;
+  return (
+    <div className="container mx-auto py-6">
+      <div className="prose prose-gray dark:prose-invert prose-headings:scroll-m-20 prose-headings:tracking-tight max-w-none">
+        {children}
+      </div>
+    </div>
+  );
 }

@@ -5,8 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "dev": "tsc --watch --noEmit",
     "lint": "biome check ./src",
     "typecheck": "tsc --noEmit"
   },
