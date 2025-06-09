@@ -1,5 +1,7 @@
 import { auth } from "@mvp/auth/server";
 
+export const runtime = "nodejs";
+
 export async function GET(request: Request) {
   return auth.handler(request);
 }

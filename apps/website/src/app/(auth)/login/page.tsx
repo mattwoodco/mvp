@@ -17,6 +17,7 @@ function LoginContent() {
   const [magicLinkEmail, setMagicLinkEmail] = useState(DEFAULT_EMAIL);
   const [isLoading, setIsLoading] = useState(false);
   const [isMagicLinkLoading, setIsMagicLinkLoading] = useState(false);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [activeTab, setActiveTab] = useState<"email-password" | "magic-link">(
     "email-password",
   );
@@ -65,7 +66,7 @@ function LoginContent() {
         toast.error(result.error.message || "Failed to send magic link");
       } else {
         toast.success("Magic link sent! Check your email.");
-        setMagicLinkEmail("");
+        setMagicLinkSent(true);
       }
     } catch (error) {
       console.error("Magic link error:", error);
@@ -154,7 +155,28 @@ function LoginContent() {
           </form>
         )}
 
-        {activeTab === "magic-link" && (
+        {activeTab === "magic-link" && magicLinkSent && (
+          <div className="text-center space-y-4">
+            <div className="p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg">
+              <div className="text-green-800 dark:text-green-200">
+                <h3 className="font-medium">Check your email!</h3>
+                <p className="text-sm mt-1">
+                  We've sent a magic link to {magicLinkEmail}
+                </p>
+              </div>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setMagicLinkSent(false)}
+              className="w-full"
+            >
+              Send another link
+            </Button>
+          </div>
+        )}
+
+        {activeTab === "magic-link" && !magicLinkSent && (
           <form onSubmit={handleMagicLinkSignIn} className="space-y-4">
             <div>
               <label

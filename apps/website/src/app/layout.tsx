@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { MainLayout } from "@mvp/ui/layout";
+import { Toaster } from "sonner";
 import { UserSection } from "./user-section";
 
 const geistSans = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <CombinedThemeProvider>
           <MainLayout userSection={<UserSection />}>{children}</MainLayout>
+          <Toaster />
         </CombinedThemeProvider>
       </body>
     </html>

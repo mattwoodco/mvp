@@ -1,4 +1,3 @@
-import { getSessionFromRequest } from "@mvp/auth/middleware";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -9,9 +8,10 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = pathname.startsWith("/settings");
 
   if (isProtectedRoute) {
-    const session = await getSessionFromRequest(request);
+    // Check for session cookie instead of full session verification
+    const sessionCookie = request.cookies.get("better-auth.session_token");
 
-    if (!session) {
+    if (!sessionCookie) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
