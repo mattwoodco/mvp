@@ -1,5 +1,5 @@
 // Export types
-export type * from "./types/script.js";
+export type * from "./types/script";
 
 // Export providers and models
 export {
@@ -9,7 +9,7 @@ export {
   MODEL_CHARACTERISTICS,
   MODELS,
   openaiProvider,
-} from "./lib/providers.js";
+} from "./lib/providers";
 
 // Export prompts
 export {
@@ -18,7 +18,7 @@ export {
   PERFORMANCE_PREDICTION_PROMPT,
   SCRIPT_ANALYSIS_PROMPT,
   SCRIPT_GENERATION_SYSTEM_PROMPT,
-} from "./lib/prompts.js";
+} from "./lib/prompts";
 
 // Export agents and tools
 export {
@@ -26,7 +26,7 @@ export {
   generateAttributeBasedScriptTool,
   generateScriptVariationsTool,
   scriptGeneratorAgent,
-} from "./agents/script-generator.js";
+} from "./agents/script-generator";
 
 // Export workflow management
 export {
@@ -35,7 +35,7 @@ export {
   type WorkflowEdge,
   type WorkflowNode,
   type WorkflowProgress,
-} from "./lib/workflow-manager.js";
+} from "./lib/workflow-manager";
 
 // Export schemas for validation
 export {
@@ -45,4 +45,4 @@ export {
   ScriptGenerationRequestSchema,
   ScriptGenerationResponseSchema,
   ScriptVariationSchema,
-} from "./types/script.js";
+} from "./types/script";

@@ -3,7 +3,7 @@ import type {
   ScriptGenerationRequest,
   ScriptGenerationResponse,
   ScriptVariation,
-} from "../types/script.js";
+} from "../types/script";
 
 export const defaultScriptRequest: ScriptGenerationRequest = {
   userId: "demo-user",

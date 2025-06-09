@@ -7,13 +7,13 @@ import {
   SCRIPT_ANALYSIS_PROMPT,
   SCRIPT_GENERATION_SYSTEM_PROMPT,
   generateScriptPrompt,
-} from "../lib/prompts.js";
-import { getLLMProvider } from "../lib/providers.js";
+} from "../lib/prompts";
+import { getLLMProvider } from "../lib/providers";
 import {
   ScriptGenerationRequestSchema,
   type ScriptVariation,
   ScriptVariationSchema,
-} from "../types/script.js";
+} from "../types/script";
 
 // Tool for generating script variations
 export const generateScriptVariationsTool = createTool({
