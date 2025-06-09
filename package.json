@@ -12,7 +12,7 @@
   "packageManager": "bun@1.2.15",
   "private": true,
   "scripts": {
-    "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build' --",
+    "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=./packages/* --filter=./apps/* --filter=!./packages/email/**' --",
     "build:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=@mvp/email' --",
     "dev": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --parallel' --",
     "dev:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --filter=@mvp/email' --",
