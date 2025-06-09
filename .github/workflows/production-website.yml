@@ -30,9 +30,13 @@ jobs:
         run: bun run typecheck
         working-directory: ./apps/website
       - name: 📤 Pull Vercel Environment Information
-        run: bunx vercel env pull .env --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: 📤 Pull Vercel Environment Information
         run: bunx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: 🔧 Setup Environment Variables
+        run: |
+          # Copy Vercel env file to expected location for build scripts
+          cp .vercel/.env.production.local .env.prod
+          # Set production environment
+          echo "NEXT_PUBLIC_APP_ENV=production" >> .env.prod
       - name: 🏗 Build Workspace Packages
         run: bun run build prod
       - name: 🏗 Build Project Artifacts
