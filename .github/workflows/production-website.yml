@@ -12,7 +12,7 @@ on:
     # paths:
     #   - apps/website/**
     #   - packages/**
-      
+
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
@@ -33,6 +33,8 @@ jobs:
         run: bunx vercel env pull .env --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: 📤 Pull Vercel Environment Information
         run: bunx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: 📋 Copy Environment Variables to Expected Location
+        run: cp .env .env.prod
       - name: 🏗 Build Workspace Packages
         run: NEXT_PUBLIC_APP_ENV=prod bun run build prod
         env:
