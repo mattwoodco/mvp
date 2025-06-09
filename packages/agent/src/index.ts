@@ -6,9 +6,9 @@ export {
   cerebrasClient,
   cerebrasProvider,
   getBestModelForTask,
+  getOpenAIProvider,
   MODEL_CHARACTERISTICS,
   MODELS,
-  openaiProvider,
 } from "./lib/providers";
 
 // Export prompts

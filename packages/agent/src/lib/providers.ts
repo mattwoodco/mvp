@@ -2,10 +2,41 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import Cerebras from "@cerebras/cerebras_cloud_sdk";
 import OpenAI from "openai";
 
-// OpenAI provider - create provider instance
-export const openaiProvider = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+console.log("[Providers] Environment validation:");
+console.log(
+  "[Providers] OPENAI_API_KEY present:",
+  !!process.env.OPENAI_API_KEY,
+);
+console.log(
+  "[Providers] OPENAI_API_KEY length:",
+  process.env.OPENAI_API_KEY?.length || 0,
+);
+console.log(
+  "[Providers] CEREBRAS_API_KEY present:",
+  !!process.env.CEREBRAS_API_KEY,
+);
+console.log(
+  "[Providers] CEREBRAS_API_KEY length:",
+  process.env.CEREBRAS_API_KEY?.length || 0,
+);
+
+// OpenAI provider - lazy initialization to prevent module-level failures
+let openaiProviderInstance: OpenAI | null = null;
+export const getOpenAIProvider = () => {
+  if (!openaiProviderInstance) {
+    console.log("[Providers] Initializing OpenAI client");
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error(
+        "OPENAI_API_KEY environment variable is missing or empty",
+      );
+    }
+    openaiProviderInstance = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    console.log("[Providers] OpenAI client initialized successfully");
+  }
+  return openaiProviderInstance;
+};
 
 // Cerebras provider using their official SDK
 export const cerebrasClient = new Cerebras({
@@ -111,7 +142,7 @@ export async function getLLMProvider(
         defaultObjectGenerationMode: "text",
         generateText: async (params) => {
           console.log("[LLM Provider] Using OpenAI for text generation");
-          const response = await openaiProvider.chat.completions.create({
+          const response = await getOpenAIProvider().chat.completions.create({
             model: "gpt-4",
             messages: [{ role: "user", content: params.prompt }],
             temperature: params.temperature,
@@ -178,7 +209,7 @@ export async function getLLMProvider(
       defaultObjectGenerationMode: "text",
       generateText: async (params) => {
         console.log("[LLM Provider] Using OpenAI fallback for text generation");
-        const response = await openaiProvider.chat.completions.create({
+        const response = await getOpenAIProvider().chat.completions.create({
           model: "gpt-4",
           messages: [{ role: "user", content: params.prompt }],
           temperature: params.temperature,

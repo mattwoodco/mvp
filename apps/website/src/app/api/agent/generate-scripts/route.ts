@@ -9,6 +9,26 @@ export async function POST(request: Request) {
   try {
     console.log("[generate-scripts] Starting script generation request");
 
+    console.log("[generate-scripts] Environment validation:");
+    console.log(
+      "[generate-scripts] OPENAI_API_KEY present:",
+      !!process.env.OPENAI_API_KEY,
+    );
+    console.log(
+      "[generate-scripts] OPENAI_API_KEY length:",
+      process.env.OPENAI_API_KEY?.length || 0,
+    );
+    console.log(
+      "[generate-scripts] CEREBRAS_API_KEY present:",
+      !!process.env.CEREBRAS_API_KEY,
+    );
+    console.log(
+      "[generate-scripts] CEREBRAS_API_KEY length:",
+      process.env.CEREBRAS_API_KEY?.length || 0,
+    );
+    console.log("[generate-scripts] NODE_ENV:", process.env.NODE_ENV);
+    console.log("[generate-scripts] VERCEL_ENV:", process.env.VERCEL_ENV);
+
     const session = await auth.api.getSession({
       headers: await headers(),
     });
