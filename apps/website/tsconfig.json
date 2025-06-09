@@ -6,7 +6,8 @@
       "@/*": ["./src/*"],
       "@api/*": ["../api/src/*"]
     },
-    "strict": true
+    "strict": true,
+    "composite": true
   },
   "include": [
     "**/*.ts",

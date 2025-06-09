@@ -14,12 +14,6 @@ export function Header({ userSection }: HeaderProps) {
         </Link>
         <nav className="flex items-center gap-4">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/terms">Terms</Link>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/privacy">Privacy</Link>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
             <Link href="/logout">Logout</Link>
           </Button>
           {userSection}

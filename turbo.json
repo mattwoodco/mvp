@@ -36,7 +36,8 @@
         "build/**",
         "lib/**",
         ".react-email/**"
-      ]
+      ],
+      "filter": "!./packages/email"
     },
     "dev": {
       "env": [
@@ -61,7 +62,8 @@
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "filter": "!./packages/email"
     },
     "db:push": {
       "env": ["NEXT_PUBLIC_APP_ENV", "DATABASE_URL"],

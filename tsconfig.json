@@ -1,3 +1,14 @@
 {
-  "extends": "@mvp/tsconfig/base.json"
+  "extends": "@mvp/tsconfig/base.json",
+  "references": [
+    { "path": "./packages/database" },
+    { "path": "./packages/ui" },
+    { "path": "./packages/email" },
+    { "path": "./packages/auth" },
+    { "path": "./packages/markdown" },
+    { "path": "./packages/storage" },
+    { "path": "./packages/payments" },
+    { "path": "./apps/website" }
+  ],
+  "files": []
 }
