@@ -2,9 +2,7 @@ import { getListings } from "@mvp/database";
 import { Button } from "@mvp/ui/button";
 import Link from "next/link";
 import { DeleteButton } from "../delete-button";
-import { SendFoodEmailButton } from "../send-food-email-button";
 import { UploadForm } from "../upload-form";
-import { UserSection } from "./user-section";
 
 export default async function ListingsPage() {
   const listings = await getListings();
