@@ -4,10 +4,16 @@ import { signOut } from "@mvp/auth/client";
 import { useAuth } from "@mvp/auth/hooks";
 import { Button } from "@mvp/ui/button";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export function UserSection() {
   const { user, isAuthenticated, isLoading } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -18,7 +24,7 @@ export function UserSection() {
     }
   };
 
-  if (isLoading) {
+  if (!mounted || isLoading) {
     return (
       <div className="flex items-center gap-2">
         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-foreground" />

@@ -1,4 +1,4 @@
-import { Home, List, LogOut, Settings } from "lucide-react";
+import { Bot, Home, Settings } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../button";
 
@@ -14,21 +14,15 @@ export function Sidebar() {
             </Link>
           </Button>
           <Button variant="ghost" className="w-full justify-start" asChild>
-            <Link href="/listings">
-              <List className="mr-2 h-4 w-4" />
-              Listings
+            <Link href="/agent">
+              <Bot className="mr-2 h-4 w-4" />
+              Agent
             </Link>
           </Button>
           <Button variant="ghost" className="w-full justify-start" asChild>
             <Link href="/settings">
               <Settings className="mr-2 h-4 w-4" />
               Settings
-            </Link>
-          </Button>
-          <Button variant="ghost" className="w-full justify-start" asChild>
-            <Link href="/logout">
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
             </Link>
           </Button>
         </nav>
