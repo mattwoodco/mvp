@@ -13,7 +13,9 @@ const googleConfig =
     : undefined;
 
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL:
+    process.env.BETTER_AUTH_URL ||
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth`,
   secret: process.env.BETTER_AUTH_SECRET,
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -42,6 +44,27 @@ export const auth = betterAuth({
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24, // 1 day
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5,
+    },
+  },
+  cookies: {
+    sessionToken: {
+      name: "better-auth.session_token",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      domain:
+        process.env.NODE_ENV === "production"
+          ? process.env.NEXT_PUBLIC_SITE_URL?.replace(
+              /https?:\/\//,
+              "",
+            ).replace(/:\d+/, "")
+          : undefined,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    },
   },
 });
 
