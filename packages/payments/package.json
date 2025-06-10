@@ -1,5 +1,5 @@
 {
-  "name": "@mvp/payments",
+  "name": "@chatmtv/payments",
   "version": "0.0.1",
   "private": true,
   "main": "./src/index.ts",
@@ -11,13 +11,13 @@
   },
   "dependencies": {
     "stripe": "^17.3.1",
-    "@mvp/database": "workspace:*"
+    "@chatmtv/database": "workspace:*"
   },
   "peerDependencies": {
     "drizzle-orm": "^0.44.2"
   },
   "devDependencies": {
-    "@mvp/tsconfig": "workspace:*",
+    "@chatmtv/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "typescript": "^5.7.2"
   }

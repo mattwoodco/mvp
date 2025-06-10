@@ -1,9 +1,9 @@
 "use server";
 
-import { auth } from "@mvp/auth/server";
-import { user } from "@mvp/database";
-import { db } from "@mvp/database/server";
-import { upload } from "@mvp/storage";
+import { auth } from "@chatmtv/auth/server";
+import { user } from "@chatmtv/database";
+import { db } from "@chatmtv/database/server";
+import { upload } from "@chatmtv/storage";
 import { eq } from "drizzle-orm";
 
 export async function uploadAvatar(file: File) {

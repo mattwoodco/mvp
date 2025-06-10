@@ -1,7 +1,7 @@
 "use client";
 
-import { upload } from "@mvp/storage";
-import { Button } from "@mvp/ui/button";
+import { upload } from "@chatmtv/storage";
+import { Button } from "@chatmtv/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 

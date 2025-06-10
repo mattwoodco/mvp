@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@mvp/ui/button";
-import { Input } from "@mvp/ui/input";
+import { Button } from "@chatmtv/ui/button";
+import { Input } from "@chatmtv/ui/input";
 import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
 

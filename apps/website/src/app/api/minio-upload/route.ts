@@ -1,4 +1,4 @@
-import { putServer } from "@mvp/storage/server";
+import { putServer } from "@chatmtv/storage/server";
 
 export async function POST(request: Request) {
   try {

@@ -1,8 +1,8 @@
 "use client";
 
-import { magicLink, signIn } from "@mvp/auth/client";
-import { Button } from "@mvp/ui/button";
-import { Input } from "@mvp/ui/input";
+import { magicLink, signIn } from "@chatmtv/auth/client";
+import { Button } from "@chatmtv/ui/button";
+import { Input } from "@chatmtv/ui/input";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";

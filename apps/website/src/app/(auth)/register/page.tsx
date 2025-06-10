@@ -1,8 +1,8 @@
 "use client";
 
-import { signIn, signUp } from "@mvp/auth/client";
-import { Button } from "@mvp/ui/button";
-import { Input } from "@mvp/ui/input";
+import { signIn, signUp } from "@chatmtv/auth/client";
+import { Button } from "@chatmtv/ui/button";
+import { Input } from "@chatmtv/ui/input";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

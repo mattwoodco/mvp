@@ -1,4 +1,4 @@
-import { db } from "@mvp/database/server";
+import { db } from "@chatmtv/database/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
@@ -34,7 +34,7 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url, token }) => {
-        const { sendMagicLinkEmail } = await import("@mvp/email/utils");
+        const { sendMagicLinkEmail } = await import("@chatmtv/email/utils");
         await sendMagicLinkEmail({
           email,
           url,

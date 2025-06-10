@@ -1,4 +1,4 @@
-# @mvp/markdown
+# @chatmtv/markdown
 
 A minimal MDX components package for consistent markdown rendering across the MVP platform.
 
@@ -16,7 +16,7 @@ This package is designed to be used as a workspace dependency:
 ```json
 {
   "dependencies": {
-    "@mvp/markdown": "workspace:*"
+    "@chatmtv/markdown": "workspace:*"
   }
 }
 ```
@@ -50,7 +50,7 @@ export default withMDX(nextConfig)
 Create `src/mdx-components.tsx` in your app:
 
 ```typescript
-import { useMDXComponents as getMDXComponents } from '@mvp/markdown/components'
+import { useMDXComponents as getMDXComponents } from '@chatmtv/markdown/components'
 
 export function useMDXComponents(components: any = {}) {
   return getMDXComponents(components)
@@ -60,7 +60,7 @@ export function useMDXComponents(components: any = {}) {
 ### 3. Use the layout component
 
 ```typescript
-import { MarkdownLayout } from '@mvp/markdown/layout'
+import { MarkdownLayout } from '@chatmtv/markdown/layout'
 
 export default function Layout({ children }) {
   return (

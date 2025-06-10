@@ -1,4 +1,4 @@
-# @mvp/auth
+# @chatmtv/auth
 
 Authentication package using Better Auth for the MVP monorepo.
 
@@ -16,7 +16,7 @@ Authentication package using Better Auth for the MVP monorepo.
 Create an API route at `app/api/auth/[...all]/route.ts`:
 
 ```typescript
-import { createAuth } from '@mvp/auth/server'
+import { createAuth } from '@chatmtv/auth/server'
 import { toNextJsHandler } from 'better-auth/next-js'
 import { sendMagicLinkEmail } from '@/lib/email/magic-link'
 
@@ -30,7 +30,7 @@ export const { POST, GET } = toNextJsHandler(auth)
 ### Client-side
 
 ```typescript
-import { authClient } from '@mvp/auth/client'
+import { authClient } from '@chatmtv/auth/client'
 
 // Sign in with Google
 await authClient.signIn.social({ provider: 'google' })
@@ -50,7 +50,7 @@ await authClient.signOut()
 Protect routes using Next.js middleware:
 
 ```typescript
-import { getSessionFromRequest } from '@mvp/auth/middleware'
+import { getSessionFromRequest } from '@chatmtv/auth/middleware'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {

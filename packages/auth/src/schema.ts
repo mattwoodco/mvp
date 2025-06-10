@@ -3,4 +3,4 @@ export {
   session as sessions,
   user as users,
   verification as verifications,
-} from "@mvp/database";
+} from "@chatmtv/database";

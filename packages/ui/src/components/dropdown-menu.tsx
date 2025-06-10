@@ -4,7 +4,7 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 import type * as React from "react";
 
-import { cn } from "@mvp/ui/utils";
+import { cn } from "@chatmtv/ui/utils";
 
 function DropdownMenu({
   ...props

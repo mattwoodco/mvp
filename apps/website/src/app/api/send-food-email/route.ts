@@ -1,7 +1,7 @@
 "use server";
 
-import { FoodEmail } from "@mvp/email/emails/food";
-import { sendEmail } from "@mvp/email/utils";
+import { FoodEmail } from "@chatmtv/email/emails/food";
+import { sendEmail } from "@chatmtv/email/utils";
 import { NextResponse } from "next/server";
 
 export async function POST() {

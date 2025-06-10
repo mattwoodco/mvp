@@ -6,7 +6,7 @@ This document outlines the comprehensive Stripe payments integration that has be
 
 A complete payment system has been implemented with the following features:
 
-- ✅ **New Payments Package** - `@mvp/payments` package created
+- ✅ **New Payments Package** - `@chatmtv/payments` package created
 - ✅ **User Types** - Support for customers and vendors
 - ✅ **Stripe Connect** - Vendor onboarding and management
 - ✅ **Email Verification** - Required for both subscription and vendor onboarding
@@ -16,7 +16,7 @@ A complete payment system has been implemented with the following features:
 
 ## Package Structure
 
-### New `@mvp/payments` Package
+### New `@chatmtv/payments` Package
 
 Located at `packages/payments/`, this package includes:
 
@@ -207,7 +207,7 @@ import {
   // Types
   MembershipTier,
   MEMBERSHIP_PRICES
-} from "@mvp/payments";
+} from "@chatmtv/payments";
 ```
 
 ## Security Considerations

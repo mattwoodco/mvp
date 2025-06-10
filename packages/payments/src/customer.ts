@@ -1,4 +1,4 @@
-import { db, user } from "@mvp/database";
+import { db, user } from "@chatmtv/database";
 import { eq } from "drizzle-orm";
 import { stripe } from "./stripe";
 

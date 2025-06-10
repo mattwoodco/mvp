@@ -1,4 +1,4 @@
-import { db, user } from "@mvp/database";
+import { db, user } from "@chatmtv/database";
 import { eq } from "drizzle-orm";
 import type Stripe from "stripe";
 import { STRIPE_WEBHOOK_SECRET, stripe } from "./stripe";

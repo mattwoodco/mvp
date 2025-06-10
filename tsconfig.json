@@ -1,5 +1,5 @@
 {
-  "extends": "@mvp/tsconfig/base.json",
+  "extends": "@chatmtv/tsconfig/base.json",
   "references": [
     { "path": "./packages/database" },
     { "path": "./packages/ui" },

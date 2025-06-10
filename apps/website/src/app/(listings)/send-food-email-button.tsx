@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@mvp/ui/button";
+import { Button } from "@chatmtv/ui/button";
 import { useState } from "react";
 
 export function SendFoodEmailButton() {

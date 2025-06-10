@@ -1,4 +1,4 @@
-import { db, eq, scriptGeneration, scriptVariation } from "@mvp/database";
+import { db, eq, scriptGeneration, scriptVariation } from "@chatmtv/database";
 import { nanoid } from "nanoid";
 import { EventEmitter } from "node:events";
 import PQueue from "p-queue";

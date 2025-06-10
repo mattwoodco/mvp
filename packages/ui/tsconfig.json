@@ -1,9 +1,9 @@
 {
-  "extends": "@mvp/tsconfig/react-library.json",
+  "extends": "@chatmtv/tsconfig/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@mvp/ui/*": ["./src/*"]
+      "@chatmtv/ui/*": ["./src/*"]
     },
     "composite": true
   },

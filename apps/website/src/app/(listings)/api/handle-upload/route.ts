@@ -1,4 +1,4 @@
-import { type HandleUploadBody, handleUpload } from "@mvp/storage";
+import { type HandleUploadBody, handleUpload } from "@chatmtv/storage";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request): Promise<NextResponse> {

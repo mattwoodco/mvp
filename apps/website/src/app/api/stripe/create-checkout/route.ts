@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     // TODO: Implement Stripe checkout session creation
-    // This would integrate with the @mvp/payments package once database issues are resolved
+    // This would integrate with the @chatmtv/payments package once database issues are resolved
 
     // For now, return a placeholder URL
     const checkoutUrl = `https://checkout.stripe.com/pay/${tier.toLowerCase()}-membership`;

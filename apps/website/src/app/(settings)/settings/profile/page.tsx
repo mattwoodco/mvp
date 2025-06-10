@@ -1,8 +1,8 @@
 "use client";
 
-import { useAuth, useAvatarUpload } from "@mvp/auth/hooks";
-import { Button } from "@mvp/ui/button";
-import { Input } from "@mvp/ui/input";
+import { useAuth, useAvatarUpload } from "@chatmtv/auth/hooks";
+import { Button } from "@chatmtv/ui/button";
+import { Input } from "@chatmtv/ui/input";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
 

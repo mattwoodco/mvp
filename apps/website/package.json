@@ -1,5 +1,5 @@
 {
-  "name": "@mvp/website",
+  "name": "@chatmtv/website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,11 +14,11 @@
     "test:watch": "bun test --watch"
   },
   "dependencies": {
-    "@mvp/ui": "workspace:*",
-    "@mvp/markdown": "workspace:*",
-    "@mvp/database": "workspace:*",
-    "@mvp/auth": "workspace:*",
-    "@mvp/agent": "workspace:*",
+    "@chatmtv/ui": "workspace:*",
+    "@chatmtv/markdown": "workspace:*",
+    "@chatmtv/database": "workspace:*",
+    "@chatmtv/auth": "workspace:*",
+    "@chatmtv/agent": "workspace:*",
     "@next/mdx": "^15.3.3",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
@@ -34,7 +34,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@mvp/tsconfig": "workspace:*",
+    "@chatmtv/tsconfig": "workspace:*",
     "typescript": "^5.8.3",
     "@types/node": "^22.15.29",
     "@types/react": "19.1.6",

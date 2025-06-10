@@ -1,5 +1,5 @@
 {
-  "name": "@mvp/auth",
+  "name": "@chatmtv/auth",
   "private": true,
   "version": "1.0.0",
   "files": ["src/**"],
@@ -21,15 +21,15 @@
   },
   "dependencies": {
     "better-auth": "^1.2.8",
-    "@mvp/database": "workspace:*",
-    "@mvp/email": "workspace:*"
+    "@chatmtv/database": "workspace:*",
+    "@chatmtv/email": "workspace:*"
   },
   "peerDependencies": {
     "next": "^14.0.0",
     "drizzle-orm": "^0.44.2"
   },
   "devDependencies": {
-    "@mvp/tsconfig": "workspace:*",
+    "@chatmtv/tsconfig": "workspace:*",
     "@types/node": "^20.0.0",
     "typescript": "^5.8.3"
   }

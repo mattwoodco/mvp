@@ -1,8 +1,8 @@
 "use client";
 
-import { signOut } from "@mvp/auth/client";
-import { useAuth } from "@mvp/auth/hooks";
-import { Button } from "@mvp/ui/button";
+import { signOut } from "@chatmtv/auth/client";
+import { useAuth } from "@chatmtv/auth/hooks";
+import { Button } from "@chatmtv/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
