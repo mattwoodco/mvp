@@ -1,5 +1,5 @@
 {
-  "name": "@chatmtv/database",
+  "name": "@money/database",
   "private": true,
   "version": "1.0.0",
   "files": ["src/**", "drizzle/**"],
@@ -22,7 +22,7 @@
     "postgres": "^3.4.4"
   },
   "devDependencies": {
-    "@chatmtv/tsconfig": "workspace:*",
+    "@money/tsconfig": "workspace:*",
     "typescript": "^5.8.3"
   }
 }

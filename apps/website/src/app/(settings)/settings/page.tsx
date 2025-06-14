@@ -1,8 +1,8 @@
 "use client";
 
-import { useAuth } from "@chatmtv/auth/hooks";
-import { Button } from "@chatmtv/ui/button";
-import { Card } from "@chatmtv/ui/card";
+import { useAuth } from "@money/auth/hooks";
+import { Button } from "@money/ui/button";
+import { Card } from "@money/ui/card";
 import Link from "next/link";
 
 export default function SettingsPage() {

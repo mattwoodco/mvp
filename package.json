@@ -1,5 +1,5 @@
 {
-  "name": "mvp",
+  "name": "money",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@manypkg/cli": "^0.24.0",
@@ -13,9 +13,9 @@
   "private": true,
   "scripts": {
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=./packages/* --filter=./apps/* --filter=!./packages/email/**' --",
-    "build:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=@chatmtv/email' --",
+    "build:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=@money/email' --",
     "dev": "dotenv -e .env.${1:-local} turbo dev --parallel",
-    "dev:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --filter=@chatmtv/email' --",
+    "dev:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo dev --filter=@money/email' --",
     "db:push": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:push' --",
     "db:gen": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:gen' --",
     "db:std": "sh -c 'dotenv -e .env.${1:-local} -- turbo run db:std' --",

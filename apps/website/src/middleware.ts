@@ -1,4 +1,4 @@
-import { getSessionFromRequest } from "@chatmtv/auth/middleware";
+import { getSessionFromRequest } from "@money/auth/middleware";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 

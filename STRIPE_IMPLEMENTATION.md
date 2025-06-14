@@ -1,12 +1,12 @@
 # Stripe Payments Implementation
 
-This document outlines the comprehensive Stripe payments integration that has been implemented in the MVP monorepo.
+This document outlines the comprehensive Stripe payments integration that has been implemented in the Money monorepo.
 
 ## Overview
 
 A complete payment system has been implemented with the following features:
 
-- ✅ **New Payments Package** - `@chatmtv/payments` package created
+- ✅ **New Payments Package** - `@money/payments` package created
 - ✅ **User Types** - Support for customers and vendors
 - ✅ **Stripe Connect** - Vendor onboarding and management
 - ✅ **Email Verification** - Required for both subscription and vendor onboarding
@@ -16,7 +16,7 @@ A complete payment system has been implemented with the following features:
 
 ## Package Structure
 
-### New `@chatmtv/payments` Package
+### New `@money/payments` Package
 
 Located at `packages/payments/`, this package includes:
 
@@ -207,7 +207,7 @@ import {
   // Types
   MembershipTier,
   MEMBERSHIP_PRICES
-} from "@chatmtv/payments";
+} from "@money/payments";
 ```
 
 ## Security Considerations

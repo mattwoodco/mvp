@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@chatmtv/ui/components",
-    "utils": "@chatmtv/ui/utils",
-    "hooks": "@chatmtv/ui/hooks",
-    "lib": "@chatmtv/ui/utils",
-    "ui": "@chatmtv/ui/components"
+    "components": "@money/ui/components",
+    "utils": "@money/ui/utils",
+    "hooks": "@money/ui/hooks",
+    "lib": "@money/ui/utils",
+    "ui": "@money/ui/components"
   }
 }

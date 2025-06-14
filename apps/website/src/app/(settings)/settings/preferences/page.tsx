@@ -1,4 +1,4 @@
-import { ThemeDemo } from "@chatmtv/ui/theme-demo";
+import { ThemeDemo } from "@money/ui/theme-demo";
 
 export default function PreferencesPage() {
   return (

@@ -1,6 +1,6 @@
-import { type ScriptGenerationRequest, workflowManager } from "@chatmtv/agent";
-import { auth } from "@chatmtv/auth/server";
-import { db, scriptGeneration } from "@chatmtv/database";
+import { type ScriptGenerationRequest, workflowManager } from "@money/agent";
+import { auth } from "@money/auth/server";
+import { db, scriptGeneration } from "@money/database";
 import { nanoid } from "nanoid";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";

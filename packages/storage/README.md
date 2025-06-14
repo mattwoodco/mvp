@@ -1,4 +1,4 @@
-# @chatmtv/storage
+# @money/storage
 
 Beautiful, terse Vercel Blob storage wrapper for React & Next.js.
 
@@ -6,15 +6,15 @@ Beautiful, terse Vercel Blob storage wrapper for React & Next.js.
 
 ```ts
 // Client uploads (React components)
-import { upload } from "@chatmtv/storage";
+import { upload } from "@money/storage";
 const url = await upload("photo.jpg", file);
 
 // Server uploads (API routes)
-import { put } from "@chatmtv/storage";
+import { put } from "@money/storage";
 const url = await put("avatar.jpg", buffer);
 
 // Handle client uploads (API routes)
-import { handleUpload } from "@chatmtv/storage";
+import { handleUpload } from "@money/storage";
 return NextResponse.json(await handleUpload(body, request));
 ```
 

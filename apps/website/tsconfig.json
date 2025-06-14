@@ -1,5 +1,5 @@
 {
-  "extends": "@chatmtv/tsconfig/nextjs.json",
+  "extends": "@money/tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

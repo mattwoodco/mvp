@@ -1,5 +1,5 @@
 {
-  "name": "@chatmtv/tsconfig",
+  "name": "@money/tsconfig",
   "private": true,
   "version": "1.0.0",
   "files": ["base.json", "nextjs.json", "react-library.json"]

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@chatmtv/ui/button";
+import { Button } from "@money/ui/button";
 import { deleteListingAction } from "./actions";
 
 interface DeleteButtonProps {

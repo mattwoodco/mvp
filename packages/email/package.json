@@ -1,5 +1,5 @@
 {
-  "name": "@chatmtv/email",
+  "name": "@money/email",
   "version": "1.0.0",
   "private": true,
   "main": "index.ts",
@@ -18,7 +18,7 @@
     "start": "email start"
   },
   "dependencies": {
-    "@chatmtv/ui": "workspace:*",
+    "@money/ui": "workspace:*",
     "@react-email/components": "0.0.41",
     "@react-email/render": "1.1.2",
     "@react-email/tailwind": "1.0.5",

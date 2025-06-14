@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@chatmtv/ui/globals.css";
+@import "@money/ui/globals.css";
 
 @source "packages/ui/src/**/*.{ts,tsx}";
 

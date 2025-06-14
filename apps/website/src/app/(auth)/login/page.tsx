@@ -1,8 +1,8 @@
 "use client";
 
-import { magicLink, signIn } from "@chatmtv/auth/client";
-import { Button } from "@chatmtv/ui/button";
-import { Input } from "@chatmtv/ui/input";
+import { signIn } from "@money/auth/client";
+import { Button } from "@money/ui/button";
+import { Input } from "@money/ui/input";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";

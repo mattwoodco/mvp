@@ -1,16 +1,16 @@
 "use client";
 
-import type { ScriptGenerationResponse } from "@chatmtv/agent";
-import { defaultScriptRequest } from "@chatmtv/agent/lib/defaults";
-import { Button } from "@chatmtv/ui/button";
+import type { ScriptGenerationResponse } from "@money/agent";
+import { defaultScriptRequest } from "@money/agent/lib/defaults";
+import { Button } from "@money/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@chatmtv/ui/card";
-import { Input } from "@chatmtv/ui/input";
+} from "@money/ui/card";
+import { Input } from "@money/ui/input";
 import { Loader2, PlayCircle, Sparkles, Zap } from "lucide-react";
 import { useCallback, useState } from "react";
 

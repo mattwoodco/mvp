@@ -1,5 +1,5 @@
 services:
-  mvp-database:
+  money-database:
     image: ankane/pgvector
     environment:
       POSTGRES_PASSWORD: postgres

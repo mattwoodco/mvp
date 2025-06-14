@@ -1,5 +1,5 @@
-import { getListings } from "@chatmtv/database";
-import { Button } from "@chatmtv/ui/button";
+import { getListings } from "@money/database";
+import { Button } from "@money/ui/button";
 import Link from "next/link";
 import { DeleteButton } from "./delete-button";
 import { UploadForm } from "./upload-form";

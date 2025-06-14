@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "@chatmtv/auth/client";
+import { signOut } from "@money/auth/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";

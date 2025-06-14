@@ -1,5 +1,5 @@
 {
-  "extends": "@chatmtv/tsconfig/base.json",
+  "extends": "@money/tsconfig/base.json",
   "include": ["emails", "components", "utils"],
   "exclude": ["node_modules"],
   "compilerOptions": {

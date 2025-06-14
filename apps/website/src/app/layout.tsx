@@ -1,9 +1,9 @@
-import "@chatmtv/ui/globals.css";
-import { CombinedThemeProvider } from "@chatmtv/ui/theme";
+import "@money/ui/globals.css";
+import { CombinedThemeProvider } from "@money/ui/theme";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { MainLayout } from "@chatmtv/ui/layout";
+import { MainLayout } from "@money/ui/layout";
 import { Toaster } from "sonner";
 import { UserSection } from "./user-section";
 

@@ -1,5 +1,5 @@
 {
-  "extends": "@chatmtv/tsconfig/base.json",
+  "extends": "@money/tsconfig/base.json",
   "include": ["src", "."],
   "exclude": ["node_modules"],
   "compilerOptions": {
