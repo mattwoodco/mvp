@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@money/ui/button";
+import { Button } from "@mvp/ui/button";
 import { CheckCircle, Link, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePlaidLink } from "react-plaid-link";

@@ -1,6 +1,6 @@
-import { auth } from "@money/auth/server";
-import { db, plaidItem } from "@money/database";
-import { exchangePublicToken } from "@money/plaid";
+import { auth } from "@mvp/auth/server";
+import { db, plaidItem } from "@mvp/database";
+import { exchangePublicToken } from "@mvp/plaid";
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 

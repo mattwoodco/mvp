@@ -1,8 +1,8 @@
 "use client";
 
-import { Badge } from "@money/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@money/ui/card";
-import { formatCurrency, formatDate } from "@money/ui/utils";
+import { Badge } from "@mvp/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@mvp/ui/card";
+import { formatCurrency, formatDate } from "@mvp/ui/utils";
 import { useEffect, useState } from "react";
 
 interface Account {

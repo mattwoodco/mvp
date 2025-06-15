@@ -1,1 +1,0 @@
-export { uploadAvatar } from "./upload";

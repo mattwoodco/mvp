@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@money/ui/button";
+import { Button } from "@mvp/ui/button";
 import { useState } from "react";
 
 export function SendFoodEmailButton() {

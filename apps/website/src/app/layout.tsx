@@ -1,9 +1,9 @@
-import "@money/ui/globals.css";
-import { CombinedThemeProvider } from "@money/ui/theme";
+import "@mvp/ui/globals.css";
+import { CombinedThemeProvider } from "@mvp/ui/theme";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { MainLayout } from "@money/ui/layout";
+import { MainLayout } from "@mvp/ui/layout";
 import { Toaster } from "sonner";
 import { UserSection } from "./user-section";
 

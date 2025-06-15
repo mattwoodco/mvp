@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import { db, user } from "@money/database";
+import { db, user } from "@mvp/database";
 import { eq } from "drizzle-orm";
 import { stripe } from "./stripe";
 

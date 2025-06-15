@@ -1,8 +1,8 @@
 "use client";
 
-import { signOut } from "@money/auth/client";
-import { useAuth } from "@money/auth/hooks";
-import { Button } from "@money/ui/button";
+import { signOut } from "@mvp/auth/client";
+import { useAuth } from "@mvp/auth/hooks";
+import { Button } from "@mvp/ui/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";

@@ -5,7 +5,7 @@ import {
   deleteListing,
   getListingById,
   updateListing,
-} from "@money/database";
+} from "@mvp/database";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 

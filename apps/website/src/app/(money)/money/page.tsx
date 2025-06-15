@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AccountsList } from "../components/accounts-list";
 import { PlaidLink } from "../components/plaid-link";
 
-export default function MoneyPage() {
+export default function mvpPage() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleLinkSuccess = () => {

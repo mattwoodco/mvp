@@ -1,4 +1,4 @@
-import { putServer } from "@money/storage/server";
+import { putServer } from "@mvp/storage/server";
 
 export async function POST(request: Request) {
   try {

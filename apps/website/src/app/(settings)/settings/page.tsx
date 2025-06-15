@@ -1,8 +1,8 @@
 "use client";
 
-import { useAuth } from "@money/auth/hooks";
-import { Button } from "@money/ui/button";
-import { Card } from "@money/ui/card";
+import { useAuth } from "@mvp/auth/hooks";
+import { Button } from "@mvp/ui/button";
+import { Card } from "@mvp/ui/card";
 import Link from "next/link";
 
 export default function SettingsPage() {

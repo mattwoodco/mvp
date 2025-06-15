@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@money/ui/button";
+import { Button } from "@mvp/ui/button";
 import { useState } from "react";
 
 const plans = [
@@ -159,8 +159,8 @@ export default function JoinPage() {
                 Do you offer refunds?
               </h3>
               <p className="text-gray-600">
-                We offer a 30-day money-back guarantee for all new
-                subscriptions. Contact our support team for assistance.
+                We offer a 30-day mvp-back guarantee for all new subscriptions.
+                Contact our support team for assistance.
               </p>
             </div>
             <div>

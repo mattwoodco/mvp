@@ -14,9 +14,9 @@ export function Sidebar() {
             </Link>
           </Button>
           <Button variant="ghost" className="w-full justify-start" asChild>
-            <Link href="/money">
+            <Link href="/mvp">
               <Banknote className="mr-2 h-4 w-4" />
-              Money
+              mvp
             </Link>
           </Button>
           <Button variant="ghost" className="w-full justify-start" asChild>

@@ -1,7 +1,7 @@
 "use client";
 
-import { upload } from "@money/storage";
-import { Button } from "@money/ui/button";
+import { upload } from "@mvp/storage";
+import { Button } from "@mvp/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 

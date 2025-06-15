@@ -1,8 +1,8 @@
-import { auth } from "@money/auth/server";
+import { auth } from "@mvp/auth/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function MoneyLayout({
+export default async function mvpLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -11,14 +11,14 @@ export default async function MoneyLayout({
     headers: await headers(),
   });
 
-  console.log("[Money Layout] Session check:", {
+  console.log("[mvp Layout] Session check:", {
     hasSession: !!session,
     hasUser: !!session?.user,
     userId: session?.user?.id,
   });
 
   if (!session?.user) {
-    redirect("/login?from=/money");
+    redirect("/login?from=/mvp");
   }
 
   return <>{children}</>;

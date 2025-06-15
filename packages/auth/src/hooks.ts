@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import { useSession } from "./client";
-import { uploadAvatar } from "./upload";
 
 export function useAuth() {
   const { data: session, isPending, error } = useSession();

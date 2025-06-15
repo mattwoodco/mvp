@@ -1,5 +1,5 @@
-import { auth } from "@money/auth/server";
-import { createLinkToken } from "@money/plaid";
+import { auth } from "@mvp/auth/server";
+import { createLinkToken } from "@mvp/plaid";
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 

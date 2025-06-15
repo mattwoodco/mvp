@@ -1,4 +1,4 @@
-import { ThemeDemo } from "@money/ui/theme-demo";
+import { ThemeDemo } from "@mvp/ui/theme-demo";
 
 export default function PreferencesPage() {
   return (

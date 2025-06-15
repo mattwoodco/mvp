@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     }
 
     // TODO: Implement webhook signature verification and event processing
-    // This would integrate with the @money/payments package once ready
+    // This would integrate with the @mvp/payments package once ready
 
     console.log("Received Stripe webhook:", {
       signature: `${signature.substring(0, 20)}...`,

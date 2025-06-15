@@ -1,8 +1,8 @@
 // Client exports (for components)
 export * from "./client";
 
-// Server exports
-export * from "./server";
+// auth exports
+export * from "./auth";
 
 // Hooks
 export * from "./hooks";
@@ -15,9 +15,8 @@ export type {
   Verification,
 } from "better-auth";
 
-export type { Auth } from "./server";
+export type { Auth } from "./auth";
 
 export * from "./middleware";
 export { magicLink as magicLinkPlugin } from "./plugins";
 export * from "./schema";
-export * from "./upload";

@@ -1,4 +1,4 @@
-import { db } from "@money/database/server";
+import { db } from "@mvp/database/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
@@ -13,7 +13,7 @@ const googleConfig =
     : undefined;
 
 const isProduction = process.env.NODE_ENV === "production";
-const cookieDomain = isProduction ? "money.com" : undefined;
+const cookieDomain = isProduction ? "mvp.com" : undefined;
 
 export const auth = betterAuth({
   baseURL:
@@ -34,7 +34,7 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url, token }) => {
-        const { sendMagicLinkEmail } = await import("@money/email/utils");
+        const { sendMagicLinkEmail } = await import("@mvp/email/utils");
         await sendMagicLinkEmail({
           email,
           url,

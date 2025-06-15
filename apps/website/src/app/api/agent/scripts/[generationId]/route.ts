@@ -1,5 +1,5 @@
-import { auth } from "@money/auth/server";
-import { db, scriptGeneration } from "@money/database";
+import { auth } from "@mvp/auth/server";
+import { db, scriptGeneration } from "@mvp/database";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";

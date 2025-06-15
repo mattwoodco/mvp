@@ -1,5 +1,5 @@
-import { auth } from "@money/auth/server";
-import { db, plaidAccount, plaidTransaction } from "@money/database";
+import { auth } from "@mvp/auth/server";
+import { db, plaidAccount, plaidTransaction } from "@mvp/database";
 import { and, eq, gte, sql } from "drizzle-orm";
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
