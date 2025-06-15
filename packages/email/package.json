@@ -5,8 +5,7 @@
   "main": "index.ts",
   "exports": {
     "./emails/*": "./emails/*.tsx",
-    "./render": "./render.ts",
-    "./utils": "./utils/index.ts"
+    "./render": "./render.ts"
   },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",
@@ -14,7 +13,6 @@
     "format": "biome format --write .",
     "typecheck": "tsc --noEmit",
     "dev": "email dev -p 3003",
-    "build": "email build",
     "start": "email start"
   },
   "dependencies": {
