@@ -1,5 +1,5 @@
 {
-  "extends": "@money/tsconfig/base.json",
+  "extends": "@mvp/tsconfig/base.json",
   "include": ["src", "."],
   "exclude": ["node_modules"],
   "compilerOptions": {

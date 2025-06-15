@@ -1,5 +1,5 @@
 services:
-  money-storage:
+  mvp-storage:
     image: minio/minio:latest
     ports:
       - "9002:9000"

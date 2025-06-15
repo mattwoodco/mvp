@@ -1,5 +1,5 @@
 {
-  "name": "@money/database",
+  "name": "@mvp/database",
   "private": true,
   "version": "1.0.0",
   "files": ["src/**", "drizzle/**"],
@@ -22,7 +22,7 @@
     "postgres": "^3.4.4"
   },
   "devDependencies": {
-    "@money/tsconfig": "workspace:*",
+    "@mvp/tsconfig": "workspace:*",
     "typescript": "^5.8.3"
   }
 }

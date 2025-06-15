@@ -1,4 +1,4 @@
-# Money Monorepo
+# mvp Monorepo
 
 A modern monorepo setup with Next.js apps and shared packages using Bun and Turbo.
 

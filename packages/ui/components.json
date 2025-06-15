@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@money/ui/components",
-    "utils": "@money/ui/utils",
-    "hooks": "@money/ui/hooks",
-    "lib": "@money/ui/utils",
-    "ui": "@money/ui/components"
+    "components": "@mvp/ui/components",
+    "utils": "@mvp/ui/utils",
+    "hooks": "@mvp/ui/hooks",
+    "lib": "@mvp/ui/utils",
+    "ui": "@mvp/ui/components"
   }
 }

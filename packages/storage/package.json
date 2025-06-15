@@ -1,5 +1,5 @@
 {
-  "name": "@money/storage",
+  "name": "@mvp/storage",
   "private": true,
   "version": "1.0.0",
   "files": ["src/**"],
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "minio": "^8.0.1",
-    "@money/tsconfig": "workspace:*",
+    "@mvp/tsconfig": "workspace:*",
     "@types/minio": "^7.1.1",
     "typescript": "^5.8.3"
   }

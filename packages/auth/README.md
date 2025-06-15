@@ -1,6 +1,6 @@
-# @money/auth
+# @mvp/auth
 
-Authentication package using Better Auth for the Money monorepo.
+Authentication package using Better Auth for the mvp monorepo.
 
 ## Features
 
@@ -16,7 +16,7 @@ Authentication package using Better Auth for the Money monorepo.
 Create an API route at `app/api/auth/[...all]/route.ts`:
 
 ```typescript
-import { createAuth } from '@money/auth/server'
+import { createAuth } from '@mvp/auth/server'
 import { toNextJsHandler } from 'better-auth/next-js'
 import { sendMagicLinkEmail } from '@/lib/email/magic-link'
 
@@ -30,7 +30,7 @@ export const { POST, GET } = toNextJsHandler(auth)
 ### Client-side
 
 ```typescript
-import { authClient } from '@money/auth/client'
+import { authClient } from '@mvp/auth/client'
 
 // Sign in with Google
 await authClient.signIn.social({ provider: 'google' })
@@ -50,7 +50,7 @@ await authClient.signOut()
 Protect routes using Next.js middleware:
 
 ```typescript
-import { getSessionFromRequest } from '@money/auth/middleware'
+import { getSessionFromRequest } from '@mvp/auth/middleware'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {

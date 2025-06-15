@@ -1,5 +1,5 @@
 {
-  "name": "@money/website",
+  "name": "@mvp/website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,11 +17,11 @@
     "@hookform/resolvers": "^3.10.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
-    "@money/agent": "workspace:*",
-    "@money/auth": "workspace:*",
-    "@money/database": "workspace:*",
-    "@money/plaid": "workspace:*",
-    "@money/ui": "workspace:*",
+    "@mvp/agent": "workspace:*",
+    "@mvp/auth": "workspace:*",
+    "@mvp/database": "workspace:*",
+    "@mvp/plaid": "workspace:*",
+    "@mvp/ui": "workspace:*",
     "@next/mdx": "^15.3.3",
     "@vercel/blob": "^0.22.3",
     "@xyflow/react": "^12.4.4",
@@ -35,7 +35,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@money/tsconfig": "workspace:*",
+    "@mvp/tsconfig": "workspace:*",
     "typescript": "^5.8.3",
     "@types/node": "^22.15.29",
     "@types/react": "19.1.6",

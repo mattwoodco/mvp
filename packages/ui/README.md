@@ -1,6 +1,6 @@
-# @money/ui
+# @mvp/ui
 
-Shared UI components and theming for the Money project.
+Shared UI components and theming for the mvp project.
 
 ## 🎨 Modular Theming System
 
@@ -11,7 +11,7 @@ This package provides a powerful modular theming system that combines base theme
 1. **Wrap your app** with both providers in your root layout:
 
 ```tsx
-import { ThemeProvider, ThemeModifierProvider } from "@money/ui/theme"
+import { ThemeProvider, ThemeModifierProvider } from "@mvp/ui/theme"
 
 export default function RootLayout({ children }) {
   return (
@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
 2. **Add the theme switcher** anywhere in your app:
 
 ```tsx
-import { ThemeSwitcher } from "@money/ui/theme"
+import { ThemeSwitcher } from "@mvp/ui/theme"
 
 export function Header() {
   return (
@@ -69,7 +69,7 @@ Choose from 5 distinct style modifiers that work with both light and dark themes
 ### Hooks
 
 ```tsx
-import { useTheme, useThemeModifier } from "@money/ui/theme"
+import { useTheme, useThemeModifier } from "@mvp/ui/theme"
 
 function MyComponent() {
   const { theme, setTheme } = useTheme()

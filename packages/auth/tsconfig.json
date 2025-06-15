@@ -1,5 +1,5 @@
 {
-  "extends": "@money/tsconfig/base.json",
+  "extends": "@mvp/tsconfig/base.json",
   "compilerOptions": {
     "lib": ["ES2022"],
     "module": "ESNext",
