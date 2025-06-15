@@ -1,5 +1,8 @@
+import { upload } from "@mvp/storage";
 import { useCallback } from "react";
 import { useSession } from "./client";
+
+export * from "./useAvatarUpload";
 
 export function useAuth() {
   const { data: session, isPending, error } = useSession();
@@ -26,18 +29,4 @@ export function useRequireAuth() {
     isLoading,
     error,
   };
-}
-
-export function useAvatarUpload() {
-  const { user } = useAuth();
-
-  const handleUpload = useCallback(
-    async (file: File) => {
-      if (!user) throw new Error("Unauthorized");
-      return uploadAvatar(file);
-    },
-    [user],
-  );
-
-  return { handleUpload, currentAvatar: user?.image };
 }

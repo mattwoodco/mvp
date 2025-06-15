@@ -19,4 +19,3 @@ export type { Auth } from "./auth";
 
 export * from "./middleware";
 export { magicLink as magicLinkPlugin } from "./plugins";
-export * from "./schema";

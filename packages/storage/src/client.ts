@@ -19,8 +19,8 @@ const token = process.env.BLOB_READ_WRITE_TOKEN;
 
 function isLocalEnv(): boolean {
   return (
-    process.env.NEXT_PUBLIC_APP_ENV === "local" ||
-    process.env.NEXT_PUBLIC_APP_ENV === "local"
+    process.env.NEXT_PUBLIC_APP_ENV === "local" &&
+    process.env.NEXT_PUBLIC_USE_MINIO === "true"
   );
 }
 

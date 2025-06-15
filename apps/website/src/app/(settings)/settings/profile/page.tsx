@@ -8,11 +8,12 @@ import { toast } from "sonner";
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
-  const { handleUpload, currentAvatar } = useAvatarUpload();
-  const [isUploading, setIsUploading] = useState(false);
+  const { handleAvatarUpload, currentAvatar, isUploading, error } =
+    useAvatarUpload();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -21,15 +22,12 @@ export default function ProfilePage() {
       return;
     }
 
-    setIsUploading(true);
     try {
-      await handleUpload(file);
+      await handleAvatarUpload(file);
       toast.success("Avatar updated successfully");
     } catch (error) {
       console.error("Upload error:", error);
       toast.error("Failed to upload avatar");
-    } finally {
-      setIsUploading(false);
     }
   };
 
@@ -121,7 +119,7 @@ export default function ProfilePage() {
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
-                  onChange={handleAvatarUpload}
+                  onChange={handleUpload}
                   className="hidden"
                 />
               </div>
