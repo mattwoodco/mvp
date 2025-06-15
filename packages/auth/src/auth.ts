@@ -34,7 +34,7 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url, token }) => {
-        const { sendMagicLinkEmail } = await import("@mvp/email/utils");
+        const { sendMagicLinkEmail } = await import("./magic-link");
         await sendMagicLinkEmail({
           email,
           url,

@@ -1,9 +1,17 @@
 {
   "name": "mvp",
-  "private": true,
-  "type": "module",
-  "workspaces": ["packages/*", "apps/*"],
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@manypkg/cli": "^0.24.0",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^8.0.0",
+    "husky": "^9.1.7",
+    "madge": "^8.0.0",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  },
   "scripts": {
+    "prepare": "if [ -z \"$CI\" ]; then husky; fi",
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=./packages/* --filter=./apps/* --filter=!./packages/email/**' --",
     "build:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=@mvp/email' --",
     "dev": "dotenv -e .env.${1:-local} turbo dev --parallel",
@@ -34,14 +42,8 @@
     "tunnel": "ngrok http --url=chatmtv.ngrok.app 3000",
     "tunnel:storage": "ngrok http 9000"
   },
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@manypkg/cli": "^0.24.0",
-    "cross-env": "^7.0.3",
-    "dotenv-cli": "^8.0.0",
-    "madge": "^8.0.0",
-    "turbo": "^2.5.4",
-    "typescript": "^5.8.3"
-  },
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "apps/*"],
   "packageManager": "bun@1.2.15"
 }
