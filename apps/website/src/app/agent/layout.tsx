@@ -1,4 +1,4 @@
-import { auth } from "@mvp/auth/server";
+import { auth } from "@mvp/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 

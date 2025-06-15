@@ -1,4 +1,4 @@
-import { auth } from "@mvp/auth/server";
+import { auth } from "@mvp/auth";
 import { db, scriptGeneration } from "@mvp/database";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
