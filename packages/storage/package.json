@@ -9,7 +9,8 @@
     "./server": "./src/server.ts",
     "./minio-browser": "./src/minio-browser.ts",
     "./utils": "./src/utils.ts",
-    "./types": "./src/types.ts"
+    "./types": "./src/types.ts",
+    "./large-file-uploader": "./src/components/large-file-uploader.tsx"
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules",

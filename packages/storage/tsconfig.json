@@ -1,6 +1,6 @@
 {
   "extends": "@mvp/tsconfig/base.json",
-  "include": ["src", "."],
+  "include": ["src", ".", "../ui/src/components/large-file-uploader.tsx"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "composite": true

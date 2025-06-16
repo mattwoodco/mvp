@@ -23,6 +23,7 @@ interface LargeFileUploaderProps {
   maxFileSize?: number;
   allowedTypes?: string[];
   chunkSize?: number;
+  maxConcurrentChunks?: number;
 }
 
 export function LargeFileUploader({
@@ -40,6 +41,7 @@ export function LargeFileUploader({
     "application/pdf",
   ],
   chunkSize = 10 * 1024 * 1024, // 10MB chunks
+  maxConcurrentChunks = 5, // 3 parallel uploads default
 }: LargeFileUploaderProps) {
   const [uploads, setUploads] = useState<UploadFile[]>([]);
   const [dragActive, setDragActive] = useState(false);
@@ -98,7 +100,7 @@ export function LargeFileUploader({
         startUpload(upload);
       }
     },
-    [allowedTypes, maxFileSize, onUploadError, chunkSize],
+    [allowedTypes, maxFileSize, onUploadError, chunkSize, maxConcurrentChunks],
   );
 
   const startUpload = useCallback(
@@ -119,6 +121,7 @@ export function LargeFileUploader({
           uploadFile.file,
           {
             chunkSize,
+            maxConcurrentChunks,
             abortSignal: abortController.signal,
             onProgress: (progress) => {
               setUploads((prev) =>
@@ -157,7 +160,7 @@ export function LargeFileUploader({
         onUploadError?.(errorMessage, uploadFile.file);
       }
     },
-    [chunkSize, onUploadComplete, onUploadError],
+    [chunkSize, maxConcurrentChunks, onUploadComplete, onUploadError],
   );
 
   const cancelUpload = useCallback((uploadId: string) => {

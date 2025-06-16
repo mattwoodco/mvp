@@ -7,6 +7,6 @@
     },
     "composite": true
   },
-  "include": ["src"],
+  "include": ["src", "../storage/src/large-file-uploader.tsx"],
   "exclude": ["node_modules"]
 }
