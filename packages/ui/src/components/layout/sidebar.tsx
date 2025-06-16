@@ -1,4 +1,4 @@
-import { Bot, Home, Settings } from "lucide-react";
+import { Bot, Home, Settings, Upload } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../button";
 
@@ -17,6 +17,12 @@ export function Sidebar() {
             <Link href="/agent">
               <Bot className="mr-2 h-4 w-4" />
               Agent
+            </Link>
+          </Button>
+          <Button variant="ghost" className="w-full justify-start" asChild>
+            <Link href="/upload">
+              <Upload className="mr-2 h-4 w-4" />
+              Upload
             </Link>
           </Button>
           <Button variant="ghost" className="w-full justify-start" asChild>

@@ -20,3 +20,47 @@ export interface MinioConfig {
   secretKey: string;
   bucket: string;
 }
+
+export interface LargeFileUploadOptions {
+  chunkSize?: number;
+  maxConcurrentChunks?: number;
+  onProgress?: (progress: ProgressInfo) => void;
+  abortSignal?: AbortSignal;
+}
+
+export interface ProgressInfo {
+  loaded: number;
+  total: number;
+  percentage: number;
+  speed: number;
+  remainingTime: number;
+}
+
+export interface MultipartUploadResult {
+  uploadId: string;
+  key: string;
+}
+
+export interface ChunkUploadResult {
+  partNumber: number;
+  etag: string;
+}
+
+export interface LargeFileStorageAdapter {
+  initializeMultipartUpload(
+    filename: string,
+    contentType: string,
+  ): Promise<MultipartUploadResult>;
+  uploadChunk(
+    uploadId: string,
+    key: string,
+    partNumber: number,
+    chunk: Blob | Buffer,
+  ): Promise<ChunkUploadResult>;
+  completeMultipartUpload(
+    uploadId: string,
+    key: string,
+    parts: ChunkUploadResult[],
+  ): Promise<string>;
+  abortMultipartUpload(uploadId: string, key: string): Promise<void>;
+}
