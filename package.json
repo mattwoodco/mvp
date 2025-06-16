@@ -41,7 +41,10 @@
     "stripe:dashboard": "stripe open dashboard",
     "circular-check": "bunx madge --circular --extensions ts,tsx packages/email/components packages/email/emails packages/email/utils packages/ui/src packages/auth/src packages/database/src",
     "tunnel": "ngrok http --url=chatmtv.ngrok.app 3000",
-    "tunnel:storage": "ngrok http 9000"
+    "tunnel:storage": "ngrok http 9000",
+    "transcoder:dev": "bun scripts/run-transcoder.ts",
+    "transcoder:build": "cd apps/transcoder && bun run build",
+    "transcoder:start": "cd apps/transcoder && bun start"
   },
   "private": true,
   "type": "module",

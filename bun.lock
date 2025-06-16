@@ -14,6 +14,20 @@
         "typescript": "^5.8.3",
       },
     },
+    "apps/transcoder": {
+      "name": "@mvp/transcoder",
+      "version": "0.1.0",
+      "dependencies": {
+        "@mvp/storage": "workspace:*",
+        "hono": "^4.6.15",
+        "zod": "^3.23.8",
+      },
+      "devDependencies": {
+        "@mvp/tsconfig": "workspace:*",
+        "@types/node": "^22.15.29",
+        "typescript": "^5.8.3",
+      },
+    },
     "apps/website": {
       "name": "@mvp/website",
       "version": "0.1.0",
@@ -523,6 +537,8 @@
     "@mvp/payments": ["@mvp/payments@workspace:packages/payments"],
 
     "@mvp/storage": ["@mvp/storage@workspace:packages/storage"],
+
+    "@mvp/transcoder": ["@mvp/transcoder@workspace:apps/transcoder"],
 
     "@mvp/tsconfig": ["@mvp/tsconfig@workspace:packages/tsconfig"],
 
@@ -2585,6 +2601,8 @@
     "@mastra/core/date-fns": ["date-fns@3.6.0", "", {}, "sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww=="],
 
     "@mvp/payments/@types/node": ["@types/node@22.15.30", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-6Q7lr06bEHdlfplU6YRbgG1SFBdlsfNC4/lX+SkhiTs0cpJkOElmWls8PxDFv4yY/xKb8Y6SO0OmSX4wgqTZbA=="],
+
+    "@mvp/transcoder/@types/node": ["@types/node@22.15.30", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-6Q7lr06bEHdlfplU6YRbgG1SFBdlsfNC4/lX+SkhiTs0cpJkOElmWls8PxDFv4yY/xKb8Y6SO0OmSX4wgqTZbA=="],
 
     "@mvp/website/@types/node": ["@types/node@22.15.30", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-6Q7lr06bEHdlfplU6YRbgG1SFBdlsfNC4/lX+SkhiTs0cpJkOElmWls8PxDFv4yY/xKb8Y6SO0OmSX4wgqTZbA=="],
 
