@@ -1,4 +1,4 @@
-export * from "./auth";
 export * from "./actions";
-export * from "./magic-link";
+export * from "./auth";
 export * from "./email";
+export * from "./magic-link";

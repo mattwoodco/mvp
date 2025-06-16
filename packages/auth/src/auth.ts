@@ -3,7 +3,6 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { magicLink } from "better-auth/plugins/magic-link";
-import { sendEmail } from "./email";
 
 const isProd = process.env.NODE_ENV === "production";
 const cookieDomain = isProd ? process.env.COOKIE_DOMAIN : undefined;

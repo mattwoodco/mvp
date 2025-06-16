@@ -29,7 +29,7 @@ export function UserSection() {
   return (
     <div className="flex items-center gap-3">
       <div className="flex items-center gap-2">
-        {user.image && (
+        {user?.image && (
           <img
             src={user.image}
             alt="Profile"
@@ -37,8 +37,8 @@ export function UserSection() {
           />
         )}
         <div className="text-sm">
-          <p className="font-medium">{user.name || "User"}</p>
-          <p className="text-muted-foreground text-xs">{user.email}</p>
+          <p className="font-medium">{user?.name || "User"}</p>
+          <p className="text-muted-foreground text-xs">{user?.email}</p>
         </div>
       </div>
       <div className="flex gap-2">
