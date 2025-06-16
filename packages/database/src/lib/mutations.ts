@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "../client";
 import { listing, user } from "../schema";
 
@@ -28,12 +28,49 @@ export async function updateUser(
     email: string;
     emailVerified: boolean;
     image: string;
+    tokens: number;
   }>,
 ) {
   const [updatedUser] = await db
     .update(user)
     .set({
       ...data,
+      updatedAt: new Date(),
+    })
+    .where(eq(user.id, id))
+    .returning();
+  return updatedUser;
+}
+
+export async function updateUserTokens(id: string, tokens: number) {
+  const [updatedUser] = await db
+    .update(user)
+    .set({
+      tokens,
+      updatedAt: new Date(),
+    })
+    .where(eq(user.id, id))
+    .returning();
+  return updatedUser;
+}
+
+export async function incrementUserTokens(id: string, amount: number) {
+  const [updatedUser] = await db
+    .update(user)
+    .set({
+      tokens: sql`tokens + ${amount}`,
+      updatedAt: new Date(),
+    })
+    .where(eq(user.id, id))
+    .returning();
+  return updatedUser;
+}
+
+export async function decrementUserTokens(id: string, amount: number) {
+  const [updatedUser] = await db
+    .update(user)
+    .set({
+      tokens: sql`tokens - ${amount}`,
       updatedAt: new Date(),
     })
     .where(eq(user.id, id))

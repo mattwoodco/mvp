@@ -4,3 +4,4 @@ export * from "./subscription";
 export * from "./connect";
 export * from "./webhooks";
 export * from "./client";
+export * from "./tokens";

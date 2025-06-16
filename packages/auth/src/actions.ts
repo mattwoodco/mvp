@@ -6,7 +6,7 @@ import { auth } from "./auth";
 
 export async function updateAuthUser(
   userId: string,
-  data: { name?: string; email?: string; image?: string },
+  data: { name?: string; email?: string; image?: string; tokens?: number },
 ) {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user || session.user.id !== userId)

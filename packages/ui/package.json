@@ -18,7 +18,8 @@
     "./badge": "./src/components/badge.tsx",
     "./card": "./src/components/card.tsx",
     "./progress": "./src/components/progress.tsx",
-    "./large-file-uploader": "./src/components/large-file-uploader.tsx"
+    "./large-file-uploader": "./src/components/large-file-uploader.tsx",
+    "./checkout-form": "./src/components/checkout-form.tsx"
   },
   "scripts": {
     "clean": "rm -rf .turbo node_modules",

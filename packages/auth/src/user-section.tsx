@@ -3,10 +3,11 @@
 import { Button } from "@mvp/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
-import { signOut, useAuth } from "./client";
+import { signOut, useAuth, useTokens } from "./client";
 
 export function UserSection() {
   const { user, isAuthenticated, isLoading } = useAuth();
+  const { tokens } = useTokens();
 
   if (isLoading)
     return (
@@ -28,6 +29,11 @@ export function UserSection() {
 
   return (
     <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 px-3 py-1 bg-muted rounded-full">
+        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+        <span className="text-sm font-medium">{tokens.toLocaleString()}</span>
+        <span className="text-xs text-muted-foreground">tokens</span>
+      </div>
       <div className="flex items-center gap-2">
         {user?.image && (
           <img

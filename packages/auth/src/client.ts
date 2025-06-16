@@ -73,3 +73,27 @@ export function useProfileUpdate() {
 
   return { updateProfile, isUpdating };
 }
+
+export function useTokens() {
+  const { user } = useAuth();
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const updateTokens = useCallback(
+    async (tokens: number) => {
+      if (!user) throw new Error("Unauthorized");
+      setIsUpdating(true);
+      try {
+        await updateAuthUser(user.id, { tokens });
+      } finally {
+        setIsUpdating(false);
+      }
+    },
+    [user],
+  );
+
+  return {
+    tokens: (user as any)?.tokens || 0,
+    updateTokens,
+    isUpdating,
+  };
+}
