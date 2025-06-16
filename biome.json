@@ -22,6 +22,7 @@
       "recommended": true,
       "a11y": {
         "noSvgWithoutTitle": "off",
+        "useMediaCaption": "off",
         "useKeyWithClickEvents": "off"
       },
       "style": {
