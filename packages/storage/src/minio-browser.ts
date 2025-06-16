@@ -1,4 +1,4 @@
-import { BUCKET, isBrowser } from "./utils";
+import { BUCKET } from "./utils";
 
 interface MinioResponse {
   url: string;
@@ -8,10 +8,6 @@ export async function uploadBrowser(
   filename: string,
   file: File,
 ): Promise<string | null> {
-  if (!isBrowser()) {
-    return null;
-  }
-
   try {
     const key = `${filename}-${Date.now()}`;
 

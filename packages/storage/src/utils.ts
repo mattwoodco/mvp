@@ -9,10 +9,6 @@ export function isLocalEnv(): boolean {
   );
 }
 
-export function isBrowser(): boolean {
-  return typeof window !== "undefined";
-}
-
 export function createPath(filename: string): string {
   return `storage/${filename}`;
 }
