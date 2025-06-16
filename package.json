@@ -4,6 +4,7 @@
     "@biomejs/biome": "^1.9.4",
     "@manypkg/cli": "^0.24.0",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.5.0",
     "dotenv-cli": "^8.0.0",
     "husky": "^9.1.7",
     "madge": "^8.0.0",
@@ -44,7 +45,10 @@
     "tunnel:storage": "ngrok http 9000",
     "transcoder:dev": "bun scripts/run-transcoder.ts",
     "transcoder:build": "cd apps/transcoder && bun run build",
-    "transcoder:start": "cd apps/transcoder && bun start"
+    "transcoder:start": "cd apps/transcoder && bun start",
+    "video-editor:dev": "bun scripts/run-video-editor.ts",
+    "video-editor:build": "cd apps/video-editor && bun run build",
+    "video-editor:start": "cd apps/video-editor && bun start"
   },
   "private": true,
   "type": "module",

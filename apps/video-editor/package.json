@@ -1,0 +1,23 @@
+{
+  "name": "@mvp/video-editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun build src/index.ts --outdir=dist --target=bun",
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "@mvp/storage": "workspace:*",
+    "hono": "^4.6.15",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@mvp/tsconfig": "workspace:*",
+    "@types/node": "^22.15.29",
+    "typescript": "^5.8.3"
+  }
+}
