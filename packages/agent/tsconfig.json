@@ -4,6 +4,9 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "composite": true,
-    "moduleResolution": "Bundler"
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "noEmit": true
   }
 }

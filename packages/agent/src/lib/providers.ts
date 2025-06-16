@@ -2,30 +2,6 @@ import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 import Cerebras from "@cerebras/cerebras_cloud_sdk";
 import OpenAI from "openai";
 
-console.log("[Providers] Environment validation:");
-console.log("[Providers] NODE_ENV:", process.env.NODE_ENV);
-console.log("[Providers] VERCEL_ENV:", process.env.VERCEL_ENV);
-console.log(
-  "[Providers] NEXT_PUBLIC_APP_ENV:",
-  process.env.NEXT_PUBLIC_APP_ENV,
-);
-console.log(
-  "[Providers] OPENAI_API_KEY present:",
-  !!process.env.OPENAI_API_KEY,
-);
-console.log(
-  "[Providers] OPENAI_API_KEY length:",
-  process.env.OPENAI_API_KEY?.length || 0,
-);
-console.log(
-  "[Providers] CEREBRAS_API_KEY present:",
-  !!process.env.CEREBRAS_API_KEY,
-);
-console.log(
-  "[Providers] CEREBRAS_API_KEY length:",
-  process.env.CEREBRAS_API_KEY?.length || 0,
-);
-
 // OpenAI provider - lazy initialization to prevent module-level failures
 let openaiProviderInstance: OpenAI | null = null;
 export const getOpenAIProvider = () => {
