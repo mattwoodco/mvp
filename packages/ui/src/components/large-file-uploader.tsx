@@ -2,6 +2,7 @@
 
 import { uploadLargeFile } from "@mvp/storage";
 import { CheckCircle, Upload, X, XCircle } from "lucide-react";
+import type React from "react";
 import { useCallback, useState } from "react";
 import { Button } from "./button";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
