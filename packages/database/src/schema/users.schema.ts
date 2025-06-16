@@ -6,11 +6,25 @@ export const user = pgTable("user", {
   emailVerified: boolean("email_verified").notNull().default(false),
   name: text("name"),
   image: text("image"),
+  role: text("role", {
+    enum: ["admin", "user", "advertiser", "sales_rep", "sales_manager"],
+  }).default("user"),
 
   // User type - vendor or customer
   userType: text("user_type", { enum: ["customer", "vendor"] }).default(
     "customer",
   ),
+
+  // Social media platform credentials
+  instagramUserId: text("instagram_user_id"),
+  instagramToken: text("instagram_token"),
+  youtubeChannelId: text("youtube_channel_id"),
+  youtubeRefreshToken: text("youtube_refresh_token"),
+  tiktokAccountId: text("tiktok_account_id"),
+  tiktokToken: text("tiktok_token"),
+  twitterUserId: text("twitter_user_id"),
+  twitterToken: text("twitter_token"),
+  twitterTokenSecret: text("twitter_token_secret"),
 
   // Stripe integration
   stripeCustomerId: text("stripe_customer_id").unique(),
