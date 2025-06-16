@@ -1,30 +1,19 @@
 "use server";
 
-import { updateUser as updateUserDb } from "@mvp/database";
+import { updateUser } from "@mvp/database";
 import { headers } from "next/headers";
 import { auth } from "./auth";
 
 export async function updateAuthUser(
   userId: string,
-  data: {
-    name?: string;
-    email?: string;
-    emailVerified?: boolean;
-    image?: string;
-  },
+  data: { name?: string; email?: string; image?: string },
 ) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session?.user) {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user || session.user.id !== userId)
     throw new Error("Unauthorized");
-  }
+  return updateUser(userId, data);
+}
 
-  if (session.user.id !== userId) {
-    throw new Error("Unauthorized");
-  }
-
-  const user = await updateUserDb(session.user.id, data);
-  return user;
+export async function getSessionFromRequest(request: Request) {
+  return auth.api.getSession({ headers: request.headers });
 }

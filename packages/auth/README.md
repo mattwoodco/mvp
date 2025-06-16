@@ -50,7 +50,7 @@ await authClient.signOut()
 Protect routes using Next.js middleware:
 
 ```typescript
-import { getSessionFromRequest } from '@mvp/auth/middleware'
+import { getSessionFromRequest } from '@mvp/auth'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {

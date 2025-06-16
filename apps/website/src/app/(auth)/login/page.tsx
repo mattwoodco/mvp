@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "@mvp/auth/client";
+import { signIn } from "@mvp/auth";
 import { Button } from "@mvp/ui/button";
 import { Input } from "@mvp/ui/input";
 import Link from "next/link";

@@ -1,4 +1,4 @@
-import { auth } from "@mvp/auth";
+import { auth } from "@mvp/auth/server";
 
 export const runtime = "nodejs";
 

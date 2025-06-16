@@ -1,17 +1,9 @@
-import { getSessionFromRequest } from "@mvp/auth/middleware";
+import { getSessionFromRequest } from "@mvp/auth/server";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  // Debug logging for production
-  console.log(`[Middleware Debug] ${new Date().toISOString()} - ${pathname}`);
-  console.log(
-    "[Middleware Debug] Headers:",
-    Object.fromEntries(request.headers.entries()),
-  );
-  console.log("[Middleware Debug] Cookies:", request.cookies.getAll());
 
   // Check if this is a protected route
   const isProtectedRoute =

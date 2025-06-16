@@ -3,7 +3,7 @@ import { CombinedThemeProvider } from "@mvp/ui/theme";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { UserSection } from "@mvp/auth/user-section";
+import { UserSection } from "@mvp/auth";
 import { MainLayout } from "@mvp/ui/layout";
 import { Toaster } from "sonner";
 

@@ -1,15 +1,14 @@
 "use client";
 
-import { useAuth, useAvatarUpload } from "@mvp/auth/hooks";
+import { useAuth, useAvatarUpload } from "@mvp/auth";
 import { Button } from "@mvp/ui/button";
 import { Input } from "@mvp/ui/input";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { toast } from "sonner";
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
-  const { handleAvatarUpload, currentAvatar, isUploading, error } =
-    useAvatarUpload();
+  const { uploadAvatar, currentAvatar, isUploading } = useAvatarUpload();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -23,7 +22,7 @@ export default function ProfilePage() {
     }
 
     try {
-      await handleAvatarUpload(file);
+      await uploadAvatar(file);
       toast.success("Avatar updated successfully");
     } catch (error) {
       console.error("Upload error:", error);

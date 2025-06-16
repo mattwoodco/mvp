@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@mvp/auth/hooks";
+import { useAuth } from "@mvp/auth";
 import { Button } from "@mvp/ui/button";
 import { Card } from "@mvp/ui/card";
 import Link from "next/link";

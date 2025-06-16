@@ -3,8 +3,11 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { magicLink } from "better-auth/plugins/magic-link";
+import { sendEmail } from "./email";
 
-const googleConfig =
+const isProd = process.env.NODE_ENV === "production";
+const cookieDomain = isProd ? process.env.COOKIE_DOMAIN : undefined;
+const google =
   process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET
     ? {
         clientId: process.env.AUTH_GOOGLE_ID,
@@ -12,25 +15,14 @@ const googleConfig =
       }
     : undefined;
 
-const isProduction = process.env.NODE_ENV === "production";
-const cookieDomain = isProduction ? "mvp.com" : undefined;
-
 export const auth = betterAuth({
   baseURL:
     process.env.BETTER_AUTH_URL ||
     `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth`,
-  secret: process.env.BETTER_AUTH_SECRET,
-  database: drizzleAdapter(db, {
-    provider: "pg",
-  }),
-  emailAndPassword: {
-    enabled: true,
-  },
-  socialProviders: googleConfig
-    ? {
-        google: googleConfig,
-      }
-    : undefined,
+  secret: process.env.BETTER_AUTH_SECRET!,
+  database: drizzleAdapter(db, { provider: "pg" }),
+  emailAndPassword: { enabled: true },
+  socialProviders: google ? { google } : undefined,
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, url, token }) => {
@@ -56,7 +48,7 @@ export const auth = betterAuth({
     sessionToken: {
       name: "better-auth.session_token",
       httpOnly: true,
-      secure: isProduction,
+      secure: isProd,
       sameSite: "lax",
       domain: cookieDomain,
       path: "/",
