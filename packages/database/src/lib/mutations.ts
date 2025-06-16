@@ -239,6 +239,7 @@ export async function deleteVideo(id: string) {
 
 // Campaign mutations
 export async function createCampaign(data: {
+  id: string;
   userId: string;
   name: string;
   budgetCents: number;
@@ -272,6 +273,7 @@ export async function deleteCampaign(id: string) {
 }
 
 export async function createAsset(data: {
+  id: string;
   campaignId: string;
   url: string;
   thumbnailUrl?: string;
@@ -306,6 +308,7 @@ export async function deleteAsset(id: string) {
 }
 
 export async function createSegment(data: {
+  id: string;
   name: string;
   geoJson?: any;
   ageMin?: number;
@@ -341,6 +344,7 @@ export async function deleteSegment(id: string) {
 }
 
 export async function createPlacement(data: {
+  id: string;
   campaignId: string;
   segmentId: string;
   assetId: string;
@@ -374,6 +378,7 @@ export async function deletePlacement(id: string) {
 }
 
 export async function createStats(data: {
+  id: string;
   placementId: string;
   date: string;
   impressions?: number;
@@ -406,6 +411,7 @@ export async function updateStats(
 }
 
 export async function createEvent(data: {
+  id: string;
   placementId: string;
   eventType:
     | "impression"
@@ -425,6 +431,7 @@ export async function createEvent(data: {
 }
 
 export async function createBilling(data: {
+  id: string;
   userId: string;
   amountCents: number;
   currency?: string;
@@ -437,6 +444,7 @@ export async function createBilling(data: {
 
 // CRM/Sales mutations
 export async function createCompany(data: {
+  id: string;
   name: string;
   website?: string;
   domain?: string;
@@ -470,6 +478,7 @@ export async function deleteCompany(id: string) {
 }
 
 export async function createContact(data: {
+  id: string;
   companyId?: string;
   firstName?: string;
   lastName?: string;
@@ -507,6 +516,7 @@ export async function deleteContact(id: string) {
 }
 
 export async function createLead(data: {
+  id: string;
   contactId?: string;
   source?: string;
   utmJson?: any;
@@ -540,6 +550,7 @@ export async function deleteLead(id: string) {
 }
 
 export async function createEnrichment(data: {
+  id: string;
   entityType: "contact" | "company";
   entityId: string;
   provider: string;
@@ -566,6 +577,7 @@ export async function updateEnrichment(
 }
 
 export async function createPipelineStage(data: {
+  id: string;
   name: string;
   order: number;
   isClosedWon?: boolean;
@@ -597,6 +609,7 @@ export async function deletePipelineStage(id: string) {
 }
 
 export async function createDeal(data: {
+  id: string;
   companyId?: string;
   primaryContactId?: string;
   pipelineStageId: string;
@@ -634,6 +647,7 @@ export async function deleteDeal(id: string) {
 }
 
 export async function createActivity(data: {
+  id: string;
   dealId?: string;
   contactId?: string;
   type: "call" | "email" | "note" | "task";

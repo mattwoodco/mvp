@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "../client";
 import {
   events,
@@ -314,8 +314,12 @@ export async function getEnrichmentsByEntityId(
   return await db
     .select()
     .from(enrichments)
-    .where(eq(enrichments.entityId, entityId))
-    .where(eq(enrichments.entityType, entityType));
+    .where(
+      and(
+        eq(enrichments.entityId, entityId),
+        eq(enrichments.entityType, entityType),
+      ),
+    );
 }
 
 export async function getPipelineStages() {
