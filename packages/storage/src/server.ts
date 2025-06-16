@@ -12,25 +12,15 @@ import {
   putLocal,
   removeLocal,
 } from "./minio-local";
+import { checkToken, createPath, isLocalEnv } from "./utils";
 
-const isLocal = process.env.NEXT_PUBLIC_APP_ENV === "local";
 const token = process.env.BLOB_READ_WRITE_TOKEN;
-
-function checkToken() {
-  if (!isLocal && !token) {
-    throw new Error("Missing BLOB_READ_WRITE_TOKEN for production storage");
-  }
-}
-
-function createPath(filename: string) {
-  return `storage/${filename}`;
-}
 
 export async function putServer(
   filename: string,
   data: Blob | Buffer | ReadableStream,
 ): Promise<string | null> {
-  if (isLocal) {
+  if (isLocalEnv()) {
     return await putLocal(filename, data);
   }
 
@@ -44,7 +34,7 @@ export async function putServer(
 }
 
 export async function removeServer(filename: string): Promise<boolean> {
-  if (isLocal) {
+  if (isLocalEnv()) {
     return await removeLocal(filename);
   }
 
@@ -58,7 +48,7 @@ export async function removeServer(filename: string): Promise<boolean> {
 }
 
 export async function existsServer(filename: string): Promise<boolean> {
-  if (isLocal) {
+  if (isLocalEnv()) {
     return await existsLocal(filename);
   }
 
@@ -72,7 +62,7 @@ export async function existsServer(filename: string): Promise<boolean> {
 }
 
 export async function listServer(prefix = ""): Promise<string[]> {
-  if (isLocal) {
+  if (isLocalEnv()) {
     return await listLocal(prefix);
   }
 
@@ -88,7 +78,7 @@ export async function copyServer(
   from: string,
   to: string,
 ): Promise<string | null> {
-  if (isLocal) {
+  if (isLocalEnv()) {
     return await copyLocal(from, to);
   }
 

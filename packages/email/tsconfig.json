@@ -1,7 +1,7 @@
 {
   "extends": "@mvp/tsconfig/base.json",
   "include": ["emails", "components", "utils"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", ".react-email"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "composite": true

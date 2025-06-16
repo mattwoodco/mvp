@@ -1,10 +1,4 @@
-declare const window: Window & typeof globalThis;
-
-const BUCKET = "storage";
-
-function isBrowser(): boolean {
-  return typeof window !== "undefined";
-}
+import { BUCKET, isBrowser } from "./utils";
 
 interface MinioResponse {
   url: string;

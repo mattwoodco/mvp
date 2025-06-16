@@ -12,6 +12,7 @@
   },
   "scripts": {
     "prepare": "if [ -z \"$CI\" ]; then husky; fi",
+    "debug:ts": "bun scripts/debug-ts-service.ts",
     "build": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=./packages/* --filter=./apps/* --filter=!./packages/email/**' --",
     "build:email": "sh -c 'dotenv -e .env.${1:-local} -- turbo build --filter=@mvp/email' --",
     "dev": "dotenv -e .env.${1:-local} turbo dev --parallel",

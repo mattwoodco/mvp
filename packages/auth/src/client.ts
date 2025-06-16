@@ -1,15 +1,14 @@
 "use client";
 
 import { upload } from "@mvp/storage";
+import type { User } from "better-auth";
 import { magicLinkClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { useCallback, useState } from "react";
 import { updateAuthUser } from "./actions";
 
 export const authClient = createAuthClient({
-  baseURL:
-    process.env.NEXT_PUBLIC_BETTER_AUTH_URL ||
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth`,
+  baseURL: `${process.env.NEXT_PUBLIC_SITE_URL}/api/auth`,
   plugins: [magicLinkClient()],
 });
 
@@ -49,4 +48,28 @@ export function useAvatarUpload() {
   );
 
   return { uploadAvatar, isUploading, currentAvatar: user?.image };
+}
+
+export function useProfileUpdate() {
+  const { user } = useAuth();
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const updateProfile = useCallback(
+    async (data: Partial<User>) => {
+      if (!user) throw new Error("Unauthorized");
+      setIsUpdating(true);
+      try {
+        const updateData = Object.fromEntries(
+          Object.entries(data).filter(([_, v]) => v != null),
+        );
+        await updateAuthUser(user.id, updateData);
+        await authClient.updateUser(updateData);
+      } finally {
+        setIsUpdating(false);
+      }
+    },
+    [user],
+  );
+
+  return { updateProfile, isUpdating };
 }

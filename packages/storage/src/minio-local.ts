@@ -1,14 +1,12 @@
 import { Client } from "minio";
+import { BUCKET, MINIO_ENDPOINT, MINIO_PORT, getMinioUrl } from "./utils";
 
-const BUCKET = "storage";
-const ENDPOINT = "localhost";
-const PORT = 9000;
 const ACCESS_KEY = "minioadmin";
 const SECRET_KEY = "minioadmin";
 
 const client = new Client({
-  endPoint: ENDPOINT,
-  port: PORT,
+  endPoint: MINIO_ENDPOINT,
+  port: MINIO_PORT,
   useSSL: false,
   accessKey: ACCESS_KEY,
   secretKey: SECRET_KEY,
@@ -60,7 +58,7 @@ export async function putLocal(
 
   const key = `${filename}-${Date.now()}`;
   await client.putObject(BUCKET, key, buffer);
-  return `http://${ENDPOINT}:${PORT}/${BUCKET}/${key}`;
+  return getMinioUrl(key);
 }
 
 export async function removeLocal(filename: string): Promise<boolean> {
@@ -96,5 +94,5 @@ export async function listLocal(prefix = ""): Promise<string[]> {
 export async function copyLocal(from: string, to: string): Promise<string> {
   await ensureBucket();
   await client.copyObject(BUCKET, to, `/${BUCKET}/${from}`);
-  return `http://${ENDPOINT}:${PORT}/${BUCKET}/${to}`;
+  return getMinioUrl(to);
 }

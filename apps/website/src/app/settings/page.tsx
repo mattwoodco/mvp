@@ -30,28 +30,10 @@ export default function SettingsPage() {
         </Card>
 
         <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Billing</h2>
-          <p className="text-gray-600 mb-4">
-            Manage your subscription and billing
-          </p>
-          <Link href="/settings/billing">
-            <Button variant="outline">Manage Billing</Button>
-          </Link>
-        </Card>
-
-        <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4">Preferences</h2>
           <p className="text-gray-600 mb-4">Customize your app experience</p>
           <Link href="/settings/preferences">
             <Button variant="outline">Edit Preferences</Button>
-          </Link>
-        </Card>
-
-        <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Notifications</h2>
-          <p className="text-gray-600 mb-4">Configure notification settings</p>
-          <Link href="/settings/notifications">
-            <Button variant="outline">Manage Notifications</Button>
           </Link>
         </Card>
       </div>

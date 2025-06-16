@@ -1,16 +1,88 @@
 "use client";
 
-import { useAuth, useAvatarUpload } from "@mvp/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuth, useAvatarUpload, useProfileUpdate } from "@mvp/auth";
 import { Button } from "@mvp/ui/button";
 import { Input } from "@mvp/ui/input";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import z from "zod";
+
+function useDebounce<T>(callback: (value: T) => void, delay: number) {
+  const callbackRef = useRef(callback);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  const debouncedCallback = useCallback(
+    (value: T) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        callbackRef.current(value);
+      }, delay);
+    },
+    [delay],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  return debouncedCallback;
+}
 
 export default function ProfilePage() {
   const { user, isLoading } = useAuth();
   const { uploadAvatar, currentAvatar, isUploading } = useAvatarUpload();
+  const { updateProfile, isUpdating } = useProfileUpdate();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [name, setName] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    if (user?.name) {
+      setName(user.name);
+    }
+  }, [user?.name]);
+
+  const handleNameUpdate = useCallback(
+    async (newName: string) => {
+      if (!newName.trim() || newName === user?.name) return;
+      if (newName.length < 2) return;
+
+      setIsSaving(true);
+      try {
+        await updateProfile({ name: newName });
+        toast.success("Name updated");
+      } catch (error) {
+        console.error("Update error:", error);
+        toast.error("Failed to update name");
+        setName(user?.name || "");
+      } finally {
+        setIsSaving(false);
+      }
+    },
+    [user?.name, updateProfile],
+  );
+
+  const debouncedUpdate = useDebounce(handleNameUpdate, 1000);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setName(value);
+    debouncedUpdate(value);
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -29,6 +101,19 @@ export default function ProfilePage() {
       toast.error("Failed to upload avatar");
     }
   };
+
+  const form = useForm<{ name: string; email: string }>({
+    resolver: zodResolver(
+      z.object({
+        name: z.string().min(2, "Name must be at least 2 characters"),
+        email: z.string().email("Invalid email address"),
+      }),
+    ),
+    defaultValues: {
+      name: user?.name || "",
+      email: user?.email || "",
+    },
+  });
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
@@ -70,7 +155,6 @@ export default function ProfilePage() {
             Profile Settings
           </h1>
 
-          {/* Avatar Section */}
           <div className="mb-8">
             <h2 className="text-lg font-semibold text-foreground mb-4">
               Profile Picture
@@ -125,7 +209,6 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* User Information */}
           <div className="space-y-6">
             <h2 className="text-lg font-semibold text-foreground">
               Account Information
@@ -138,14 +221,26 @@ export default function ProfilePage() {
                   className="block text-sm font-medium text-foreground mb-1"
                 >
                   Full Name
+                  {isSaving && (
+                    <span className="ml-2 text-xs text-muted-foreground">
+                      Saving...
+                    </span>
+                  )}
                 </label>
                 <Input
                   id="user-name"
                   type="text"
-                  value={user.name || ""}
-                  disabled
+                  value={name}
+                  onChange={handleNameChange}
                   className="bg-muted"
+                  disabled={isUpdating}
+                  placeholder="Enter your full name"
                 />
+                {form.formState.errors.name && (
+                  <p className="text-xs text-destructive mt-1">
+                    {form.formState.errors.name.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -160,23 +255,8 @@ export default function ProfilePage() {
                   type="email"
                   value={user.email || ""}
                   disabled
+                  readOnly
                   className="bg-muted"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="user-id"
-                  className="block text-sm font-medium text-foreground mb-1"
-                >
-                  User ID
-                </label>
-                <Input
-                  id="user-id"
-                  type="text"
-                  value={user.id || ""}
-                  disabled
-                  className="bg-muted font-mono text-xs"
                 />
               </div>
             </div>
